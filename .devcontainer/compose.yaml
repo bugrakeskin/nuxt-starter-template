@@ -1,0 +1,44 @@
+name: ${UNFOGY_DEV_PROJECT_NAME:-unfogy-dev-nuxt-starter-template}
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["/workspace/.devcontainer/dev", "serve"]
+    working_dir: /workspace
+    init: true
+    cpus: 2.0
+    mem_limit: 4g
+    environment:
+      NODE_OPTIONS: --max-old-space-size=3072
+      NUXT_TELEMETRY_DISABLED: "1"
+      UNFOGY_NITRO_OUTPUT_DIR: /workspace/node_modules/.cache/nitro-output
+    env_file:
+      - path: ../.env
+        required: false
+    ports:
+      - "127.0.0.1:${UNFOGY_DEV_PORT:-3100}:3000"
+    volumes:
+      - ..:/workspace
+      - node_modules:/workspace/node_modules
+      - pnpm_store:/pnpm/store
+      - nuxt_build:/workspace/.nuxt
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - fetch('http://127.0.0.1:3000/api/health').then(async r=>{const b=await r.json();if(!r.ok||b.status!=='ok')process.exit(1)}).catch(()=>process.exit(1))
+      interval: 3s
+      timeout: 3s
+      retries: 100
+      start_period: 10s
+    labels:
+      com.unfogy.dev: "true"
+      com.unfogy.repository_id: ${UNFOGY_DEV_REPOSITORY_ID:-nuxt-starter-template}
+
+volumes:
+  node_modules:
+  pnpm_store:
+  nuxt_build:

@@ -1,64 +1,77 @@
-# Nuxt Starter Template
+# Unfogy Nuxt Starter
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+Nuxt 4 and Nuxt UI foundation for Unfogy customer applications. The verified
+scope currently includes container-native development, public runtime
+configuration, deterministic application health, lint, typecheck and production
+build. Supabase, authentication and migrations are the next contract slice.
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
+## Development
 
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
-
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png" width="830" height="466">
-  </picture>
-</a>
-
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
-
-## Quick Start
-
-```bash [Terminal]
-npm create nuxt@latest -- -t ui
-```
-
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
-
-## Setup
-
-Make sure to install the dependencies:
+Connect to the Unfogy Control Server with VS Code Remote SSH, then run from this
+admitted repository root:
 
 ```bash
-pnpm install
+cd /home/unfogy/unfogy-control-plane/workspaces/nuxt-starter-template
+unfogy dev up
 ```
 
-## Development Server
+The command prints a forwarded `http://localhost:<port>` URL. Source is
+bind-mounted from this checkout; Node, pnpm, dependencies and generated output
+remain isolated in project-scoped container storage.
 
-Start the development server on `http://localhost:3000`:
+Running `unfogy dev up` from the Control Plane root is intentionally blocked.
+The CLI does not infer a target repository.
+
+Operational commands:
 
 ```bash
-pnpm dev
+unfogy dev status
+unfogy dev logs
+unfogy dev down
+unfogy dev rebuild
+unfogy dev purge
 ```
 
-## Production
+`down` preserves project volumes. `purge` requires the exact repository identity
+before removing this project's containers, volumes and local image.
 
-Build the application for production:
+## Runtime configuration
+
+Copy `.env.example` to `.env` only when a local override is needed. `.env` is
+ignored by Git and Coolify supplies deployment values through its own encrypted
+environment configuration.
+
+| Variable | Exposure | Default |
+| --- | --- | --- |
+| `NUXT_PUBLIC_APP_NAME` | Browser and server | `Unfogy Starter` |
+
+Only values declared under Nuxt `runtimeConfig.public` may be exposed to the
+browser. Secret configuration must never use the `NUXT_PUBLIC_` prefix.
+
+## Health contract
+
+`GET /api/health` returns a non-cached response:
+
+```json
+{
+  "status": "ok",
+  "service": "Unfogy Starter",
+  "contractVersion": 1
+}
+```
+
+The development container healthcheck uses this endpoint. Future dependency
+checks may extend the response without exposing credentials.
+
+## Production build check
+
+Run production verification with the same container contract, not host pnpm:
 
 ```bash
-pnpm build
+docker compose \
+  --env-file .devcontainer/.env \
+  --file .devcontainer/compose.yaml \
+  run --rm --no-deps app pnpm build
 ```
 
-Locally preview production build:
-
-```bash
-pnpm preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-
-## Renovate integration
-
-Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.
+Coolify deployment remains a separate controlled workflow.
