@@ -46,7 +46,7 @@ async function signOut() {
       <slot />
     </UMain>
 
-    <USeparator />
+    <hr class="border-default">
 
     <UFooter>
       <template #left>
