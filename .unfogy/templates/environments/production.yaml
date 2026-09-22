@@ -1,0 +1,14 @@
+# Template only. Provisioning fills project_id, domains, and provider refs.
+schema_version: 1
+kind: CustomerProjectEnvironment
+project_id: null
+environment: production
+recipe:
+  name: nuxt-supabase
+  version: v1
+domains: {}
+required_environment_keys:
+  - NUXT_PUBLIC_APP_NAME
+  - NUXT_PUBLIC_SUPABASE_URL
+  - NUXT_PUBLIC_SUPABASE_KEY
+  - SUPABASE_DB_URL

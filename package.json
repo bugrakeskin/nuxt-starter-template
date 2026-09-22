@@ -4,25 +4,40 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "contract:verify": "node scripts/verify-contract.mjs",
+    "db:migrate": "node scripts/db-migrate.mjs",
     "dev": "nuxt dev",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
+    "smoke": "node scripts/smoke.mjs",
+    "test": "pnpm test:contract && vitest run",
+    "test:contract": "node --test tests/*.test.mjs",
+    "test:nuxt": "vitest run --project nuxt",
+    "test:unit": "vitest run --project unit",
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.134",
     "@nuxt/ui": "^4.11.1",
+    "@nuxtjs/supabase": "2.0.10",
     "nuxt": "^4.5.2",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.17.0",
+    "@nuxt/test-utils": "4.3.2",
     "@types/node": "^22.20.4",
+    "@vue/test-utils": "2.5.1",
     "eslint": "^10.11.0",
     "eslint-plugin-better-tailwindcss": "^4.7.0",
+    "happy-dom": "20.14.5",
+    "postgres": "3.4.9",
+    "supabase": "2.117.0",
     "typescript": "^6.0.3",
-    "vue-tsc": "^3.3.11"
+    "vitest": "5.0.1",
+    "vue-tsc": "^3.3.11",
+    "yaml": "2.9.1"
   },
   "packageManager": "pnpm@12.5.1"
 }

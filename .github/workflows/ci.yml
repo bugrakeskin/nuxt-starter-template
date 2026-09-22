@@ -5,6 +5,9 @@ on: push
 jobs:
   ci:
     runs-on: ${{ matrix.os }}
+    env:
+      NUXT_PUBLIC_SUPABASE_URL: https://staging-api.unfogy.com
+      NUXT_PUBLIC_SUPABASE_KEY: ci-publishable-key
 
     strategy:
       matrix:
@@ -27,8 +30,22 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Verify starter contract
+        run: pnpm run contract:verify
+
       - name: Lint
         run: pnpm run lint
 
       - name: Typecheck
         run: pnpm run typecheck
+
+      - name: Test
+        run: pnpm run test
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Smoke
+        run: |
+          node .output/server/index.mjs &
+          pnpm run smoke

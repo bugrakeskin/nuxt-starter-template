@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://unfogy.com/schemas/customer-project/v1",
+  "title": "Unfogy Customer Project Metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "project"],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "kind": {
+      "const": "CustomerProject"
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["project_id", "customer_ref", "title", "summary"],
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "description": "Stable opaque ID allocated by the Control Plane; path-safe only.",
+          "maxLength": 63,
+          "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+        },
+        "customer_ref": {
+          "type": "string",
+          "description": "Existing user-facing Customer reference.",
+          "pattern": "^CST[0-9]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "folders": {
+          "type": "object",
+          "description": "Optional purposes for top-level project folders.",
+          "propertyNames": {
+            "pattern": "^(?:\\.[a-z][a-z0-9-]*|[a-z][a-z0-9-]*)$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          }
+        },
+        "origin_mwo_ref": {
+          "type": "string",
+          "description": "Optional creation provenance; it is not project ownership.",
+          "pattern": "^MWO[0-9]+$"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+contractVersion: 1
+runtime:
+  healthEndpoint: /api/health
+  requiredEnvironment:
+    public:
+      - NUXT_PUBLIC_APP_NAME
+      - NUXT_PUBLIC_SUPABASE_URL
+      - NUXT_PUBLIC_SUPABASE_KEY
+    migration:
+      - SUPABASE_DB_URL
+commands:
+  build: pnpm build
+  lint: pnpm lint
+  typecheck: pnpm typecheck
+  test: pnpm test
+  smoke: pnpm smoke
+  migrate: pnpm db:migrate
+features:
+  auth: true
+  database: true
+  realtime: false
+  storage: false
+  privilegedClient: false

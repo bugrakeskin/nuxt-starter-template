@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const config = useRuntimeConfig()
+const client = useSupabaseClient()
+const user = useSupabaseUser()
 const description = 'A controlled Nuxt foundation for Unfogy customer applications.'
 
 useThemePreset()
@@ -23,6 +25,11 @@ useSeoMeta({
   ogDescription: description,
   twitterCard: 'summary'
 })
+
+async function signOut() {
+  await client.auth.signOut()
+  await navigateTo('/login')
+}
 </script>
 
 <template>
@@ -43,6 +50,13 @@ useSeoMeta({
           label="Starter"
           color="neutral"
           variant="subtle"
+        />
+        <UButton
+          v-if="user"
+          label="Sign out"
+          color="neutral"
+          variant="ghost"
+          @click="signOut"
         />
         <UColorModeButton />
       </template>

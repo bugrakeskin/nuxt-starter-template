@@ -1,0 +1,6 @@
+# Template only. Approved provisioning writes .unfogy/project.yaml after the
+# Control Plane allocates the permanent project. Do not commit an identity here.
+schema_version: 1
+kind: CustomerProject
+project:
+  folders: {}
