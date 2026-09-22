@@ -1,7 +1,7 @@
 # Unfogy Nuxt Starter
 
 Nuxt 4 and Nuxt UI foundation for Unfogy customer project applications. The
-verified scope includes container-native development, Nuxt UI theme presets,
+verified scope includes native local development, Nuxt UI theme presets,
 Supabase SSR authentication, user-scoped server guards, fail-closed readiness,
 remote migration execution, metadata contracts and production checks.
 
@@ -25,33 +25,17 @@ starter/recipe compatibility revision.
 
 ## Development
 
-Connect to the Unfogy Control Server with VS Code Remote SSH, then run from this
-admitted repository root:
+Use Node.js 22 and the pinned pnpm version on the local development machine.
+Run from this repository root:
 
 ```bash
-cd /home/unfogy/unfogy-control-plane/workspaces/nuxt-starter-template
-unfogy dev up
+corepack enable
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
-The command prints a forwarded `http://localhost:<port>` URL. Source is
-bind-mounted from this checkout; Node, pnpm, dependencies and generated output
-remain isolated in project-scoped container storage.
-
-Running `unfogy dev up` from the Control Plane root is intentionally blocked.
-The CLI does not infer a target repository.
-
-Operational commands:
-
-```bash
-unfogy dev status
-unfogy dev logs
-unfogy dev down
-unfogy dev rebuild
-unfogy dev purge
-```
-
-`down` preserves project volumes. `purge` requires the exact repository identity
-before removing this project's containers, volumes and local image.
+Nuxt prints the local preview URL. Dependencies and generated output stay in
+the local checkout and remain excluded from Git.
 
 ## Runtime configuration
 
@@ -88,8 +72,8 @@ returns:
 ```
 
 Missing required Supabase configuration returns HTTP `503` with only the missing
-variable names. Credentials are never returned. The development container and
-deployment readiness checks use this endpoint.
+variable names. Credentials are never returned. Local and deployment readiness
+checks use this endpoint.
 
 ## Verification
 
@@ -112,13 +96,10 @@ before extending the starter.
 
 ## Production build check
 
-Run production verification with the same container contract, not host pnpm:
+Run production verification locally with the pinned package manager:
 
 ```bash
-docker compose \
-  --env-file .devcontainer/.env \
-  --file .devcontainer/compose.yaml \
-  run --rm --no-deps app pnpm build
+pnpm build
 ```
 
 Coolify deployment remains a separate controlled workflow.

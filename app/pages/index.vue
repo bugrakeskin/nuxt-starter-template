@@ -3,9 +3,9 @@ const config = useRuntimeConfig()
 
 const features = [
   {
-    icon: 'i-lucide-container',
-    title: 'Container-native development',
-    description: 'Source stays on the Control Server while Node, pnpm and generated files remain isolated in the project container.'
+    icon: 'i-lucide-laptop',
+    title: 'Native local development',
+    description: 'Source, Node and pnpm run on the local development machine; deployment remains a separate Coolify workflow.'
   },
   {
     icon: 'i-lucide-settings-2',
