@@ -11,10 +11,10 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "smoke": "node scripts/smoke.mjs",
-    "test": "pnpm test:contract && vitest run",
+    "test": "pnpm test:contract && pnpm test:unit && pnpm test:nuxt",
     "test:contract": "node --test tests/*.test.mjs",
     "test:nuxt": "vitest run --project nuxt",
-    "test:unit": "vitest run --project unit",
+    "test:unit": "nuxt prepare && vitest run --project unit",
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {

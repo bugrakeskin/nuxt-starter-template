@@ -35,7 +35,7 @@ export default defineNuxtConfig({
 
   supabase: {
     useSsrCookies: true,
-    redirect: true,
+    redirect: false,
     redirectOptions: {
       login: '/login',
       callback: '/confirm',
