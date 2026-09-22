@@ -2,6 +2,8 @@
 const config = useRuntimeConfig()
 const description = 'A controlled Nuxt foundation for Unfogy customer applications.'
 
+useThemePreset()
+
 useHead({
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' }

@@ -28,14 +28,10 @@ The `/theme` route demonstrates three local presets. A preset changes:
 The page itself uses Nuxt UI components and semantic classes. It contains no
 preset-specific template branch.
 
-The active preset is intentionally request-local and is not persisted. The
-default preset therefore renders identically during SSR and hydration.
-
-The composable is called by the experiment page, so this branch does not yet
-claim an application-wide canonical theme. A production design would bootstrap
-the selected preset before the application renders, from either a build-time
-configuration or an SSR-readable customer setting. Color mode remains a
-separate user preference.
+The active preset is initialized globally in `app.vue` and applies throughout
+the current application session. It is intentionally not persisted. The
+default preset therefore renders identically during SSR and hydration. Color
+mode remains a separate user preference.
 
 ## What the upstream method actually adds
 
@@ -51,10 +47,10 @@ classes. They must not branch on preset IDs or encode preset-specific raw
 colors. Layout is outside this contract and may vary by project.
 
 The local code reimplements this narrow method after inspecting Nuxt UI; it
-does not copy the complete Theme Studio source. This keeps the experiment easy
+does not copy the complete Theme Studio source. This keeps the implementation easy
 to replace if the Nuxt UI API changes.
 
-## Recommendation from this experiment
+## Theme scope
 
 Keep presets as typed, reviewed configuration and start with a small supported
 set. This gives customer choice with little additional runtime machinery. Do
@@ -80,7 +76,7 @@ This is materially smaller than porting Theme Studio.
 
 Measured against the starter's `main` branch with the same lockfile:
 
-| Measure | Baseline | Experiment | Difference |
+| Measure | Baseline | Theme | Difference |
 | --- | ---: | ---: | ---: |
 | Production output | 5,689,610 B | 6,186,156 B | +496,546 B |
 | Public output | 866,379 B | 982,738 B | +116,359 B |
@@ -103,10 +99,6 @@ data and composable are 162 lines and 4,120 source bytes. The showcase page is
 - interactive browser inspection: pending because no agent browser is exposed
   in the current execution environment
 
-Build verification ran in a temporary checkout. The repository's existing
-`node_modules` directory is root-owned and cannot be populated by the current
-operator; no repository files were changed to work around that local condition.
-
 ## Deferred load
 
 The upstream implementation shows why full Theme Studio parity is a separate
@@ -122,8 +114,8 @@ product capability:
 - customer-wide publication needs authentication, authorization, storage,
   revisioning and cache invalidation.
 
-Do not add these by copying the docs application. Add one capability only after
-the minimal preset experiment proves that the customer need justifies it.
+Do not add these by copying the docs application. Add one capability only when
+a demonstrated customer need justifies it.
 
 ## Review checklist
 

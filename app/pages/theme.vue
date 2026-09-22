@@ -233,7 +233,7 @@ useSeoMeta({
 
       <footer class="flex flex-col gap-3 border-t border-default pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
         <p>
-          This experiment deliberately excludes persistence, custom palettes, fonts and icon-pack switching.
+          This theme deliberately excludes persistence, custom palettes, fonts and icon-pack switching.
         </p>
         <UButton
           label="Back to starter"
