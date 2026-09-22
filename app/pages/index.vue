@@ -31,6 +31,13 @@ const features = [
         target: '_blank',
         trailingIcon: 'i-lucide-arrow-up-right',
         size: 'xl'
+      }, {
+        label: 'Open theme',
+        to: '/theme',
+        icon: 'i-lucide-palette',
+        color: 'neutral',
+        variant: 'outline',
+        size: 'xl'
       }]"
     />
 
