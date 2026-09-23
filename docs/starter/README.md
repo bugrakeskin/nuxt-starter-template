@@ -117,7 +117,13 @@ Kontroller Nuxt UI component'leri ve Nuxt'un native navigation yöntemleriyle
 kurulur. Mobilde aynı davranış Nuxt UI'nin responsive dropdown/sheet
 pattern'leriyle korunur.
 
-## Theme ve styling sınırı
+## Theme preset katalogu ve styling sınırı
+
+Starter, Nuxt UI Theme Studio'daki 12 resmi preset'i ve Unfogy baseline'ını tek
+typed katalogda taşır: `app/utils/theme-presets.ts`. Preset verisi palette,
+font, radius, component default'ları ve light/dark semantic token override'larını
+barındırır. Özel palette shade'leri `main.css` içindeki build-time `@theme
+static` tanımlarıyla sağlanır.
 
 Altı wireframe aynı semantic Nuxt UI theme sistemini kullanır. Layout'lar raw
 renk veya preset ID'sine göre template branch'i taşımaz. Custom CSS yalnız

@@ -4,6 +4,7 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/eslint',
+    '@nuxt/fonts',
     '@nuxt/ui',
     '@nuxtjs/supabase'
   ],
@@ -44,6 +45,29 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
+  },
+
+  fonts: {
+    defaults: {
+      weights: [400, 500, 600, 700, 800],
+      styles: ['normal']
+    },
+    families: [
+      { name: 'Public Sans', provider: 'google', global: true },
+      { name: 'Geist', provider: 'google', global: true },
+      { name: 'Geist Mono', provider: 'google', global: true },
+      { name: 'Roboto', provider: 'google', global: true },
+      { name: 'Figtree', provider: 'google', global: true },
+      { name: 'Nunito', provider: 'google', global: true },
+      { name: 'Manrope', provider: 'google', global: true },
+      { name: 'Inter', provider: 'google', global: true },
+      { name: 'Plus Jakarta Sans', provider: 'google', global: true },
+      { name: 'Bricolage Grotesque', provider: 'google', global: true },
+      { name: 'Outfit', provider: 'google', global: true },
+      { name: 'Poppins', provider: 'google', global: true },
+      { name: 'DM Sans', provider: 'google', global: true },
+      { name: 'Source Serif 4', provider: 'google', global: true }
+    ]
   },
 
   supabase: {

@@ -2,6 +2,7 @@
 definePageMeta({ layout: 'showcase' })
 
 const { data, patterns } = useDashboardShowcase()
+const { presets, activePreset } = useThemePreset()
 
 useSeoMeta({
   title: 'Starter showcase',
@@ -56,6 +57,48 @@ useSeoMeta({
             label="Open wireframe"
             trailing-icon="i-lucide-arrow-up-right"
             class="mt-6 self-start"
+          />
+        </UCard>
+      </div>
+    </UPageSection>
+
+    <UPageSection
+      title="Choose a theme preset"
+      description="The starter includes the Nuxt UI Theme Studio presets. The same selection is available from the header dropdown."
+    >
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <UCard
+          v-for="preset in presets"
+          :key="preset.id"
+          class="flex h-full flex-col"
+          :class="activePreset.id === preset.id ? 'ring-2 ring-primary' : ''"
+        >
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h2 class="font-semibold text-highlighted">
+                {{ preset.label }}
+              </h2>
+              <p class="mt-1 text-xs text-muted">
+                {{ preset.font?.sans || 'Nuxt UI default' }}
+              </p>
+            </div>
+            <UBadge
+              v-if="activePreset.id === preset.id"
+              label="Active"
+              color="primary"
+              variant="soft"
+            />
+          </div>
+          <p class="mt-4 flex-1 text-sm text-muted">
+            {{ preset.description }}
+          </p>
+          <UButton
+            to="/theme"
+            label="Preview preset"
+            color="neutral"
+            variant="outline"
+            trailing-icon="i-lucide-arrow-up-right"
+            class="mt-5 self-start"
           />
         </UCard>
       </div>

@@ -212,7 +212,7 @@ useSeoMeta({
 
       <footer class="flex flex-col gap-3 border-t border-default pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
         <p>
-          This theme deliberately excludes persistence, custom palettes, fonts and icon-pack switching.
+          Presets include persistent colors, radius, component defaults and typography pairings.
         </p>
         <UButton
           label="Back to starter"
