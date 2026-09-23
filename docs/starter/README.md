@@ -119,8 +119,8 @@ pattern'leriyle korunur.
 
 ## Theme preset katalogu ve styling sınırı
 
-Starter, Nuxt UI Theme Studio'daki 12 resmi preset'i ve Unfogy baseline'ını tek
-typed katalogda taşır: `app/utils/theme-presets.ts`. Preset verisi palette,
+Starter, Nuxt UI Theme Studio'daki 11 resmi preset'i tek typed katalogda taşır:
+`app/utils/theme-presets.ts`. Preset verisi palette,
 font, radius, component default'ları ve light/dark semantic token override'larını
 barındırır. Özel palette shade'leri `main.css` içindeki build-time `@theme
 static` tanımlarıyla sağlanır.
@@ -136,6 +136,75 @@ Nuxt UI'nin native color-mode davranışıyla sağlanır. Reload sonrası aktif 
 korunmalı ve hydration mismatch oluşmamalıdır. `ClientOnly`, warning
 suppression, screenshot workaround veya framework dışı geçici çözüm kabul
 edilmez.
+
+### Yeni preset oluşturma
+
+Yeni bir preset oluşturmak için starter'ın mevcut typed theme kataloğu
+genişletilir; dropdown, anasayfa ve `/theme` rotasına ayrıca kayıt eklenmez.
+
+1. `app/utils/theme-presets.ts` içindeki `themePresetIds` listesine yeni,
+   benzersiz bir ID eklenir.
+2. Aynı dosyadaki `themePresets` listesine preset tanımı eklenir.
+3. Mevcut Nuxt UI palette'leri kullanılabilir. Yeni renk palette/shade
+   gerekiyorsa `app/assets/css/main.css` içinde build-time `@theme static`
+   tanımı eklenir.
+4. Yeni font kullanılacaksa `nuxt.config.ts` içindeki `fonts.families`
+   listesine Nuxt Fonts kaydı eklenir; preset içindeki `font` alanı aynı aile
+   adını kullanır.
+5. Preset için `colors`, `radius`, `font`, `components` ve gerekiyorsa
+   `tokens.light` / `tokens.dark` değerleri tanımlanır.
+6. Preset ID ve label beklentileri `test/unit/dashboard-showcase.test.ts`
+   içinde güncellenir.
+
+Örnek:
+
+```ts
+{
+  id: 'ocean',
+  label: 'Ocean',
+  description: 'Blue actions with calm slate surfaces.',
+  colors: {
+    primary: 'blue',
+    secondary: 'cyan',
+    success: 'teal',
+    info: 'sky',
+    warning: 'amber',
+    error: 'red',
+    neutral: 'slate'
+  },
+  radius: 0.5,
+  font: {
+    sans: 'Inter',
+    weights: { normal: 400, medium: 500, semibold: 600, bold: 700 },
+    lineHeight: 1.5
+  },
+  components: {
+    button: 'solid',
+    field: 'outline',
+    panel: 'soft',
+    size: 'md'
+  },
+  tokens: {
+    light: { '--ui-bg': 'var(--ui-color-neutral-50)' },
+    dark: { '--ui-bg': 'var(--ui-color-neutral-950)' }
+  }
+}
+```
+
+Yeni font örneği:
+
+```ts
+// nuxt.config.ts
+fonts: {
+  families: [
+    { name: 'Your Font', provider: 'google', global: true }
+  ]
+}
+```
+
+Preset uygulaması `useThemePreset()` tarafından yapılır; seçim cookie ile
+korunur ve yalnız preset verisi değişir. Layout component'lerine preset ID'si
+özel branch olarak eklenmez.
 
 ## Kalite sınırı
 
