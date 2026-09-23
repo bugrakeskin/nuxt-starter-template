@@ -23,21 +23,6 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2026-06-30',
 
-  nitro: process.env.UNFOGY_NITRO_OUTPUT_DIR
-    ? {
-        output: { dir: process.env.UNFOGY_NITRO_OUTPUT_DIR },
-        externals: { inline: ['tslib'] }
-      }
-    : {
-        externals: { inline: ['tslib'] }
-      },
-
-  vite: {
-    resolve: {
-      dedupe: ['vue']
-    }
-  },
-
   eslint: {
     config: {
       stylistic: {
