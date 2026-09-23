@@ -2,6 +2,9 @@
   "name": "nuxt-starter-template",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22 <23"
+  },
   "scripts": {
     "build": "nuxt build",
     "contract:verify": "node scripts/verify-contract.mjs",

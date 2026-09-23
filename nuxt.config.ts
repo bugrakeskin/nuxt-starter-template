@@ -9,10 +9,6 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase'
   ],
 
-  devtools: {
-    enabled: true
-  },
-
   css: ['~/assets/css/main.css'],
 
   runtimeConfig: {
