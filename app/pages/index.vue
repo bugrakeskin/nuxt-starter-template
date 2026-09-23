@@ -1,38 +1,21 @@
 <script setup lang="ts">
-const config = useRuntimeConfig()
+definePageMeta({ layout: 'showcase' })
 
-const features = [
-  {
-    icon: 'i-lucide-laptop',
-    title: 'Native local development',
-    description: 'Source, Node and pnpm run on the local development machine; deployment remains a separate Coolify workflow.'
-  },
-  {
-    icon: 'i-lucide-settings-2',
-    title: 'Explicit runtime configuration',
-    description: 'Public configuration follows Nuxt runtimeConfig naming and can be supplied independently by each environment.'
-  },
-  {
-    icon: 'i-lucide-heart-pulse',
-    title: 'Verifiable application health',
-    description: 'The application exposes a deterministic health contract used by both local development and deployment checks.'
-  }
-]
+const { data, patterns } = useDashboardShowcase()
+
+useSeoMeta({
+  title: 'Starter showcase',
+  description: 'Explore six Nuxt UI dashboard wireframe patterns using one shared fixture.'
+})
 </script>
 
 <template>
   <div>
     <UPageHero
-      :title="config.public.appName"
-      description="A clean Nuxt 4 and Nuxt UI foundation ready for customer-specific application work."
+      title="A controlled starting point for customer applications"
+      description="Explore six dashboard wireframes, one semantic theme system and one shared showcase dataset. Choose a direction before adding customer-specific business UI."
       :links="[{
-        label: 'Check application health',
-        to: '/api/health',
-        target: '_blank',
-        trailingIcon: 'i-lucide-arrow-up-right',
-        size: 'xl'
-      }, {
-        label: 'Open theme',
+        label: 'Explore themes',
         to: '/theme',
         icon: 'i-lucide-palette',
         color: 'neutral',
@@ -42,10 +25,54 @@ const features = [
     />
 
     <UPageSection
-      id="foundation"
-      title="A small, controlled foundation"
-      description="Only verified starter capabilities live here. Supabase and authentication are added through the next contract slice."
-      :features="features"
-    />
+      title="Choose a dashboard starting point"
+      description="Each pattern renders the same synthetic data with a different information architecture."
+    >
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <UCard
+          v-for="pattern in patterns"
+          :key="pattern.id"
+          class="flex flex-col"
+        >
+          <div class="flex items-start justify-between gap-4">
+            <UIcon
+              :name="pattern.icon"
+              class="size-6 text-primary"
+            />
+            <UBadge
+              label="Showcase"
+              color="neutral"
+              variant="subtle"
+            />
+          </div>
+          <h2 class="mt-5 text-lg font-semibold text-highlighted">
+            {{ pattern.label }}
+          </h2>
+          <p class="mt-2 flex-1 text-sm text-muted">
+            {{ pattern.description }}
+          </p>
+          <UButton
+            :to="`/dashboard/${pattern.id}`"
+            label="Open wireframe"
+            trailing-icon="i-lucide-arrow-up-right"
+            class="mt-6 self-start"
+          />
+        </UCard>
+      </div>
+    </UPageSection>
+
+    <UPageSection
+      title="One shared fixture"
+      description="The same KPI, trend, activity and work-item data flows through every pattern."
+    >
+      <DashboardKpiGrid :items="data.kpis" />
+    </UPageSection>
+
+    <UPageSection
+      title="State and interaction examples"
+      description="Loading, empty, error and local interaction states are part of the baseline showcase."
+    >
+      <DashboardStatePanel />
+    </UPageSection>
   </div>
 </template>

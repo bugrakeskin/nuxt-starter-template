@@ -22,7 +22,11 @@ function serializeTokens(selector: string, tokens: Record<string, string> = {}) 
 
 export function useThemePreset() {
   const appConfig = useAppConfig()
-  const activePresetId = useState<ThemePresetId>('theme-preset', () => 'unfogy')
+  const persistedPreset = useCookie<ThemePresetId>('unfogy-theme-preset', {
+    default: () => 'unfogy',
+    sameSite: 'lax'
+  })
+  const activePresetId = useState<ThemePresetId>('theme-preset', () => getThemePreset(persistedPreset.value).id)
   const activePreset = computed(() => getThemePreset(activePresetId.value))
 
   function setComponentVariant(component: string, variant: ThemeComponentVariant) {
@@ -41,6 +45,7 @@ export function useThemePreset() {
   function applyPreset(id: ThemePresetId) {
     const preset = getThemePreset(id)
     activePresetId.value = preset.id
+    persistedPreset.value = preset.id
 
     appConfig.ui.colors.primary = preset.colors.primary
     appConfig.ui.colors.neutral = preset.colors.neutral

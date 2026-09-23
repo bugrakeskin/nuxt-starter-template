@@ -93,11 +93,13 @@ data and composable are 162 lines and 4,120 source bytes. The showcase page is
 - `pnpm typecheck`: passed
 - `pnpm lint`: passed
 - `pnpm build`: passed
-- production HTTP smoke: `/`, `/theme`, and `/api/health` returned `200`
+- production HTTP smoke: `/`, `/theme`, all six `/dashboard/*` routes and
+  `/api/health` returned `200`
 - SSR smoke: default `Unfogy` label and `--ui-radius: 0.375rem` were present
   in the `/theme` HTML
-- interactive browser inspection: pending because no agent browser is exposed
-  in the current execution environment
+- interactive browser inspection: showcase header, theme dropdown, wireframe
+  dropdown, route navigation, reload persistence and console were verified in
+  the local browser; no hydration mismatch, error or warning was observed
 
 ## Deferred load
 
@@ -128,4 +130,5 @@ Inspect `/theme` with an agent browser after every theme-affecting change:
 5. Check focus visibility, text contrast, overflow and long labels.
 6. Reload and confirm the documented default preset returns without a flash.
 
-If browser inspection is unavailable, report visual verification as pending.
+If browser inspection is unavailable in a future run, report visual verification
+as unverified rather than inferring it from HTTP or build output.

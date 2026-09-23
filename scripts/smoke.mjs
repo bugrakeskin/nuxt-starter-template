@@ -28,3 +28,22 @@ await request('/api/health', async (response) => {
 await request('/login', async (response) => {
   if (response.status !== 200) throw new Error(`Login smoke failed: ${response.status}`)
 })
+
+for (const path of [
+  '/',
+  '/theme',
+  '/dashboard/sidebar',
+  '/dashboard/icon-sidebar',
+  '/dashboard/horizontal',
+  '/dashboard/three-column',
+  '/dashboard/bento',
+  '/dashboard/report'
+]) {
+  await request(path, async (response) => {
+    if (response.status !== 200) throw new Error(`Showcase smoke failed: ${response.status} ${path}`)
+    const body = await response.text()
+    if (!body.includes('Unfogy starter showcase')) {
+      throw new Error(`Showcase shell missing: ${path}`)
+    }
+  })
+}

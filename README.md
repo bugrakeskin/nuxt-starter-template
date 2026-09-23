@@ -29,8 +29,7 @@ Use Node.js 22 and the pinned pnpm version on the local development machine.
 Run from this repository root:
 
 ```bash
-corepack enable
-pnpm install --frozen-lockfile
+pnpm install
 pnpm dev
 ```
 

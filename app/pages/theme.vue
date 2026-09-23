@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { ThemePresetId } from '~/utils/theme-presets'
 
-const colorMode = useColorMode()
+definePageMeta({ layout: 'showcase' })
+
 const { activePreset, activePresetId, applyPreset, presets } = useThemePreset()
 
 const email = ref('alex@example.com')
@@ -44,29 +45,7 @@ useSeoMeta({
           </p>
         </div>
 
-        <div class="flex items-center gap-2">
-          <UButton
-            icon="i-lucide-sun"
-            color="neutral"
-            variant="ghost"
-            aria-label="Use light mode"
-            @click="colorMode.preference = 'light'"
-          />
-          <UButton
-            icon="i-lucide-moon"
-            color="neutral"
-            variant="ghost"
-            aria-label="Use dark mode"
-            @click="colorMode.preference = 'dark'"
-          />
-          <UButton
-            icon="i-lucide-monitor"
-            color="neutral"
-            variant="ghost"
-            aria-label="Use system color mode"
-            @click="colorMode.preference = 'system'"
-          />
-        </div>
+        <UColorModeButton aria-label="Change color mode" />
       </header>
 
       <UCard>
