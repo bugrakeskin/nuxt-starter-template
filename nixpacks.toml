@@ -1,0 +1,12 @@
+# Keep the Nuxt server build deterministic in Coolify/Nixpacks.
+# The Node.js major version is selected by package.json engines and
+# NIXPACKS_NODE_VERSION=22 from the provisioning flow.
+
+[phases.install]
+cmds = ["npx --yes pnpm@12.4.1 install --frozen-lockfile"]
+
+[phases.build]
+cmds = ["npx --yes pnpm@12.4.1 run build"]
+
+[start]
+cmd = "NODE_ENV=production node .output/server/index.mjs"
