@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://unfogy.com/schemas/mwo-config/v1",
+  "title": "Unfogy MWO Declarative Config",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "customer_id", "mwo_id", "shortname", "template", "server", "preview", "production"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "kind": { "const": "UnfogyMWOConfig" },
+    "customer_id": { "type": "string", "pattern": "^CST[0-9]+$" },
+    "mwo_id": { "type": "string", "pattern": "^MWO[0-9]+$" },
+    "shortname": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$", "maxLength": 40 },
+    "template": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "pattern": "^v[0-9]+$" }
+      }
+    },
+    "server": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "preview": { "$ref": "#/$defs/environment" },
+    "production": { "$ref": "#/$defs/environment" }
+  },
+  "$defs": {
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["domain", "application", "database", "deploy"],
+      "properties": {
+        "domain": { "type": "string", "minLength": 1 },
+        "application": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["placement"],
+          "properties": { "placement": { "type": "string", "minLength": 1 } }
+        },
+        "database": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "placement"],
+          "properties": {
+            "type": { "type": "string", "minLength": 1 },
+            "placement": { "type": "string", "minLength": 1 }
+          }
+        },
+        "deploy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "trigger", "migration", "health"],
+          "properties": {
+            "source": { "type": "string", "minLength": 1 },
+            "trigger": { "enum": ["push", "promotion", "manual"] },
+            "migration": { "enum": ["required", "disabled"] },
+            "approval": { "enum": ["none", "developer", "platform_operator"] },
+            "health": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    }
+  }
+}

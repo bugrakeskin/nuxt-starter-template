@@ -1,41 +1,41 @@
-# Customer MWO application metadata
+# Customer MWO application contract
 
-This directory contains the non-secret contract that is copied into a
-customer MWO repository. The starter itself does not contain a customer
-identity, an allocated MWO, or a live environment record.
+This directory contains the non-secret application contract and the single
+allocation-free MWO configuration template copied into a customer MWO
+repository. The starter itself does not contain a customer identity, an
+allocated MWO, or a live environment record.
 
 Approved provisioning materializes these files after the Control Plane has
 allocated the permanent project:
 
 ```text
 .unfogy/
-├── project.yaml
-└── environments/
-    ├── preview.yaml
-    └── production.yaml
+├── config.yaml
+├── schema/config.schema.json
+└── starter.yaml
 ```
 
 The MWO owns this repository and its corresponding Coolify Project. All Tasks
 for the same MWO use this repository and environment set. A different
-application requires a different MWO and repository. The Control Plane owns
-the declarative provisioning and deployment record at:
+application requires a different MWO and repository. The Control Plane tracks
+the customer container and the MWO repository is an independent Git checkout:
 
 
 ```text
-customers/<CST...>/<MWO...>/.unfogy/
+workspaces/customers/<CST...>/customer.yaml
 ```
 
 The application checkout is a separate local repository at:
 
 ```text
-workspaces/customers/<CST...>/<MWO...>/
+workspaces/customers/<CST...>/<MWO...>/.unfogy/config.yaml
 ```
 
-Both paths are routing conventions, not authority. Control Plane allocation,
-approval, revision, lease, task state and runtime status remain outside this
-repository. The materialized `.unfogy/` files contain only non-secret
-application contract and environment metadata; they do not contain
-provisioning intent, deployment authority, or live state.
+The MWO `.unfogy/config.yaml` is the single declarative desired-state input for
+provisioning and deployment. It contains no credentials, secrets, live status,
+leases, approvals or provider runtime state. Control Plane runtime records
+remain authoritative for allocation, revision, checkpoints, audit and live
+provider state.
 
 Provisioning plans and their approvals remain scoped to `MWO + environment`.
 Repository ownership and provider resource identity are scoped to the MWO and

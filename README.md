@@ -12,10 +12,12 @@ the same MWO use this repository and environment set; a different application
 requires a different MWO and repository. Approved provisioning writes the
 non-secret application and environment metadata under [`.unfogy/`](.unfogy/).
 
-The Control Plane keeps customer/MWO provisioning and deployment intent under
-`customers/<CST...>/<MWO...>/.unfogy/`; the local application checkout is
-`workspaces/customers/<CST...>/<MWO...>/`. The starter contains no customer
-identity or allocated MWO record.
+The Control Plane tracks the customer container at
+`workspaces/customers/<CST...>/customer.yaml`; the local MWO application
+checkout is `workspaces/customers/<CST...>/<MWO...>/`. The single declarative
+provisioning and deployment input is
+`<MWO>/.unfogy/config.yaml`. The starter contains no customer identity or
+allocated MWO record.
 
 The Nuxt application intentionally remains at repository root (`app/`,
 `server/`, `nuxt.config.ts`). The current Coolify recipe has no application
