@@ -10,7 +10,7 @@ ENV PATH=$PNPM_HOME:$PATH
 ENV NUXT_BUILD_REVISION=$BUILD_REVISION
 WORKDIR /app
 
-RUN corepack enable && corepack prepare pnpm@12.4.1 --activate
+RUN npm install --global --no-audit --no-fund pnpm@12.4.1
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
@@ -19,7 +19,7 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
 COPY . .
 RUN pnpm build
 
-FROM node:22.22.0-bookworm-slim@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94 AS runtime
+FROM node:22-alpine3.23@sha256:baf676f7d0e552f3231945c2f979055ca121bce128c152f7a34e6bd1728b1c5a AS runtime
 
 ARG BUILD_REVISION
 ENV HOST=0.0.0.0
@@ -27,6 +27,11 @@ ENV NODE_ENV=production
 ENV PORT=3000
 LABEL org.opencontainers.image.revision=$BUILD_REVISION
 WORKDIR /app
+
+# Runtime needs Node and /bin/sh for the Woodpecker migration command, but not
+# package managers. Removing them shrinks the attack surface of the deployed image.
+RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
+    /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack /usr/local/bin/pnpm /usr/local/bin/pnpx
 
 COPY --from=build --chown=node:node /app/.output ./.output
 COPY --from=build --chown=node:node /app/supabase/migrations ./supabase/migrations

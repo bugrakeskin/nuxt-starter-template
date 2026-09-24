@@ -1,22 +1,21 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://unfogy.com/schemas/customer-project-environment/v1",
-  "title": "Unfogy Customer Project Environment Metadata",
+  "$id": "https://unfogy.com/schemas/customer-mwo-environment/v1",
+  "title": "Unfogy Customer MWO Environment Metadata",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "kind", "project_id", "environment", "recipe", "domains", "required_environment_keys"],
+  "required": ["schema_version", "kind", "mwo_ref", "environment", "recipe", "domains", "required_environment_keys"],
   "properties": {
     "schema_version": {
       "const": 1
     },
     "kind": {
-      "const": "CustomerProjectEnvironment"
+      "const": "CustomerMWOEnvironment"
     },
-    "project_id": {
+    "mwo_ref": {
       "type": "string",
-      "description": "The permanent project ID owning this environment.",
-      "maxLength": 63,
-      "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+      "description": "The canonical MWO identity owning this environment.",
+      "pattern": "^MWO[0-9]+$"
     },
     "environment": {
       "enum": ["preview", "production"]

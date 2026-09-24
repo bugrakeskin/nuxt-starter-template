@@ -5,18 +5,17 @@ verified scope includes native local development, Nuxt UI theme presets,
 Supabase SSR authentication, user-scoped server guards, fail-closed readiness,
 remote migration execution, metadata contracts and production checks.
 
-## Customer project contract
+## Customer MWO application contract
 
-The permanent Customer Project owns its repository and corresponding Coolify
-Project. Multiple MWO records can deliver changes to that project; an MWO is a
-temporary work record. Approved provisioning writes the non-secret project and
-environment metadata under [`.unfogy/`](.unfogy/).
+The MWO owns its repository and corresponding Coolify Project. All Tasks for
+the same MWO use this repository and environment set; a different application
+requires a different MWO and repository. Approved provisioning writes the
+non-secret application and environment metadata under [`.unfogy/`](.unfogy/).
 
-The Control Plane allocates a stable opaque `project_id` and keeps project
-plans, approvals, resource identity, leases and runtime status outside Git. The
-local checkout convention is
-`workspaces/customers/<CST...>/projects/<project_id>`. The starter contains no
-customer identity or allocated project record.
+The Control Plane keeps customer/MWO provisioning and deployment intent under
+`customers/<CST...>/<MWO...>/.unfogy/`; the local application checkout is
+`workspaces/customers/<CST...>/<MWO...>/`. The starter contains no customer
+identity or allocated MWO record.
 
 The Nuxt application intentionally remains at repository root (`app/`,
 `server/`, `nuxt.config.ts`). The current Coolify recipe has no application
@@ -96,8 +95,9 @@ workflow steps and the nested Buildx daemon resolve private service names via
 the CI bridge gateway DNS endpoint `10.77.30.1`. The repository keeps trusted network/security enabled for these
 exact workflows, while trusted host volumes remain disabled.
 
-The `coolify_deploy_token` organization secret is deploy-only.
-`coolify_preview_resource_uuid` and `preview_health_url` are repository-scoped;
+The `coolify_preview_deploy_token` Woodpecker secret is repository-scoped and
+contains the bootstrap-managed shared Coolify token with deploy-only ability.
+`coolify_preview_resource_uuid` and `preview_health_url` are also repository-scoped;
 the latter is the full HTTPS `/api/health` URL. The deploy endpoint is fixed at
 `https://platform.unfogy.com/api/v1/deploy` and the workflow appends only the
 repository resource UUID. The manual `bootstrap-canary` workflow builds only

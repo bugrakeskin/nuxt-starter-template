@@ -1,8 +1,8 @@
-# Customer project metadata
+# Customer MWO application metadata
 
 This directory contains the non-secret contract that is copied into a
-customer project repository. The starter itself does not contain a customer
-identity, an allocated `project_id`, or a live environment record.
+customer MWO repository. The starter itself does not contain a customer
+identity, an allocated MWO, or a live environment record.
 
 Approved provisioning materializes these files after the Control Plane has
 allocated the permanent project:
@@ -15,31 +15,31 @@ allocated the permanent project:
     └── production.yaml
 ```
 
-The customer project owns the repository and its corresponding Coolify
-Project. Multiple MWO records can deliver changes to the same project. An MWO
-is a temporary work record; `origin_mwo_ref` is optional creation provenance
-and never determines repository ownership or its checkout path.
-
-The Control Plane allocates a stable, opaque, path-safe `project_id`. The
-metadata contract permits lowercase letters, digits, and interior hyphens;
-the value starts and ends with an alphanumeric character and is at most 63
-characters. Allocation also validates the complete domain label when domains
-are created. The checkout convention is:
+The MWO owns this repository and its corresponding Coolify Project. All Tasks
+for the same MWO use this repository and environment set. A different
+application requires a different MWO and repository. The Control Plane owns
+the declarative provisioning and deployment record at:
 
 
 ```text
-workspaces/customers/<CST...>/projects/<project_id>
+customers/<CST...>/<MWO...>/.unfogy/
 ```
 
-The path is a local routing convention, not an authority or a public project
-identifier. Each `project.yaml` may also carry optional purposes for top-level
-folders such as `apps` and `tests`; it does not carry runtime state.
+The application checkout is a separate local repository at:
+
+```text
+workspaces/customers/<CST...>/<MWO...>/
+```
+
+Both paths are routing conventions, not authority. Control Plane allocation,
+approval, revision, lease, task state and runtime status remain outside this
+repository. The materialized `.unfogy/` files contain only non-secret
+application contract and environment metadata; they do not contain
+provisioning intent, deployment authority, or live state.
 
 Provisioning plans and their approvals remain scoped to `MWO + environment`.
-Repository ownership, provider resource identity, and the shared mutation
-lease are scoped to `project_id + environment` so multiple MWO records can
-work on the same project safely. Runtime status and audit remain Control Plane
-records.
+Repository ownership and provider resource identity are scoped to the MWO and
+environment. Runtime status and audit remain Control Plane records.
 
 Metadata files may contain recipe versions, domains, and non-secret provider
 references. They must not contain approval decisions, live status, lease data,
