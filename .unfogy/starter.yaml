@@ -16,12 +16,13 @@ commands:
   smoke: pnpm smoke
   migrate: pnpm db:migrate
 delivery:
-  contractVersion: 1
+  contractVersion: 2
   dockerfile: Dockerfile
   workflows:
     - .woodpecker/validate.yaml
-    - .woodpecker/build-pr.yaml
-    - .woodpecker/build-protected.yaml
+    - .woodpecker/preview.yaml
+    - .woodpecker/main.yaml
+    - .woodpecker/bootstrap-canary.yaml
   runtime:
     start: node .output/server/index.mjs
     migrate: node .output/migrate.mjs

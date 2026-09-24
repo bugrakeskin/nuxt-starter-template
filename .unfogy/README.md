@@ -11,7 +11,7 @@ allocated the permanent project:
 .unfogy/
 ├── project.yaml
 └── environments/
-    ├── staging.yaml
+    ├── preview.yaml
     └── production.yaml
 ```
 

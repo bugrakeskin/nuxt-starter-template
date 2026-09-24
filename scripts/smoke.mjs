@@ -1,4 +1,5 @@
 const baseUrl = (process.env.SMOKE_BASE_URL || 'http://127.0.0.1:3000').replace(/\/$/, '')
+const expectedBuildRevision = process.env.EXPECTED_BUILD_REVISION
 
 async function request(path, assertion) {
   let lastError
@@ -22,6 +23,9 @@ await request('/api/health', async (response) => {
   const body = await response.json()
   if (response.status !== 200 || body.status !== 'ok' || body.contractVersion !== 1) {
     throw new Error(`Health check failed: ${response.status} ${JSON.stringify(body)}`)
+  }
+  if (expectedBuildRevision && body.revision !== expectedBuildRevision) {
+    throw new Error(`Health revision mismatch: expected ${expectedBuildRevision}, got ${body.revision}`)
   }
 })
 

@@ -1,0 +1,80 @@
+depends_on:
+  - validate
+
+when:
+  - event: push
+    branch: preview
+
+steps:
+  - name: preview-image
+    image: woodpeckerci/plugin-docker-buildx:5.0.0
+    privileged: true
+    settings:
+      custom_dns: 10.77.20.1
+      registry: registry.unfogy.com
+      repo: registry.unfogy.com/${CI_REPO_NAME}/app
+      tags:
+        - ${CI_COMMIT_SHA}
+        - preview
+      platforms: linux/amd64
+      provenance: mode=max
+      build_args:
+        BUILD_REVISION: ${CI_COMMIT_SHA}
+      cache_images:
+        - registry.unfogy.com/${CI_REPO_NAME}/cache-stable
+      username:
+        from_secret: harbor_app_push_username
+      password:
+        from_secret: harbor_app_push_password
+
+  - name: verify-harbor-scan
+    image: node:22.22.0-bookworm-slim@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94
+    dns: 10.77.20.1
+    environment:
+      HARBOR_PROJECT: ${CI_REPO_NAME}
+      HARBOR_REPOSITORY: app
+      HARBOR_REFERENCE: ${CI_COMMIT_SHA}
+      HARBOR_USERNAME:
+        from_secret: harbor_app_push_username
+      HARBOR_PASSWORD:
+        from_secret: harbor_app_push_password
+    commands:
+      - node scripts/verify-harbor-scan.mjs
+
+  - name: deploy-preview
+    image: curlimages/curl:8.17.0@sha256:935d9100e9ba842cdb060de42472c7ca90cfe9a7c96e4dacb55e79e560b3ff40
+    dns: 10.77.20.1
+    environment:
+      COOLIFY_DEPLOY_TOKEN:
+        from_secret: coolify_deploy_token
+      COOLIFY_PREVIEW_RESOURCE_UUID:
+        from_secret: coolify_preview_resource_uuid
+    commands:
+      - test -n "$${COOLIFY_DEPLOY_TOKEN}"
+      - test -n "$${COOLIFY_PREVIEW_RESOURCE_UUID}"
+      - >-
+        curl --fail-with-body --silent --show-error --request POST
+        --header "Authorization: Bearer $${COOLIFY_DEPLOY_TOKEN}"
+        --header "Accept: application/json"
+        "https://platform.unfogy.com/api/v1/deploy?uuid=$${COOLIFY_PREVIEW_RESOURCE_UUID}&force=false"
+
+  - name: verify-preview-revision
+    image: curlimages/curl:8.17.0@sha256:935d9100e9ba842cdb060de42472c7ca90cfe9a7c96e4dacb55e79e560b3ff40
+    environment:
+      PREVIEW_HEALTH_URL:
+        from_secret: preview_health_url
+    commands:
+      - test -n "$${PREVIEW_HEALTH_URL}"
+      - |
+        attempt=1
+        while [ "$${attempt}" -le 60 ]; do
+          body="$$(curl --fail --silent --show-error "$${PREVIEW_HEALTH_URL}" || true)"
+          if printf '%s' "$${body}" | grep -Fq '"status":"ok"' && \
+             printf '%s' "$${body}" | grep -Fq '"revision":"${CI_COMMIT_SHA}"'; then
+            exit 0
+          fi
+          sleep 5
+          attempt=$$((attempt + 1))
+        done
+        echo "preview health did not report the expected revision" >&2
+        exit 1

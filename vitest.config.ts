@@ -1,7 +1,7 @@
 import { defineVitestProject } from '@nuxt/test-utils/config'
 import { defineConfig } from 'vitest/config'
 
-process.env.NUXT_PUBLIC_SUPABASE_URL ||= 'https://staging-api.unfogy.com'
+process.env.NUXT_PUBLIC_SUPABASE_URL ||= 'https://preview-api.unfogy.com'
 process.env.NUXT_PUBLIC_SUPABASE_KEY ||= 'test-publishable-key'
 
 export default defineConfig({

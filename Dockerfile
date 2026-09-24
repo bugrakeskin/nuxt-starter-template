@@ -1,9 +1,13 @@
 # syntax=docker/dockerfile:1.7
 
+ARG BUILD_REVISION=development
+
 FROM node:22.22.0-bookworm-slim@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94 AS build
 
+ARG BUILD_REVISION
 ENV PNPM_HOME=/pnpm
 ENV PATH=$PNPM_HOME:$PATH
+ENV NUXT_BUILD_REVISION=$BUILD_REVISION
 WORKDIR /app
 
 RUN corepack enable && corepack prepare pnpm@12.4.1 --activate
@@ -17,9 +21,11 @@ RUN pnpm build
 
 FROM node:22.22.0-bookworm-slim@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94 AS runtime
 
+ARG BUILD_REVISION
 ENV HOST=0.0.0.0
 ENV NODE_ENV=production
 ENV PORT=3000
+LABEL org.opencontainers.image.revision=$BUILD_REVISION
 WORKDIR /app
 
 COPY --from=build --chown=node:node /app/.output ./.output

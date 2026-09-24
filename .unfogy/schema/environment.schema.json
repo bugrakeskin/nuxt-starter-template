@@ -19,7 +19,7 @@
       "pattern": "^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
     },
     "environment": {
-      "enum": ["staging", "production"]
+      "enum": ["preview", "production"]
     },
     "recipe": {
       "type": "object",

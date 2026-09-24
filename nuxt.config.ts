@@ -12,6 +12,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   runtimeConfig: {
+    buildRevision: process.env.NUXT_BUILD_REVISION || 'development',
     public: {
       appName: 'Unfogy Starter'
     }

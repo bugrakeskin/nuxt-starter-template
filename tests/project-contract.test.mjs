@@ -59,7 +59,7 @@ test('environment metadata is scoped to project and environment', async () => {
     'domains',
     'required_environment_keys'
   ])
-  assert.deepEqual(schema.properties.environment.enum, ['staging', 'production'])
+  assert.deepEqual(schema.properties.environment.enum, ['preview', 'production'])
   assert.deepEqual(schema.properties.required_environment_keys.items.pattern, '^[A-Z][A-Z0-9_]*$')
   assert.equal(schema.properties.mwo_ref, undefined)
   assert.equal(schema.properties.approval, undefined)
@@ -70,7 +70,7 @@ test('environment metadata is scoped to project and environment', async () => {
 test('starter templates contain no customer or MWO identity', async () => {
   const paths = [
     '.unfogy/templates/project.yaml',
-    '.unfogy/templates/environments/staging.yaml',
+    '.unfogy/templates/environments/preview.yaml',
     '.unfogy/templates/environments/production.yaml'
   ]
 

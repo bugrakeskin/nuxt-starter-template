@@ -2,7 +2,7 @@
 schema_version: 1
 kind: CustomerProjectEnvironment
 project_id: null
-environment: staging
+environment: preview
 recipe:
   name: nuxt-supabase
   version: v1
