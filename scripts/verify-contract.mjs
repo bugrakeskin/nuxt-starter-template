@@ -53,7 +53,7 @@ assert.equal(JSON.stringify(validateWorkflow).includes('from_secret'), false, 'v
 
 assert.deepEqual(previewWorkflow.depends_on, ['validate'])
 const previewBuild = previewWorkflow.steps.find(step => step.name === 'preview-image')
-assert.equal(previewBuild.image, 'woodpeckerci/plugin-docker-buildx:5.0.0')
+assert.equal(previewBuild.image, 'woodpeckerci/plugin-docker-buildx@sha256:0a8e69cad4a25d641bdb51daea53ce309692c7bda1193ae04a990bb88486edd8')
 assert.equal(previewBuild.settings.custom_dns, '10.77.20.1')
 assert.deepEqual(previewBuild.settings.tags, ['${CI_COMMIT_SHA}', 'preview'])
 assert.deepEqual(previewBuild.settings.build_args, { BUILD_REVISION: '${CI_COMMIT_SHA}' })
@@ -81,7 +81,7 @@ assert.match(verifyStep.commands.join('\n'), /CI_COMMIT_SHA/)
 
 assert.deepEqual(mainWorkflow.depends_on, ['validate'])
 const mainBuild = mainWorkflow.steps.find(step => step.name === 'main-image')
-assert.equal(mainBuild.image, 'woodpeckerci/plugin-docker-buildx:5.0.0')
+assert.equal(mainBuild.image, 'woodpeckerci/plugin-docker-buildx@sha256:0a8e69cad4a25d641bdb51daea53ce309692c7bda1193ae04a990bb88486edd8')
 assert.equal(mainBuild.settings.custom_dns, '10.77.20.1')
 assert.deepEqual(mainBuild.settings.tags, ['${CI_COMMIT_SHA}'])
 assert.deepEqual(mainBuild.settings.build_args, { BUILD_REVISION: '${CI_COMMIT_SHA}' })
@@ -95,7 +95,7 @@ assert.equal(JSON.stringify(mainWorkflow).includes('coolify_'), false, 'main mus
 
 assert.deepEqual(canaryWorkflow.when, [{ event: 'manual' }])
 const canaryBuild = canaryWorkflow.steps.find(step => step.name === 'canary-image')
-assert.equal(canaryBuild.image, 'woodpeckerci/plugin-docker-buildx:5.0.0')
+assert.equal(canaryBuild.image, 'woodpeckerci/plugin-docker-buildx@sha256:0a8e69cad4a25d641bdb51daea53ce309692c7bda1193ae04a990bb88486edd8')
 assert.equal(canaryBuild.settings.custom_dns, '10.77.20.1')
 assert.equal(canaryBuild.settings.repo, 'registry.unfogy.com/unfogy-canary/runtime')
 assert.deepEqual(canaryBuild.settings.tags, ['${CI_COMMIT_SHA}'])
