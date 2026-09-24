@@ -8,6 +8,7 @@ when:
 steps:
   - name: main-image
     image: woodpeckerci/plugin-docker-buildx@sha256:0a8e69cad4a25d641bdb51daea53ce309692c7bda1193ae04a990bb88486edd8
+    dns: 10.77.20.1
     privileged: true
     settings:
       custom_dns: 10.77.20.1
