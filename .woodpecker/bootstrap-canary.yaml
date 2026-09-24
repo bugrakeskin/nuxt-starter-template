@@ -16,8 +16,7 @@ steps:
       dockerfile: deploy/canary/Dockerfile
       platforms: linux/amd64
       provenance: mode=max
-      build_args:
-        BUILD_REVISION: ${CI_COMMIT_SHA}
+      build_args: BUILD_REVISION=${CI_COMMIT_SHA}
       cache_images:
         - registry.unfogy.com/unfogy-canary/cache-canary
       username:

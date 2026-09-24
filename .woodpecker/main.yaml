@@ -18,8 +18,7 @@ steps:
         - ${CI_COMMIT_SHA}
       platforms: linux/amd64
       provenance: mode=max
-      build_args:
-        BUILD_REVISION: ${CI_COMMIT_SHA}
+      build_args: BUILD_REVISION=${CI_COMMIT_SHA}
       cache_images:
         - registry.unfogy.com/${CI_REPO_NAME}/cache-stable
       username:
