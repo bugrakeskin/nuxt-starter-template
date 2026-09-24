@@ -93,7 +93,7 @@ starts only after this gate passes.
 
 Bootstrap attaches pipeline steps to the isolated `unfogy-ci-egress` network;
 workflow steps and the nested Buildx daemon resolve private service names via
-`10.77.20.1`. The repository keeps trusted network/security enabled for these
+the CI bridge gateway DNS endpoint `10.77.30.1`. The repository keeps trusted network/security enabled for these
 exact workflows, while trusted host volumes remain disabled.
 
 The `coolify_deploy_token` organization secret is deploy-only.

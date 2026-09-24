@@ -4,10 +4,10 @@ when:
 steps:
   - name: canary-image
     image: woodpeckerci/plugin-docker-buildx@sha256:0a8e69cad4a25d641bdb51daea53ce309692c7bda1193ae04a990bb88486edd8
-    dns: 10.77.20.1
+    dns: 10.77.30.1
     privileged: true
     settings:
-      custom_dns: 10.77.20.1
+      custom_dns: 10.77.30.1
       registry: registry.unfogy.com
       repo: registry.unfogy.com/unfogy-canary/runtime
       tags:

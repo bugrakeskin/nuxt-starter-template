@@ -8,10 +8,10 @@ when:
 steps:
   - name: main-image
     image: woodpeckerci/plugin-docker-buildx@sha256:0a8e69cad4a25d641bdb51daea53ce309692c7bda1193ae04a990bb88486edd8
-    dns: 10.77.20.1
+    dns: 10.77.30.1
     privileged: true
     settings:
-      custom_dns: 10.77.20.1
+      custom_dns: 10.77.30.1
       registry: registry.unfogy.com
       repo: registry.unfogy.com/${CI_REPO_NAME}/app
       tags:
@@ -29,7 +29,7 @@ steps:
 
   - name: verify-harbor-scan
     image: node:22.22.0-bookworm-slim@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94
-    dns: 10.77.20.1
+    dns: 10.77.30.1
     environment:
       HARBOR_PROJECT: ${CI_REPO_NAME}
       HARBOR_REPOSITORY: app
