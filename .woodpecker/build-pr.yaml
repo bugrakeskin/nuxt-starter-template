@@ -1,0 +1,21 @@
+when:
+  - event: pull_request
+
+steps:
+  - name: candidate-image
+    image: woodpeckerci/plugin-docker-buildx:5.0.0
+    privileged: true
+    settings:
+      registry: registry.unfogy.com
+      repo: registry.unfogy.com/${CI_REPO_NAME}/app
+      tags: ${CI_COMMIT_SHA}
+      platforms: linux/amd64
+      provenance: mode=max
+      cache_from:
+        - 'type=registry\,ref=registry.unfogy.com/${CI_REPO_NAME}/cache-stable'
+        - 'type=registry\,ref=registry.unfogy.com/${CI_REPO_NAME}/cache-pr-${CI_COMMIT_PULL_REQUEST}'
+      cache_to: 'type=registry\,ref=registry.unfogy.com/${CI_REPO_NAME}/cache-pr-${CI_COMMIT_PULL_REQUEST}\,mode=max\,image-manifest=true\,oci-mediatypes=true'
+      username:
+        from_secret: harbor_push_username
+      password:
+        from_secret: harbor_push_password

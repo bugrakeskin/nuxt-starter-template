@@ -1,0 +1,20 @@
+when:
+  - event: push
+    branch: [preview, main]
+
+steps:
+  - name: protected-image
+    image: woodpeckerci/plugin-docker-buildx:5.0.0
+    privileged: true
+    settings:
+      registry: registry.unfogy.com
+      repo: registry.unfogy.com/${CI_REPO_NAME}/app
+      tags: ${CI_COMMIT_SHA}
+      platforms: linux/amd64
+      provenance: mode=max
+      cache_images:
+        - registry.unfogy.com/${CI_REPO_NAME}/cache-stable
+      username:
+        from_secret: harbor_push_username
+      password:
+        from_secret: harbor_push_password

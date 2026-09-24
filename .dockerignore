@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+.git
+.nuxt
+.output
+.pnpm-store
+coverage
+node_modules
+npm-debug.log*
+pnpm-debug.log*

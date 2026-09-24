@@ -15,6 +15,16 @@ commands:
   test: pnpm test
   smoke: pnpm smoke
   migrate: pnpm db:migrate
+delivery:
+  contractVersion: 1
+  dockerfile: Dockerfile
+  workflows:
+    - .woodpecker/validate.yaml
+    - .woodpecker/build-pr.yaml
+    - .woodpecker/build-protected.yaml
+  runtime:
+    start: node .output/server/index.mjs
+    migrate: node .output/migrate.mjs
 features:
   auth: true
   database: true
