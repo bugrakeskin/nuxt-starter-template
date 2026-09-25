@@ -1,35 +1,26 @@
-# Allocation-free template. Provisioning materializes this file in an MWO repo.
-schema_version: 1
-kind: UnfogyMWOConfig
+# Allocation-free template. Provisioning materializes this file in a Project repo.
+schema_version: 2
+kind: UnfogyProjectConfig
 customer_id: __CUSTOMER_ID__
-mwo_id: __MWO_ID__
+project_id: __PROJECT_ID__
+origin_mwo_ref: __MWO_ID__
 shortname: __SHORTNAME__
-template:
+starter:
   name: nuxt-supabase
   version: v1
-server: __CUSTOMER_SERVER__
-preview:
-  domain: __SHORTNAME__-preview.unfogy.com
-  application:
-    placement: __CUSTOMER_SERVER__
-  database:
-    type: supabase
-    placement: __CUSTOMER_SERVER__
-  deploy:
-    source: preview
-    trigger: push
+environments:
+  preview:
+    application_target: __CUSTOMER_SERVER__
+    database_target: __CUSTOMER_SERVER__
+    domains:
+      aliases:
+        - __SHORTNAME__-preview.unfogy.com
     migration: required
     health: /api/health
-production:
-  domain: __SHORTNAME__.unfogy.com
-  application:
-    placement: __CUSTOMER_SERVER__
-  database:
-    type: supabase
-    placement: __CUSTOMER_SERVER__
-  deploy:
-    source: preview
-    trigger: promotion
+  production:
+    application_target: __CUSTOMER_SERVER__
+    database_target: __CUSTOMER_SERVER__
+    domains:
+      aliases: []
     migration: required
-    approval: platform_operator
     health: /api/health

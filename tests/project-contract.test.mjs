@@ -13,9 +13,10 @@ test('starter config contains placeholders instead of allocated identity', async
   assert.doesNotMatch(content, /MWO[0-9]+/)
 })
 
-test('customer contract directory contains only the two runtime inputs', async () => {
+test('customer contract directory contains only project and starter inputs', async () => {
   const config = await readFile(new URL('.unfogy/config.yaml', root), 'utf8')
   const starter = await readFile(new URL('.unfogy/starter.yaml', root), 'utf8')
-  assert.match(config, /kind: UnfogyMWOConfig/)
+  assert.match(config, /kind: UnfogyProjectConfig/)
+  assert.match(config, /schema_version: 2/)
   assert.match(starter, /contractVersion: 1/)
 })

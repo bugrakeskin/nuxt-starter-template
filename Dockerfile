@@ -28,18 +28,19 @@ ENV PORT=3000
 LABEL org.opencontainers.image.revision=$BUILD_REVISION
 WORKDIR /app
 
-# Runtime needs Node and /bin/sh for the Woodpecker migration command, but not
+# Runtime needs Node and /bin/sh for the isolated migration command, but not
 # package managers. Removing them shrinks the attack surface of the deployed image.
 RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
     /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack /usr/local/bin/pnpm /usr/local/bin/pnpx
 
 COPY --from=build --chown=node:node /app/.output ./.output
 COPY --from=build --chown=node:node /app/supabase/migrations ./supabase/migrations
+COPY --from=build --chown=node:node /app/scripts/runtime-entrypoint.mjs ./scripts/runtime-entrypoint.mjs
 
 USER node
 EXPOSE 3000
 
 HEALTHCHECK --interval=10s --timeout=3s --start-period=10s --retries=6 \
-  CMD ["node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+  CMD ["node", "-e", "if((process.env.UNFOGY_PROCESS_ROLE||'web')==='web')fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
 
-CMD ["node", ".output/server/index.mjs"]
+CMD ["node", "scripts/runtime-entrypoint.mjs"]

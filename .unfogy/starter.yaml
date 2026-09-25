@@ -16,16 +16,18 @@ commands:
   smoke: pnpm smoke
   migrate: pnpm db:migrate
 delivery:
-  contractVersion: 2
+  contractVersion: 3
   dockerfile: Dockerfile
   workflows:
     - .woodpecker/validate.yaml
-    - .woodpecker/preview.yaml
-    - .woodpecker/main.yaml
-    - .woodpecker/bootstrap-canary.yaml
+    - .woodpecker/publish.yaml
   runtime:
-    start: node .output/server/index.mjs
+    start: node scripts/runtime-entrypoint.mjs
     migrate: node .output/migrate.mjs
+    processRoleEnvironment: UNFOGY_PROCESS_ROLE
+    roles:
+      - web
+      - migration-runner
 features:
   auth: true
   database: true

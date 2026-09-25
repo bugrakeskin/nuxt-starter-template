@@ -91,34 +91,34 @@ checks use this endpoint. Container builds pass the immutable Git commit through
 
 ## Delivery contract
 
-Woodpecker validates pull requests and `feature/*` pushes without Harbor or
-Coolify secrets. A push to `preview` waits for validation, publishes one image
-manifest under both `${CI_COMMIT_SHA}` and `preview`, asks the private Coolify
-deploy endpoint to re-pull that tag, then waits for `/api/health` to report the
-same commit. A push to `main` publishes only the immutable commit tag and does
-not deploy production.
+Woodpecker validates pull requests plus `task/*` and `feature/*` pushes without
+secrets. A protected `main` push validates, publishes one image under the
+immutable `${CI_COMMIT_SHA}` tag and waits for the Harbor scan gate. It does not
+run migrations or deploy any environment. The same main workflow may be started
+manually for the initial template commit after repository activation.
 
-The `preview` and `main` pipelines rely on Harbor project auto-scan, then poll
+The publish pipeline relies on Harbor project auto-scan, then polls
 the SHA artifact through Harbor API v2. They fail closed on timeout, scan
-failure, malformed results, or any Critical vulnerability. Preview deployment
-starts only after this gate passes.
+failure, malformed results, or any Critical vulnerability. Control Plane may
+promote only a digest that passed this gate.
 
 Bootstrap attaches pipeline steps to the isolated `unfogy-ci-egress` network;
 workflow steps and the nested Buildx daemon resolve private service names via
 the CI bridge gateway DNS endpoint `10.77.30.1`. The repository keeps trusted network/security enabled for these
 exact workflows, while trusted host volumes remain disabled.
 
-The `coolify_preview_deploy_token` Woodpecker secret is repository-scoped and
-contains the bootstrap-managed shared Coolify token with deploy-only ability.
-`coolify_preview_resource_uuid` and `preview_health_url` are also repository-scoped;
-the latter is the full HTTPS `/api/health` URL. The deploy endpoint is fixed at
-`https://platform.unfogy.com/api/v1/deploy` and the workflow appends only the
-repository resource UUID. The manual `bootstrap-canary` workflow builds only
-`deploy/canary`, publishes `registry.unfogy.com/unfogy-canary/runtime` under the
-immutable commit tag, and uses the separate `unfogy-canary/cache-canary` cache.
-Application pushes use `harbor_app_push_username` and
-`harbor_app_push_password`; the canary uses the separately scoped
-`harbor_canary_push_username` and `harbor_canary_push_password` secrets.
+The only repository secrets used by Woodpecker are the project-scoped Harbor
+push/scan robot credentials, restricted to the pinned Buildx and scan images.
+Coolify tokens, resource UUIDs, database URLs and production secrets never enter
+Woodpecker. Preview and production promotion, migration and exact-revision
+health verification belong to the Control Plane Deployment Worker.
+
+The same immutable application image supports `web` and domainless
+`migration-runner` roles through `UNFOGY_PROCESS_ROLE`. The runner keeps the
+target network attachment while Control Plane executes
+`node .output/migrate.mjs`; it receives the database URL only in its runtime
+secret store. Customer images never contain a deployment worker or provider
+credentials.
 
 ## Verification
 
