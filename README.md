@@ -92,9 +92,11 @@ checks use this endpoint. Container builds pass the immutable Git commit through
 ## Delivery contract
 
 Woodpecker validates pull requests plus `task/*` and `feature/*` pushes without
-secrets. A protected `main` push validates, publishes one image under the
-immutable `${CI_COMMIT_SHA}` tag and waits for the Harbor scan gate. It does not
-run migrations or deploy any environment. The same main workflow may be started
+secrets. A `main` push validates, publishes one image under the immutable
+`${CI_COMMIT_SHA}` tag and waits for the Harbor scan gate. Provider branch
+protection is optional defense-in-depth; exact pipeline, scan, digest and
+Control Plane promotion gates remain mandatory. The pipeline does not run
+migrations or deploy any environment. The same main workflow may be started
 manually for the initial template commit after repository activation.
 
 The publish pipeline relies on Harbor project auto-scan, then polls
