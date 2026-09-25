@@ -19,6 +19,17 @@ provisioning and deployment input is
 `<MWO>/.unfogy/config.yaml`. The starter contains no customer identity or
 allocated MWO record.
 
+The generated customer `.unfogy/` directory contains only:
+
+```text
+.unfogy/
+└── config.yaml    # provisioning and deployment desired state
+```
+
+The starter's delivery contract remains in the template source; it is not a
+customer MWO provisioning input. The provisioning executor owns config schema
+validation; the schema is not copied into customer application repositories.
+
 The Nuxt application intentionally remains at repository root (`app/`,
 `server/`, `nuxt.config.ts`). The current Coolify recipe has no application
 base-directory contract, so moving it to `apps/web` would require a new
