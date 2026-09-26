@@ -2,8 +2,8 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { parse } from 'yaml'
 
-const root = new URL('../', import.meta.url)
-const contract = parse(await readFile(new URL('.unfogy/starter.yaml', root), 'utf8'))
+const root = new URL('../../', import.meta.url)
+const contract = parse(await readFile(new URL('.unfogy/contract.yaml', root), 'utf8'))
 const packageJson = JSON.parse(await readFile(new URL('package.json', root), 'utf8'))
 const envExample = await readFile(new URL('.env.example', root), 'utf8')
 const healthHandler = await readFile(new URL('server/api/health.get.ts', root), 'utf8')
@@ -13,6 +13,15 @@ const publishWorkflow = parse(await readFile(new URL('.woodpecker/publish.yaml',
 
 assert.equal(Number.isInteger(contract.contractVersion), true, 'contractVersion must be an integer')
 assert.equal(contract.contractVersion > 0, true, 'contractVersion must be positive')
+assert.equal(contract.tools.contractVerifier, '.unfogy/scripts/verify-contract.mjs')
+assert.equal(contract.tools.harborScanVerifier, '.unfogy/scripts/verify-harbor-scan.mjs')
+assert.equal(contract.application.root, '/')
+assert.equal(contract.application.nodeMajor, 22)
+assert.equal(contract.application.packageManager, 'pnpm@12.4.1')
+assert.equal(contract.delivery.sourceRef, 'main')
+assert.equal(contract.delivery.buildAuthority, 'woodpecker-dockerfile')
+assert.equal(contract.delivery.artifactAuthority, 'harbor-immutable-image')
+assert.equal(contract.delivery.runtimeAuthority, 'coolify-docker-image')
 assert.equal(contract.runtime.healthEndpoint, '/api/health')
 assert.equal(Number.isInteger(contract.delivery.contractVersion), true, 'delivery.contractVersion must be an integer')
 assert.equal(contract.delivery.contractVersion > 0, true, 'delivery.contractVersion must be positive')
@@ -23,6 +32,7 @@ await readFile(new URL(contract.delivery.dockerfile, root), 'utf8')
 for (const workflow of contract.delivery.workflows) {
   await readFile(new URL(workflow, root), 'utf8')
 }
+await readFile(new URL(contract.tools.harborScanVerifier, root), 'utf8')
 
 for (const [name, command] of Object.entries(contract.commands)) {
   const scriptName = name === 'migrate' ? 'db:migrate' : name

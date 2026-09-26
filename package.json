@@ -8,7 +8,7 @@
   "scripts": {
     "build": "nuxt build && pnpm build:migration",
     "build:migration": "esbuild scripts/db-migrate.mjs --bundle --platform=node --format=esm --packages=bundle --outfile=.output/migrate.mjs",
-    "contract:verify": "node scripts/verify-contract.mjs",
+    "contract:verify": "node .unfogy/scripts/verify-contract.mjs",
     "db:migrate": "node scripts/db-migrate.mjs",
     "dev": "nuxt dev",
     "preview": "nuxt preview",
@@ -16,7 +16,7 @@
     "lint": "eslint .",
     "smoke": "node scripts/smoke.mjs",
     "test": "pnpm test:contract && pnpm test:unit && pnpm test:nuxt",
-    "test:contract": "node --test tests/*.test.mjs",
+    "test:contract": "node --test .unfogy/tests/*.test.mjs",
     "test:nuxt": "vitest run --project nuxt",
     "test:unit": "nuxt prepare && vitest run --project unit",
     "typecheck": "nuxt typecheck"

@@ -7,5 +7,17 @@
 .pnpm-store
 coverage
 node_modules
+
+.woodpecker
+.unfogy
+deploy
+test
+tests
+docs
+
+scripts/smoke.mjs
+scripts/verify-contract.mjs
+scripts/verify-harbor-scan.mjs
+
 npm-debug.log*
 pnpm-debug.log*

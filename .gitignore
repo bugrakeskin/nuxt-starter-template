@@ -6,7 +6,10 @@
 .cache
 dist
 supabase/.temp
-supabase/.temp
+coverage
+.pnpm-store
+*.tsbuildinfo
+.eslintcache
 
 # Node dependencies
 node_modules

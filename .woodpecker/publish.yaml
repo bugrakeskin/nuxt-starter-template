@@ -40,4 +40,4 @@ steps:
       HARBOR_PASSWORD:
         from_secret: harbor_app_push_password
     commands:
-      - node scripts/verify-harbor-scan.mjs
+      - node .unfogy/scripts/verify-harbor-scan.mjs

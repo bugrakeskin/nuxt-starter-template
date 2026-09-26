@@ -1,4 +1,16 @@
 contractVersion: 1
+
+# Static starter compatibility and first-install delivery contract. This file
+# is not copied into generated customer repositories.
+application:
+  root: /
+  nodeMajor: 22
+  packageManager: pnpm@12.4.1
+
+tools:
+  contractVerifier: .unfogy/scripts/verify-contract.mjs
+  harborScanVerifier: .unfogy/scripts/verify-harbor-scan.mjs
+
 runtime:
   healthEndpoint: /api/health
   requiredEnvironment:
@@ -8,6 +20,7 @@ runtime:
       - NUXT_PUBLIC_SUPABASE_KEY
     migration:
       - SUPABASE_DB_URL
+
 commands:
   build: pnpm build
   lint: pnpm lint
@@ -15,12 +28,17 @@ commands:
   test: pnpm test
   smoke: pnpm smoke
   migrate: pnpm db:migrate
+
 delivery:
   contractVersion: 3
+  sourceRef: main
   dockerfile: Dockerfile
   workflows:
     - .woodpecker/validate.yaml
     - .woodpecker/publish.yaml
+  buildAuthority: woodpecker-dockerfile
+  artifactAuthority: harbor-immutable-image
+  runtimeAuthority: coolify-docker-image
   runtime:
     start: node scripts/runtime-entrypoint.mjs
     migrate: node .output/migrate.mjs
@@ -28,6 +46,7 @@ delivery:
     roles:
       - web
       - migration-runner
+
 features:
   auth: true
   database: true

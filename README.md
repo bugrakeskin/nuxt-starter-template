@@ -26,9 +26,32 @@ The generated customer `.unfogy/` directory contains only:
 └── config.yaml    # provisioning and deployment desired state
 ```
 
-The starter's delivery contract remains in the template source; it is not a
-customer MWO provisioning input. The provisioning executor owns config schema
-validation; the schema is not copied into customer application repositories.
+The starter's source-only contract remains in the template repository and is
+not copied into customer repositories:
+
+```text
+.unfogy/
+├── config.yaml
+├── contract.yaml
+├── templates/
+├── scripts/
+└── tests/
+```
+
+`config.yaml` is the only Project provisioning input. `contract.yaml` contains
+the starter's static compatibility, toolchain and delivery authority rules; it
+is not copied into customer application repositories and does not contain
+customer identity, secrets, provider UUIDs or live state.
+
+Starter-only automation helpers live under `.unfogy/scripts/`:
+`verify-contract.mjs` validates the versioned starter contract and
+`verify-harbor-scan.mjs` enforces the Harbor scan gate. Application runtime
+helpers remain under root `scripts/`: migration and container entrypoint code
+are part of the deployed application image. The showcase `smoke.mjs` also
+remains at root because it asserts starter routes.
+
+The tests for these starter contracts live under `.unfogy/tests/`. Nuxt and
+application behavior tests remain under root `test/`.
 
 The Nuxt application intentionally remains at repository root (`app/`,
 `server/`, `nuxt.config.ts`). The current Coolify recipe has no application
@@ -150,3 +173,8 @@ pnpm build
 ```
 
 Coolify deployment remains a separate controlled workflow.
+
+The canonical build path is Woodpecker validation/build, Harbor immutable image
+publication and Coolify Docker Image runtime deployment. Coolify does not clone
+the repository or run a Nixpacks source build; `nixpacks.toml` is therefore not
+part of the starter delivery contract.
