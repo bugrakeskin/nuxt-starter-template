@@ -80,11 +80,18 @@ environment configuration.
 | Variable | Exposure | Default |
 | --- | --- | --- |
 | `NUXT_PUBLIC_APP_NAME` | Browser and server | `Unfogy Starter` |
+| `NUXT_PUBLIC_APP_VERSION` | Browser and server | `0.1.0` |
+| `NUXT_PUBLIC_RELEASE_CHANNEL` | Browser and server | `development` |
 | `NUXT_PUBLIC_SUPABASE_URL` | Browser and server | `https://preview-api.unfogy.com` |
 | `NUXT_PUBLIC_SUPABASE_KEY` | Browser and server | none; required at runtime |
 
 Only values declared under Nuxt `runtimeConfig.public` may be exposed to the
 browser. Secret configuration must never use the `NUXT_PUBLIC_` prefix.
+
+The footer displays the release tag as `v0.1.2-preview.1` for preview and
+`v0.1.2` for production. The stable SemVer version remains `0.1.2`; preview
+iterations are supplied through `NUXT_PUBLIC_RELEASE_CHANNEL=preview.1`, while
+production uses `NUXT_PUBLIC_RELEASE_CHANNEL=production`.
 
 `SUPABASE_DB_URL` belongs only to the ephemeral migration job. Start from
 `.env.migration.example`; never inject it into the Nuxt application.
@@ -99,6 +106,8 @@ returns:
   "status": "ok",
   "service": "Unfogy Starter",
   "contractVersion": 1,
+  "version": "0.1.0",
+  "channel": "preview",
   "revision": "<image build commit>",
   "checks": {
     "supabaseConfiguration": true

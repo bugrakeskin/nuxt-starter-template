@@ -12,6 +12,8 @@ export default defineEventHandler((event) => {
     status: readiness.status,
     service: config.public.appName,
     contractVersion: 1,
+    version: config.public.appVersion,
+    channel: config.public.releaseChannel,
     revision: config.buildRevision,
     checks: {
       supabaseConfiguration: readiness.status === 'ok'

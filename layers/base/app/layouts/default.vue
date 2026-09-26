@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 const config = useRuntimeConfig()
+const { releaseTag } = useReleaseTag()
 const client = useSupabaseClient()
 const user = useSupabaseUser()
 
@@ -53,6 +54,13 @@ async function signOut() {
         <p class="text-sm text-muted">
           {{ config.public.appName }} · Nuxt 4 + Nuxt UI
         </p>
+      </template>
+      <template #right>
+        <UBadge
+          :label="releaseTag"
+          color="neutral"
+          variant="subtle"
+        />
       </template>
     </UFooter>
   </div>

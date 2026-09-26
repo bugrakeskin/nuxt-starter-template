@@ -7,6 +7,12 @@ application:
   nodeMajor: 22
   packageManager: pnpm@12.4.1
 
+versioning:
+  scheme: semver
+  source: package-json
+  releaseChannel: runtime-config
+  immutableArtifact: commit-sha-and-digest
+
 tools:
   contractVerifier: .unfogy/scripts/verify-contract.mjs
   harborScanVerifier: .unfogy/scripts/verify-harbor-scan.mjs
