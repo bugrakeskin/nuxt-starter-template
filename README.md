@@ -140,6 +140,9 @@ Bootstrap attaches pipeline steps to the isolated `unfogy-ci-egress` network;
 workflow steps and the nested Buildx daemon resolve private service names via
 the CI bridge gateway DNS endpoint `10.77.30.1`. The repository keeps trusted network/security enabled for these
 exact workflows, while trusted host volumes remain disabled.
+These values are the materialized form of the platform-owned
+`unfogy-buildx-harbor-v1` delivery profile; application repositories must not
+invent another runner profile.
 
 The only repository secrets used by Woodpecker are the project-scoped Harbor
 push/scan robot credentials, restricted to the pinned Buildx and scan images.

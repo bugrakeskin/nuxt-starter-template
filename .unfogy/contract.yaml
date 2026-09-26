@@ -37,6 +37,7 @@ commands:
 
 delivery:
   contractVersion: 3
+  profile: unfogy-buildx-harbor-v1
   sourceRef: main
   dockerfile: Dockerfile
   workflows:
