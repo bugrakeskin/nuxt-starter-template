@@ -5,19 +5,20 @@ verified scope includes native local development, Nuxt UI theme presets,
 Supabase SSR authentication, user-scoped server guards, fail-closed readiness,
 remote migration execution, metadata contracts and production checks.
 
-## Customer MWO application contract
+## Customer Project application contract
 
-The MWO owns its repository and corresponding Coolify Project. All Tasks for
-the same MWO use this repository and environment set; a different application
-requires a different MWO and repository. Approved provisioning writes the
-non-secret application and environment metadata under [`.unfogy/`](.unfogy/).
+The Project owns its repository and corresponding Coolify Project. MWO and
+Task records bound to the same Project use this repository and environment
+set; a different application requires a different Project repository. Approved
+provisioning writes the non-secret application and environment metadata under
+[`.unfogy/`](.unfogy/).
 
 The Control Plane tracks the customer container at
-`workspaces/customers/<CST...>/customer.yaml`; the local MWO application
-checkout is `workspaces/customers/<CST...>/<MWO...>/`. The single declarative
-provisioning and deployment input is
-`<MWO>/.unfogy/config.yaml`. The starter contains no customer identity or
-allocated MWO record.
+`workspaces/customers/<CST...>/customer.yaml`; the local Project application
+checkout is `workspaces/customers/<CST...>/projects/<project_id>/`. The single
+declarative provisioning and deployment input is
+`<project_id>/.unfogy/config.yaml`. The starter contains no customer identity
+or allocated Project/MWO record.
 
 The generated customer `.unfogy/` directory contains only:
 
