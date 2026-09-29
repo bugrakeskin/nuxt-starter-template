@@ -83,7 +83,7 @@ environment configuration.
 | `NUXT_PUBLIC_APP_NAME` | Browser and server | `Unfogy Starter` |
 | `NUXT_PUBLIC_APP_VERSION` | Browser and server | `0.1.0` |
 | `NUXT_PUBLIC_RELEASE_CHANNEL` | Browser and server | `development` |
-| `NUXT_PUBLIC_SUPABASE_URL` | Browser and server | `https://preview-api.unfogy.com` |
+| `NUXT_PUBLIC_SUPABASE_URL` | Browser and server | `https://api.preview.unfogy.com` |
 | `NUXT_PUBLIC_SUPABASE_KEY` | Browser and server | none; required at runtime |
 
 Only values declared under Nuxt `runtimeConfig.public` may be exposed to the
