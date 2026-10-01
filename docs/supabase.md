@@ -6,13 +6,18 @@ The Nuxt application uses `@nuxtjs/supabase` with SSR cookies:
 
 - `NUXT_PUBLIC_SUPABASE_URL`: environment API gateway URL;
 - `NUXT_PUBLIC_SUPABASE_KEY`: browser-safe publishable key;
-- `SUPABASE_DB_URL`: migration-job-only Postgres connection string.
+- `SUPABASE_DB_URL`: private Postgres URL for approved local tooling or an
+  isolated migration job; never public runtime configuration.
 
-The local `.env.example` starts with the shared integration URL, but application
-configuration has no fallback. Every running environment must inject its URL and
-publishable key explicitly, so a customer deployment cannot silently connect to
-the shared integration service. Do not add a secret key or legacy service-role
-key to the baseline.
+The local `.env.example` contains UI-only placeholders, not a usable shared
+integration URL or key. Set the project's URL and publishable key explicitly;
+application configuration has no fallback. Do not add a secret key or legacy
+service-role key to the baseline.
+
+The starter provides no Customer database resolver or Customer setup command.
+The first-party preview helper is maintained by the separate `unfogy-app` CLI
+and only supports that application. A Customer short name may be supplied as
+`NUXT_PUBLIC_APP_NAME`; it does not select database credentials or authority.
 
 ## Authentication and authorization
 
@@ -40,15 +45,18 @@ need, a narrow adapter and server-only secret handling.
 4. Commit the declarative state and forward migration together.
 5. Replay from zero, run database lint and pgTAP authorization tests, then
    regenerate TypeScript types and reject drift.
-6. Apply remotely only through `pnpm db:migrate` in the same-network ephemeral
-   Coolify job.
+6. Apply reviewed migrations only with explicit authorization for the exact DB
+   target, through `pnpm db:migrate` using an approved private local connection
+   or the same-network ephemeral Coolify job.
 
-Applied migrations are immutable. The runner reads `SUPABASE_DB_URL` from its
-environment, serializes execution, verifies checksums and records history in
-Supabase CLI's `supabase_migrations.schema_migrations` ledger, with checksum
-evidence in `unfogy_migrations.migration_checksums`. It never puts the connection
-string in command arguments. Each migration is transactional; non-transactional
-DDL needs a separate reviewed operational plan.
+Applied migrations are immutable. `pnpm db:migrate` loads an optional local
+`.env` using Node 22's `--env-file-if-exists` support, then reads
+`SUPABASE_DB_URL` from its environment, serializes execution, verifies
+checksums and records history in Supabase CLI's
+`supabase_migrations.schema_migrations` ledger, with checksum evidence in
+`unfogy_migrations.migration_checksums`. It never puts the connection string in
+command arguments. Each migration is transactional; non-transactional DDL needs
+a separate reviewed operational plan.
 
 Enable RLS on every Data API table. Explicitly grant only required roles and
 test both allowed and denied access. Prefer expand-migrate-contract changes;

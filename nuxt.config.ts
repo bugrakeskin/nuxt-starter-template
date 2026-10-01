@@ -16,7 +16,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     buildRevision: process.env.NUXT_BUILD_REVISION || 'development',
     public: {
-      appName: 'Unfogy Starter',
+      appName: process.env.NUXT_PUBLIC_APP_NAME || 'Unfogy Starter',
       appVersion: process.env.NUXT_PUBLIC_APP_VERSION || packageJson.version,
       releaseChannel: process.env.NUXT_PUBLIC_RELEASE_CHANNEL || 'development'
     }

@@ -10,7 +10,7 @@
     "build": "nuxt build && pnpm build:migration",
     "build:migration": "esbuild scripts/db-migrate.mjs --bundle --platform=node --format=esm --packages=bundle --outfile=.output/migrate.mjs",
     "contract:verify": "node .unfogy/scripts/verify-contract.mjs",
-    "db:migrate": "node scripts/db-migrate.mjs",
+    "db:migrate": "node --env-file-if-exists=.env scripts/db-migrate.mjs",
     "dev": "nuxt dev",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",

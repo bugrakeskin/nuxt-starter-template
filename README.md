@@ -74,17 +74,23 @@ the local checkout and remain excluded from Git.
 
 ## Runtime configuration
 
-Copy `.env.example` to `.env` only when a local override is needed. `.env` is
-ignored by Git and Coolify supplies deployment values through its own encrypted
-environment configuration.
+Copy `.env.example` to `.env` and set values for the project before local use.
+The starter does not resolve Customer identity, configure a database, or
+provide a customer-specific setup command. `NUXT_PUBLIC_APP_NAME` is the
+generic display-name setting and may be set to a Customer short name by a
+future project initializer; it does not identify or authorize a database.
+`.env` is ignored by Git and Coolify supplies deployment values through its own
+encrypted environment configuration. The implemented preview setup helper is
+maintained in the separate first-party `unfogy-app` CLI and only targets that
+application.
 
 | Variable | Exposure | Default |
 | --- | --- | --- |
 | `NUXT_PUBLIC_APP_NAME` | Browser and server | `Unfogy Starter` |
 | `NUXT_PUBLIC_APP_VERSION` | Browser and server | `0.1.0` |
 | `NUXT_PUBLIC_RELEASE_CHANNEL` | Browser and server | `development` |
-| `NUXT_PUBLIC_SUPABASE_URL` | Browser and server | `https://api.preview.unfogy.com` |
-| `NUXT_PUBLIC_SUPABASE_KEY` | Browser and server | none; required at runtime |
+| `NUXT_PUBLIC_SUPABASE_URL` | Browser and server | UI-only placeholder; set the project API URL |
+| `NUXT_PUBLIC_SUPABASE_KEY` | Browser and server | UI-only placeholder; set the project's publishable key |
 
 Only values declared under Nuxt `runtimeConfig.public` may be exposed to the
 browser. Secret configuration must never use the `NUXT_PUBLIC_` prefix.
@@ -94,8 +100,12 @@ The footer displays the release tag as `v0.1.2-preview.1` for preview and
 iterations are supplied through `NUXT_PUBLIC_RELEASE_CHANNEL=preview.1`, while
 production uses `NUXT_PUBLIC_RELEASE_CHANNEL=production`.
 
-`SUPABASE_DB_URL` belongs only to the ephemeral migration job. Start from
-`.env.migration.example`; never inject it into the Nuxt application.
+`SUPABASE_DB_URL` is empty in the example and is private configuration for
+approved local tooling or an isolated migration job. `pnpm db:migrate` loads
+an optional local `.env` via Node 22; injected environment values take precedence.
+It applies SQL only when explicitly invoked against an authorized exact target.
+Never expose this URL in public runtime config or client bundles. The future
+Customer setup helper must resolve that target before preparing its local URL.
 
 ## Health contract
 

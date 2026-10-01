@@ -6,6 +6,12 @@ This repository is an opinionated base for customer web applications. Keep
 shared infrastructure here; add business concepts, project layouts and domain
 UI only after provisioning creates the customer repository.
 
+Copy `.env.example` to `.env` and set project-specific values for local use.
+The starter has no Customer resolver or Customer-specific setup helper.
+`NUXT_PUBLIC_APP_NAME` can carry a later Customer short name, but it is only a
+display setting. The existing preview setup helper belongs to the independent
+first-party `unfogy-app` CLI and does not support Customer repositories.
+
 ## Nuxt conventions
 
 - Prefer Nuxt file routing, middleware, runtime config, server routes,
