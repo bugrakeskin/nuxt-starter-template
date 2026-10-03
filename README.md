@@ -1,24 +1,24 @@
 # Unfogy Nuxt Starter
 
-Nuxt 4 and Nuxt UI foundation for Unfogy customer project applications. The
+Nuxt 4 and Nuxt UI foundation for Unfogy customer MWO applications. The
 verified scope includes native local development, Nuxt UI theme presets,
 Supabase SSR authentication, user-scoped server guards, fail-closed readiness,
 remote migration execution, metadata contracts and production checks.
 
-## Customer Project application contract
+## Customer MWO application contract
 
-The Project owns its repository and corresponding Coolify Project. MWO and
-Task records bound to the same Project use this repository and environment
-set; a different application requires a different Project repository. Approved
+The MWO owns its repository and corresponding Coolify Project. Task records
+bound to the same MWO use this repository and environment set; a different
+application requires a different MWO repository. Approved
 provisioning writes the non-secret application and environment metadata under
 [`.unfogy/`](.unfogy/).
 
 The Control Plane tracks the customer container at
-`workspaces/customers/<CST...>/customer.yaml`; the local Project application
-checkout is `workspaces/customers/<CST...>/projects/<project_id>/`. The single
+`workspaces/customers/<CST...>/customer.yaml`; the local MWO application
+checkout is `workspaces/customers/<CST...>/mwos/<MWO...>/`. The single
 declarative provisioning and deployment input is
-`<project_id>/.unfogy/config.yaml`. The starter contains no customer identity
-or allocated Project/MWO record.
+`<MWO...>/.unfogy/config.yaml`. The starter contains no customer identity or
+allocated MWO record.
 
 The generated customer `.unfogy/` directory contains only:
 
@@ -39,7 +39,7 @@ not copied into customer repositories:
 └── tests/
 ```
 
-`config.yaml` is the only Project provisioning input. `contract.yaml` contains
+`config.yaml` is the only MWO provisioning input. `contract.yaml` contains
 the starter's static compatibility, toolchain and delivery authority rules; it
 is not copied into customer application repositories and does not contain
 customer identity, secrets, provider UUIDs or live state.
@@ -74,11 +74,11 @@ the local checkout and remain excluded from Git.
 
 ## Runtime configuration
 
-Copy `.env.example` to `.env` and set values for the project before local use.
+Copy `.env.example` to `.env` and set values for the MWO before local use.
 The starter does not resolve Customer identity, configure a database, or
 provide a customer-specific setup command. `NUXT_PUBLIC_APP_NAME` is the
 generic display-name setting and may be set to a Customer short name by a
-future project initializer; it does not identify or authorize a database.
+future MWO initializer; it does not identify or authorize a database.
 `.env` is ignored by Git and Coolify supplies deployment values through its own
 encrypted environment configuration. The implemented preview setup helper is
 maintained in the separate first-party `unfogy-app` CLI and only targets that
@@ -95,10 +95,10 @@ application.
 Only values declared under Nuxt `runtimeConfig.public` may be exposed to the
 browser. Secret configuration must never use the `NUXT_PUBLIC_` prefix.
 
-The footer displays the release tag as `v0.1.2-preview.1` for preview and
-`v0.1.2` for production. The stable SemVer version remains `0.1.2`; preview
-iterations are supplied through `NUXT_PUBLIC_RELEASE_CHANNEL=preview.1`, while
-production uses `NUXT_PUBLIC_RELEASE_CHANNEL=production`.
+The footer derives its release tag from `NUXT_PUBLIC_APP_VERSION` and
+`NUXT_PUBLIC_RELEASE_CHANNEL`: production uses `v<version>`, while other
+channels use `v<version>-<channel>`. The repository package version is the
+default when `NUXT_PUBLIC_APP_VERSION` is not set.
 
 `SUPABASE_DB_URL` is empty in the example and is private configuration for
 approved local tooling or an isolated migration job. `pnpm db:migrate` loads
