@@ -1,5 +1,7 @@
 # AGENTS.md
 
+- Read and apply the shared SDLC/PR flow in `docs/development.md` before writing any file.
+
 - Read `docs/development.md` before changing application code.
 - Read `docs/theme.md` before changing theme or UI behavior.
 - Read `docs/supabase.md` before changing auth, database or migrations.
