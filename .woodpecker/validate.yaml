@@ -9,6 +9,12 @@ steps:
   - name: validate
     image: node@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94
     commands:
+      - apt-get update && apt-get install --yes --no-install-recommends curl ca-certificates
+      - curl --fail --silent --show-error --location --retry 3 --output /usr/local/bin/okf https://github.com/okf-memory/okf-agent-memory/releases/download/v0.6.0/okf-linux-amd64
+      - echo 'b431f4374f2fefccc69a77e76fee6a37e4c61c31fb58f1e4f2d8e6658145e575  /usr/local/bin/okf' | sha256sum --check -
+      - chmod 0755 /usr/local/bin/okf
+      - okf version
+      - okf validate "$(pwd)/knowledge" --strict --drift --json
       - npm install --global --no-audit --no-fund pnpm@12.4.1
       - pnpm install --frozen-lockfile
       - pnpm contract:verify

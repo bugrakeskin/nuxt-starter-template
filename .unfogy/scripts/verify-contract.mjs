@@ -73,6 +73,7 @@ assert.deepEqual(validateWorkflow.when, [
 ])
 assert.equal(JSON.stringify(validateWorkflow).includes('from_secret'), false, 'validation must not receive secrets')
 assert.ok(validateWorkflow.steps[0].commands.includes('npm install --global --no-audit --no-fund pnpm@12.4.1'))
+assert.ok(validateWorkflow.steps[0].commands.includes('okf validate "$(pwd)/knowledge" --strict --drift --json'), 'CI must run native OKF validation before application checks')
 assert.equal(JSON.stringify(validateWorkflow).includes('corepack prepare'), false)
 
 assert.deepEqual(publishWorkflow.depends_on, ['validate'])

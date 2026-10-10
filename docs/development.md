@@ -52,3 +52,13 @@ a demonstrated requirement and document the resulting contract.
 Run contract verification, tests, lint, typecheck and production build. Run
 HTTP smoke against the built application. For UI changes, follow the browser
 inspection checklist in `docs/theme.md` when an agent browser is available.
+
+## Native knowledge checks
+
+CI installs the unchanged official OKF v0.6.0 Linux AMD64 release, checks its
+SHA-256 and runs native `okf validate "$(pwd)/knowledge" --strict --drift --json`
+from this repository root before application checks. No custom KB validator or
+CLI extension is installed. For local use, verify the official platform binary,
+Git identity and explicit absolute bundle first; search with --scope project.
+Native validation checks conformance, not semantic freshness, tenant authority
+or hosted execution. Review source claims and shared references in the PR.

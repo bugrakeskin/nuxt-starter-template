@@ -26,7 +26,9 @@
 
 - Verify admitted Git root/origin and task binding; read knowledge/index.md before concepts and resolve its pinned Control standard.
 - Read overview for scope, technology for stack sources and architecture for affected boundaries; select only task-relevant concepts.
-- Search the verified absolute knowledge bundle with official OKF v0.6.0 and --scope project; read matching concepts with show.
+- Use unmodified official OKF v0.6.0; never patch, fork, wrap or add custom CLI flags.
+- Pass the verified absolute knowledge bundle to every CLI command; search with --scope project, including upstream skill examples, then read matches with show.
+- Keep Unfogy admission and approval rules here and in verified Control; use the unchanged upstream OKF skill for tool usage.
 - Read contracts/system.md and the linked owning contract before changing interfaces, data, authorization or extensions.
 - Update source-backed concepts and affected docs in the same task branch/PR as their source change; preserve existing IDs and provenance.
 - Record local rationale in decisions.md and terms in glossary.md; let native OKF create/update maintain log.md.

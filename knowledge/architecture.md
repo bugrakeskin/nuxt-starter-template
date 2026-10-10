@@ -2,9 +2,9 @@
 type: Architecture
 title: Nuxt starter architecture
 description: "Describes local building blocks, runtime flow, deployment boundaries and risks."
-generated: { by: agent/codex, at: "2026-10-10T07:50:50Z" }
+generated: { by: agent/codex, at: "2026-10-10T08:46:43Z" }
 status: stable
-code_refs: ["nuxt.config.ts", "docs/README.md", "Dockerfile", ".unfogy/contract.yaml"]
+code_refs: ["nuxt.config.ts", "docs/README.md", "Dockerfile", ".unfogy/contract.yaml", "app/", "layers/base/", "server/", "supabase/", "scripts/"]
 sources:
   - resource: ../docs/README.md
     id: source-map
