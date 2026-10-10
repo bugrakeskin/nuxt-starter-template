@@ -62,3 +62,7 @@ CLI extension is installed. For local use, verify the official platform binary,
 Git identity and explicit absolute bundle first; search with --scope project.
 Native validation checks conformance, not semantic freshness, tenant authority
 or hosted execution. Review source claims and shared references in the PR.
+
+Contract verification also checks active docs and KB Markdown local links and
+standard markdownlint table rules MD056/MD058. Archived migration docs are
+excluded. This checks document structure, not OKF semantics or live evidence.

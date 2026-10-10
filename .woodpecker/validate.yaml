@@ -1,7 +1,7 @@
 when:
   - event: pull_request
   - event: push
-    branch: [task/*, feature/*, main]
+    branch: [task/*, feature/*, uf/*, main]
   - event: manual
     branch: main
 

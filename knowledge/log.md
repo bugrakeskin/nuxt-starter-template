@@ -1,4 +1,6 @@
 ## 2026-10-10
+* **Update**: Updated concept `development.md`.
+* **Update**: Updated concept `development.md`.
 * **Update**: Updated concept `decisions.md`.
 * **Update**: Updated concept `decisions.md`.
 * **Update**: Updated concept `initialization.md`.
