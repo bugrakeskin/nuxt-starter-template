@@ -46,11 +46,10 @@ test('KB navigation rejects missing links and native-update table fragmentation'
   } finally { await rm(directory, { recursive: true, force: true }) }
 })
 
-
 test('root docs removal preserves KB links and source-map checks', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'unfogy-kb-only-'))
   try {
-    for (const file of ["README.md", "AGENTS.md", "supabase/schemas/README.md", "supabase/migrations/README.md", "knowledge/index.md"]) {
+    for (const file of ['README.md', 'AGENTS.md', 'supabase/schemas/README.md', 'supabase/migrations/README.md', 'knowledge/index.md']) {
       await mkdir(join(directory, file, '..'), { recursive: true })
       await writeFile(join(directory, file), '# Entry\n')
     }
