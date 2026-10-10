@@ -41,6 +41,6 @@
 ## Product and design discovery
 
 - Read knowledge/product.md and knowledge/design.md through native OKF search/show before product or visual design work.
-- Treat root PRODUCT.md and DESIGN.md as redirects; load their linked concepts in full and never regenerate competing root facts.
+- Product/design live only in knowledge/product.md and knowledge/design.md; do not recreate root PRODUCT.md or DESIGN.md, including when a tool suggests initialization.
 - Keep product purpose, visual styling and screen/feature interactions at their local owning concepts; update task-relevant owners together.
 - Rebind product/design through knowledge/initialization.md after an admitted clone; never import App identity or candidate/meeting rules.

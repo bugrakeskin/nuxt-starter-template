@@ -2,7 +2,7 @@
 type: Architecture
 title: Bind knowledge after cloning
 description: Preserve starter provenance and replace identity after authorized admission.
-generated: { by: agent/codex, at: "2026-10-10T10:34:15Z" }
+generated: { by: agent/codex, at: "2026-10-10T10:40:14Z" }
 status: stable
 code_refs: [AGENTS.md, docs/development.md, .unfogy/contract.yaml]
 ---
@@ -28,7 +28,7 @@ Replace generic starter users/purpose and theme observations with approved proje
 facts and verified source mappings. Record unknown facts explicitly; never fabricate
 users, brand, implemented capability or runtime evidence. Keep the same local concept
 IDs and native OKF metadata. Add useful project screen/feature concepts only when
-needed, without importing App candidate or meeting rules. Root PRODUCT.md and
-DESIGN.md route to these concepts and must remain free of duplicate editable facts.
+needed, without importing App candidate or meeting rules. Product/design live only in these local OKF concepts. Do not recreate root
+PRODUCT.md or DESIGN.md during clone initialization or design-tool setup.
 Update README/docs/AGENTS discovery with the local owners. Validate both native
 conformance and document/source links before accepting initialization.

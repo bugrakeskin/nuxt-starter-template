@@ -2,7 +2,7 @@
 type: Decision
 title: Nuxt starter decision ownership
 description: Records local architecture rationale and routes shared approved decisions to Control.
-generated: { by: agent/codex, at: "2026-10-10T10:34:15Z" }
+generated: { by: agent/codex, at: "2026-10-10T10:40:14Z" }
 status: stable
 code_refs: [AGENTS.md, docs/development.md]
 ---
@@ -21,3 +21,6 @@ Read [development](development.md), [architecture](architecture.md) and [glossar
 Shared standard version 3 is pinned to reviewed Control commit 23f3de185183875d1eeb9b5c8fa16624fb2e559d; its repository-knowledge contract and unchanged upstream skill were inspected independently. Pinning grants no merge, runtime or tenant authority.
 
 2026-10-10 — human approved the common product/design OKF content structure and local AGENTS routing. Add source-backed generic product/design concepts and clone rebinding; root files are routing entries only. Do not inherit Unfogy App identity, fixed-viewport or candidate/meeting rules. Preserve existing IDs and the arc42 minimum profile. Source: direct user approval following App/starter migration analysis. This is documentation approval, not provisioning, merge or deployment authority.
+
+
+2026-10-10 — human approved removing root PRODUCT.md and DESIGN.md after the completed OKF migration. This supersedes the earlier root-redirect choice; canonical product/design concepts remain under knowledge/. README and AGENTS route directly there; tools must not recreate root copies. Source: direct user removal request. Existing migration provenance and concept IDs are retained; no merge or deployment authority is added.

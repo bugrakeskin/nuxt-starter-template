@@ -2,7 +2,7 @@
 type: Architecture
 title: Nuxt starter design foundation
 description: Maps generic Nuxt UI theme sources and defines project design rebinding without copying App identity.
-generated: { by: agent/codex, at: "2026-10-10T10:34:55Z" }
+generated: { by: agent/codex, at: "2026-10-10T10:40:14Z" }
 status: stable
 code_refs: [app/utils/theme-presets.ts, app/composables/useThemePreset.ts, app/assets/css/main.css, docs/theme.md]
 ---
@@ -46,6 +46,6 @@ See [initialization](initialization.md) for identity and provenance acceptance.
 ## Provenance and entry points
 
 Human approved this generic design knowledge structure on 2026-10-10. Sources:
-existing theme catalog, composable, CSS and docs/theme.md. Root DESIGN.md is a
-routing entry only; canonical design lives here. Stop affected claims on unresolved
+existing theme catalog, composable, CSS and docs/theme.md. Canonical design lives here;
+root PRODUCT.md and DESIGN.md were removed with human approval on 2026-10-10. Stop affected claims on unresolved
 source or project identity. This document establishes no Customer brand or deployed UI.
