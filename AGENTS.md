@@ -1,10 +1,10 @@
 # AGENTS.md
 
-- Read and apply the shared SDLC/PR flow in `docs/development.md` before writing any file.
+- Read and apply the shared SDLC/PR flow in `knowledge/development.md` before writing any file.
 
-- Read `docs/development.md` before changing application code.
-- Read `docs/theme.md` before changing theme or UI behavior.
-- Read `docs/supabase.md` before changing auth, database or migrations.
+- Read `knowledge/development.md` before changing application code.
+- Read `knowledge/design.md` before changing theme or UI behavior.
+- Read `knowledge/contracts/supabase.md` before changing auth, database or migrations.
 - When this repository is used inside the control-plane checkout, for Nuxt framework work read and apply `../../../.agents/skills/nuxt/SKILL.md` and only the relevant referenced file before editing; when standalone, use the equivalent installed `nuxt` skill from the upstream source.
 - When this repository is used inside the control-plane checkout, for Nuxt UI work read and apply `../../../.agents/skills/nuxt-ui/SKILL.md` and the relevant `references/` file before editing; when standalone, use the equivalent installed `nuxt-ui` skill from the upstream source.
 - Treat the local Nuxt UI skill as the v4 authority for component selection, semantic tokens, theming, forms, overlays and layout patterns; verify the installed `@nuxt/ui` version before using v3 guidance.
@@ -37,3 +37,10 @@
 - Cite repository ID, concept ID and absolute source path; read shared Control rules through a separately verified binding.
 - After an authorized clone, apply knowledge/initialization.md; replace template identity and review every minimum-profile document against the resulting project.
 - Keep this KB generic; never copy Unfogy App candidate, meeting or live-provider facts into the starter.
+
+## Product and design discovery
+
+- Read knowledge/product.md and knowledge/design.md through native OKF search/show before product or visual design work.
+- Product/design live only in knowledge/product.md and knowledge/design.md; do not recreate root PRODUCT.md or DESIGN.md, including when a tool suggests initialization.
+- Keep product purpose, visual styling and screen/feature interactions at their local owning concepts; update task-relevant owners together.
+- Rebind product/design through knowledge/initialization.md after an admitted clone; never import App identity or candidate/meeting rules.

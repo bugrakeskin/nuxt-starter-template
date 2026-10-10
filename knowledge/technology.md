@@ -2,11 +2,11 @@
 type: Architecture
 title: Nuxt starter technology sources
 description: "Maps framework, tooling and integrations to their actual configuration files."
-generated: { by: agent/codex, at: "2026-10-10T07:51:30Z" }
+generated: { by: agent/codex, at: "2026-10-10T10:51:37Z" }
 status: stable
-code_refs: [package.json, pnpm-lock.yaml, nuxt.config.ts, docs/supabase.md, .unfogy/contract.yaml]
+code_refs: [package.json, pnpm-lock.yaml, nuxt.config.ts, knowledge/contracts/supabase.md, .unfogy/contract.yaml]
 sources:
-  - resource: ../docs/README.md
+  - resource: ../knowledge/index.md
     id: source-map
     title: Owning repository source map
 ---
@@ -17,4 +17,4 @@ Nuxt/Vue provide application and server routing. Nuxt UI and Tailwind provide th
 
 The starter extends layers/base and deliberately excludes App business integrations. The static .unfogy/contract.yaml describes starter compatibility and delivery expectations; it is not tenant authorization.
 
-Keep runtime secrets out of public configuration. Read [architecture](architecture.md), [system contract](contracts/system.md), `docs/development.md` (ordinary development reference) and `docs/supabase.md` (auth/database reference). Configuration or dependency presence does not prove deployed availability.
+Keep runtime secrets out of public configuration. Read [architecture](architecture.md), [system](contracts/system.md), [development](development.md) (ordinary development reference) and [supabase](contracts/supabase.md) (auth/database reference). Configuration or dependency presence does not prove deployed availability.

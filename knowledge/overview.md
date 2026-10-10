@@ -2,11 +2,11 @@
 type: Architecture
 title: Nuxt starter purpose and scope
 description: "Defines repository users, purpose, owned features and exclusions."
-generated: { by: agent/codex, at: "2026-10-10T07:50:50Z" }
+generated: { by: agent/codex, at: "2026-10-10T10:51:37Z" }
 status: stable
-code_refs: ["README.md", "docs/README.md", "AGENTS.md"]
+code_refs: [README.md, knowledge/index.md, AGENTS.md]
 sources:
-  - resource: ../docs/README.md
+  - resource: ../knowledge/index.md
     id: source-map
     title: Owning repository source map
 ---
@@ -19,4 +19,6 @@ Customer identity, business layouts, Jitsi meetings and Unfogy candidate feature
 
 Quality priorities: protected secrets, server authorization, source-backed contracts and reproducible checks. Preserve generic framework primitives and require identity rebinding after cloning.
 
-Read [technology](technology.md), [architecture](architecture.md), [development](development.md) and [system contract](contracts/system.md).
+Read [technology](technology.md), [architecture](architecture.md), [development](development.md) and [system](contracts/system.md).
+
+Read [product](product.md) for starter audience and capability limits and [design](design.md) for generic visual source mappings. Rebind both through [initialization](initialization.md) after an authorized clone.

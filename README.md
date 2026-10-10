@@ -11,7 +11,7 @@ The MWO owns its repository and corresponding Coolify Project. Task records
 bound to the same MWO use this repository and environment set; a different
 application requires a different MWO repository. Approved
 provisioning writes the non-secret application and environment metadata under
-[`.unfogy/`](.unfogy/).
+[`.unfogy/`](.unfogy).
 
 The Control Plane tracks the customer container at
 `workspaces/customers/<CST...>/customer.yaml`; the local MWO application
@@ -183,8 +183,8 @@ Browser E2E and screenshot tests are intentionally not baseline dependencies.
 Agents inspect theme behavior with the built-in browser when that capability is
 available.
 
-Read [`docs/development.md`](docs/development.md),
-[`docs/supabase.md`](docs/supabase.md), and [`docs/theme.md`](docs/theme.md)
+Read [`knowledge/development.md`](knowledge/development.md),
+[`knowledge/contracts/supabase.md`](knowledge/contracts/supabase.md), and [`knowledge/design.md`](knowledge/design.md)
 before extending the starter.
 
 ## Production build check
@@ -204,4 +204,13 @@ part of the starter delivery contract.
 
 ## Documentation
 
-Use [docs/README.md](docs/README.md) and the [repository KB](knowledge/index.md). Bind the cloned project identity through the initialization concept before project acceptance.
+Use the [repository KB](knowledge/index.md). Bind the cloned project identity through the initialization concept before project acceptance.
+
+Product and visual design owners: [product](knowledge/product.md) and [design](knowledge/design.md).
+
+## Module source map
+
+The [architecture source map](knowledge/architecture.md) and module READMEs document local implementation paths.
+
+- [supabase/schemas/README.md](supabase/schemas/README.md)
+- [supabase/migrations/README.md](supabase/migrations/README.md)

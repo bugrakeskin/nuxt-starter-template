@@ -17,6 +17,9 @@ These assertions do not grant repository or tenant authority. Verify Git root, o
 
 ## Topic map
 
+* [Nuxt starter product intent](product.md) - Defines the generic starter audience and purpose and requires project-specific rebinding after cloning.
+* [Nuxt starter design foundation](design.md) - Maps generic Nuxt UI theme sources and defines project design rebinding without copying App identity.
+
 * [Development and repository discovery](development.md) - Repository ownership, source map and local verification entry points.
 * [Generic Nuxt foundation](foundation.md) - Framework and delivery sources without customer domain features.
 * [Bind knowledge after cloning](initialization.md) - Preserve starter provenance and replace identity after authorized admission.
@@ -35,7 +38,7 @@ profile_version: 1
 
 * [Nuxt starter purpose and scope](overview.md) - Defines repository users, purpose, owned features and exclusions.
 
-This is a tailored arc42 profile, not an official arc42 filename requirement or a new OKF format. Ordinary docs remain under docs/.
+This is a tailored arc42 profile, not an official arc42 filename requirement or a new OKF format. Repository knowledge lives in this root bundle; module READMEs stay beside their sources.
 * [Nuxt starter technology sources](technology.md) - Maps framework, tooling and integrations to their actual configuration files.
 * [Nuxt starter architecture](architecture.md) - Describes local building blocks, runtime flow, deployment boundaries and risks.
 * [Nuxt starter decision ownership](decisions.md) - Records local architecture rationale and routes shared approved decisions to Control.
@@ -43,4 +46,4 @@ This is a tailored arc42 profile, not an official arc42 filename requirement or 
 
 ## Migration provenance
 
-Inherited starter concepts development, foundation and initialization and their original log were moved from docs/knowledge without changing their IDs. The original foundation content remains unchanged. Source baseline: e0290da (starter origin above); subsequent updates use native OKF bookkeeping. Shared standard upgrades require review.
+Inherited starter concepts development, foundation and initialization and their original log were moved from docs/knowledge without changing their IDs. Foundation retains its ID; current source-backed content is maintained through native updates. Source baseline: e0290da (starter origin above); subsequent updates use native OKF bookkeeping. Shared standard upgrades require review.

@@ -1,3 +1,12 @@
+---
+type: Contract
+title: Supabase auth and migration contract
+description: "Defines local authentication, user-scoped access, secret boundaries and reviewed migration procedures."
+generated: { by: agent/codex, at: "2026-10-10T10:51:37Z" }
+status: stable
+code_refs: [nuxt.config.ts, server/utils/auth.ts, supabase/, scripts/db-migrate.mjs]
+---
+
 # Supabase rules
 
 ## Runtime configuration
@@ -22,8 +31,7 @@ and only supports that application. A Customer short name may be supplied as
 ## Authentication and authorization
 
 The baseline supports email/password and magic-link sign-in for invited users.
-It does not expose self-signup. `/login` and `/confirm` are public; other pages
-are protected by default. Supabase Auth URL configuration must allow the exact
+It does not expose self-signup. The current generic showcase is public: nuxt.config.ts sets redirect: false and this source has no application auth middleware. A project clone must implement its reviewed route protection; redirectOptions alone does not activate redirects. Supabase Auth URL configuration must allow the exact
 environment callback URL.
 
 Use `requireUser(event)` for authentication and
@@ -66,3 +74,8 @@ there is no automatic database rollback.
 
 Realtime, Storage, privileged clients, customer-wide theme persistence and
 custom SMTP template hosting are not part of the baseline.
+
+
+## Migration provenance
+
+Human approved root docs consolidation and removal on 2026-10-10. Original source: docs/supabase.md at d5bec342f07c533bd245c60ad54a562200ff3b9e. Preserved intent and source observations do not establish fresh runtime success. Shared governance remains in the separately admitted Control repository.

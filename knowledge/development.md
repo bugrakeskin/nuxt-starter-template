@@ -2,22 +2,108 @@
 type: Architecture
 title: Development and repository discovery
 description: "Repository ownership, source map and local verification entry points."
-generated: { by: agent/codex, at: "2026-10-10T09:36:47Z" }
+generated: { by: agent/codex, at: "2026-10-10T10:52:04Z" }
 status: stable
-code_refs: [docs/development.md, package.json, .woodpecker/validate.yaml]
+code_refs: [AGENTS.md, package.json, .woodpecker/validate.yaml, .unfogy/scripts/verify-contract.mjs, .unfogy/scripts/verify-docs.mjs, scripts/smoke.mjs]
 ---
 
-Read `docs/README.md` for the source map and `docs/development.md` for local development rules. Read this bundle index before selecting concepts. Use an explicit absolute bundle for okf search/show; validate the explicit absolute <verified-root>/knowledge bundle with --strict --drift; search with --scope project. Shared authority belongs to Control concept contracts/repository-knowledge and contracts/development (D-471), at the adopted standard_revision. Resolve a verified Control checkout or reviewed standard package; do not silently use another repository KB.
+# Development rules
+
+## Scope
+
+This repository is an opinionated base for customer web applications. Keep
+shared infrastructure here; add business concepts, project layouts and domain
+UI only after provisioning creates the customer repository.
+
+Copy `.env.example` to `.env` and set project-specific values for local use.
+The starter has no Customer resolver or Customer-specific setup helper.
+`NUXT_PUBLIC_APP_NAME` can carry a later Customer short name, but it is only a
+display setting. The existing preview setup helper belongs to the independent
+first-party `unfogy-app` CLI and does not support Customer repositories.
+
+## Shared SDLC and PR flow
+
+Apply Control concept `contracts/development`, D-471, the
+[shared repository PR standard](https://github.com/bugrakeskin/unfogy-control/blob/main/knowledge/contracts/development.md#shared-repository-pr-flow--d-471).
+Resolve the verified Control source and approved revision before work; if
+unavailable, report the gap. The same SDLC applies to Customer and inhouse work:
+a task branch/worktree, a reviewed PR to `main`, scoped checks and current human
+approval. Direct main writes/pushes and mandatory integration branches are
+excluded. Merge does not grant deployment authority. Owner-specific approval
+and current runtime capability limits remain in the canonical contract.
+
+## Nuxt conventions
+
+- Prefer Nuxt file routing, middleware, runtime config, server routes,
+  composables, error handling and auto-imports.
+- Keep browser-safe values under `runtimeConfig.public`; keep secrets out of
+  public runtime config and client bundles.
+- Use `app/error.vue` for page 403, 404 and unexpected failures.
+- Return structured 401/403 errors from server APIs; never redirect API calls.
+- Keep pages protected by default when authentication is enabled. Add public
+  routes only to the explicit Supabase redirect allowlist.
+
+## UI conventions
+
+- Use Nuxt UI components before introducing a custom primitive.
+- Use semantic classes such as `text-muted`, `bg-elevated` and `text-primary`.
+- Never branch application templates on a theme preset ID.
+- Layout may change in a customer project without changing the theme contract.
+
+## Dependency rule
+
+Reuse Nuxt, Vue and platform capabilities first. Pin tool dependencies that
+affect automation. Add state, i18n, ORM, validation or form libraries only for
+a demonstrated requirement and document the resulting contract.
+
+## Completion
+
+Run contract verification, tests, lint, typecheck and production build. Run
+HTTP smoke against the built application. For UI changes, follow the browser
+inspection checklist in [design](design.md) when an agent browser is available.
+
+## Native knowledge checks
+
+CI installs the unchanged official OKF v0.6.0 Linux AMD64 release, checks its
+SHA-256 and runs native `okf validate "$(pwd)/knowledge" --strict --drift --json`
+from this repository root before application checks. No custom KB validator or
+CLI extension is installed. For local use, verify the official platform binary,
+Git identity and explicit absolute bundle first; search with --scope project.
+Native validation checks conformance, not semantic freshness, tenant authority
+or hosted execution. Review source claims and shared references in the PR.
+
+Contract verification also checks active docs and KB Markdown local links and
+standard markdownlint table rules MD056/MD058. Historical evidence remains in typed local concepts and is included in link checks. This checks document structure, not OKF semantics or live evidence.
+
+
+## Testing
+
+The baseline intentionally has no browser E2E or screenshot test package.
+
+- `pnpm test:contract` checks allocation-free project metadata contracts.
+- `pnpm contract:verify` checks secret boundaries, immutable delivery tags,
+  deploy ordering, build revision metadata, and the bootstrap canary context.
+- `pnpm test:unit` checks pure utilities and server policy helpers.
+- `pnpm test:nuxt` checks behavior that requires an initialized Nuxt context.
+- `pnpm test` runs contract, unit and Nuxt tests; `contract:verify` and smoke run separately.
+- `pnpm smoke` checks a running production build over HTTP.
+
+Set `EXPECTED_BUILD_REVISION` when smoke-testing a container to require
+`/api/health` to report that exact image build revision.
+
+Tests use synthetic configuration only. Do not put live keys or customer data
+in fixtures, snapshots or CI variables. Database projects add pgTAP tests for
+RLS, policies and functions alongside their schemas.
+
+
+## Knowledge discovery
+
+Read `knowledge/index.md` for the source map and [development](development.md) for local development rules. Read this bundle index before selecting concepts. Use an explicit absolute bundle for okf search/show; validate the explicit absolute <verified-root>/knowledge bundle with --strict --drift; search with --scope project. Shared authority belongs to Control concept contracts/repository-knowledge and contracts/development (D-471), at the adopted standard_revision. Resolve a verified Control checkout or reviewed standard package; do not silently use another repository KB.
 
 Source observations describe code, not runtime success. Missing tools, KB, identity or sources stop the affected claim. Keep documentation changes with their implementation PR.
 
-Related: [initialization](initialization.md), [foundation](foundation.md).
 
 
-The root bundle uses official OKF v0.6.0 without custom flags. Review [overview](overview.md), [technology](technology.md), [architecture](architecture.md) and [system contract](contracts/system.md). Rebind every minimum-profile document after cloning; retain generic framework facts only where verified in the resulting project.
+## Migration provenance
 
-
-CI installs checksum-verified official OKF v0.6.0 and runs native validation directly on this root bundle before application checks. The upstream skill remains unchanged; apply repository AGENTS absolute-bundle/project-scope rules to its generic examples. No CLI extension or custom KB validator is introduced. Hosted CI success requires exact pipeline evidence.
-
-Contract verification includes active docs/KB Markdown checks; exact local
-commands and limitations are owned by `docs/development.md`.
+Human approved root docs consolidation and removal on 2026-10-10. Original source: docs/development.md and docs/testing.md at d5bec342f07c533bd245c60ad54a562200ff3b9e. Preserved intent and source observations do not establish fresh runtime success. Shared governance remains in the separately admitted Control repository.
