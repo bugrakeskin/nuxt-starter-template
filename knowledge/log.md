@@ -1,4 +1,44 @@
 ## 2026-10-10
+* **Update**: Updated concept `foundation.md`.
+* **Update**: Updated concept `design.md`.
+* **Update**: Updated concept `foundation.md`.
+* **Update**: Updated concept `initialization.md`.
+* **Update**: Updated concept `architecture.md`.
+* **Update**: Updated concept `development.md`.
+* **Update**: Updated concept `architecture.md`.
+* **Update**: Updated concept `technology.md`.
+* **Update**: Updated concept `product.md`.
+* **Update**: Updated concept `overview.md`.
+* **Update**: Updated concept `initialization.md`.
+* **Update**: Updated concept `glossary.md`.
+* **Update**: Updated concept `foundation.md`.
+* **Update**: Updated concept `evidence/theme-baseline.md`.
+* **Update**: Updated concept `development.md`.
+* **Update**: Updated concept `design.md`.
+* **Update**: Updated concept `decisions.md`.
+* **Update**: Updated concept `contracts/system.md`.
+* **Update**: Updated concept `contracts/supabase.md`.
+* **Update**: Updated concept `architecture.md`.
+* **Update**: Updated concept `decisions.md`.
+* **Update**: Updated concept `contracts/system.md`.
+* **Update**: Updated concept `technology.md`.
+* **Update**: Updated concept `product.md`.
+* **Update**: Updated concept `overview.md`.
+* **Update**: Updated concept `initialization.md`.
+* **Update**: Updated concept `glossary.md`.
+* **Update**: Updated concept `foundation.md`.
+* **Update**: Updated concept `evidence/theme-baseline.md`.
+* **Update**: Updated concept `development.md`.
+* **Update**: Updated concept `design.md`.
+* **Update**: Updated concept `decisions.md`.
+* **Update**: Updated concept `contracts/system.md`.
+* **Update**: Updated concept `contracts/supabase.md`.
+* **Update**: Updated concept `architecture.md`.
+* **Update**: Updated concept `foundation.md`.
+* **Creation**: Documented concept `evidence/theme-baseline.md` (Historical theme measurement baseline).
+* **Update**: Updated concept `design.md`.
+* **Creation**: Documented concept `contracts/supabase.md` (Supabase auth and migration contract).
+* **Update**: Updated concept `development.md`.
 * **Update**: Updated concept `initialization.md`.
 * **Update**: Updated concept `design.md`.
 * **Update**: Updated concept `decisions.md`.

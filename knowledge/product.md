@@ -2,9 +2,9 @@
 type: Reference
 title: Nuxt starter product intent
 description: Defines the generic starter audience and purpose and requires project-specific rebinding after cloning.
-generated: { by: agent/codex, at: "2026-10-10T10:34:15Z" }
+generated: { by: agent/codex, at: "2026-10-10T10:51:37Z" }
 status: stable
-code_refs: ["README.md", "docs/development.md", "nuxt.config.ts"]
+code_refs: [README.md, knowledge/development.md, nuxt.config.ts]
 ---
 
 # Nuxt starter product
@@ -27,14 +27,14 @@ routes demonstrate patterns; they are not a Customer's operational product.
 
 ## Capabilities and Constraints
 
-[Overview](overview.md) owns repository scope. [Foundation](foundation.md) and
+[overview](overview.md) owns repository scope. [foundation](foundation.md) and
 [architecture](architecture.md) own technical boundaries. Provisioning, Customer
 resolution, meeting integration and business workflows are outside this baseline.
 Runtime declarations are not evidence of a deployed Customer service.
 
 ## Brand Commitments
 
-[Design](design.md) owns generic semantic Nuxt UI styling and runtime sources.
+[design](design.md) owns generic semantic Nuxt UI styling and runtime sources.
 A clone defines its own reviewed brand and visual direction; it does not inherit
 Unfogy App product users, brick identity, fixed viewport or meeting exceptions.
 
@@ -52,5 +52,5 @@ facts or leave template identity as project truth. This is a useful starter conc
 not an empty product questionnaire.
 
 Human approved the common App/starter product-design knowledge structure on
-2026-10-10. Source evidence is this repository's README, docs/development.md,
+2026-10-10. Source evidence is this repository's README, knowledge/development.md,
 nuxt.config.ts and framework foundation. No App domain requirements were copied.

@@ -60,10 +60,9 @@ export async function verifyDocs(root) {
     'README.md', 'AGENTS.md', 'supabase/schemas/README.md',
     'supabase/migrations/README.md'
   ].map(path => join(root, path))
-  documents.push(...await markdownFiles(join(root, 'docs')))
   documents.push(...await markdownFiles(join(root, 'knowledge')))
   const result = await verifyDocuments(documents)
-  result.errors.push(...await checkStructure(join(root, 'docs/README.md'), root))
+  result.errors.push(...await checkStructure(join(root, 'knowledge/architecture.md'), root))
   return result
 }
 

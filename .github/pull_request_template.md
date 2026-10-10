@@ -15,4 +15,4 @@ For deployable changes, keep preview/production authorization separate from merg
 - [ ] Required review and current human approval are recorded for this candidate.
 - [ ] Merge does not trigger or grant deployment authority.
 
-Apply the [shared SDLC/PR standard](../docs/development.md#shared-sdlc-and-pr-flow).
+Apply the [shared SDLC/PR standard](../knowledge/development.md#shared-sdlc-and-pr-flow).

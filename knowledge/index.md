@@ -38,7 +38,7 @@ profile_version: 1
 
 * [Nuxt starter purpose and scope](overview.md) - Defines repository users, purpose, owned features and exclusions.
 
-This is a tailored arc42 profile, not an official arc42 filename requirement or a new OKF format. Ordinary docs remain under docs/.
+This is a tailored arc42 profile, not an official arc42 filename requirement or a new OKF format. Repository knowledge lives in this root bundle; module READMEs stay beside their sources.
 * [Nuxt starter technology sources](technology.md) - Maps framework, tooling and integrations to their actual configuration files.
 * [Nuxt starter architecture](architecture.md) - Describes local building blocks, runtime flow, deployment boundaries and risks.
 * [Nuxt starter decision ownership](decisions.md) - Records local architecture rationale and routes shared approved decisions to Control.
@@ -46,4 +46,4 @@ This is a tailored arc42 profile, not an official arc42 filename requirement or 
 
 ## Migration provenance
 
-Inherited starter concepts development, foundation and initialization and their original log were moved from docs/knowledge without changing their IDs. The original foundation content remains unchanged. Source baseline: e0290da (starter origin above); subsequent updates use native OKF bookkeeping. Shared standard upgrades require review.
+Inherited starter concepts development, foundation and initialization and their original log were moved from docs/knowledge without changing their IDs. Foundation retains its ID; current source-backed content is maintained through native updates. Source baseline: e0290da (starter origin above); subsequent updates use native OKF bookkeeping. Shared standard upgrades require review.
