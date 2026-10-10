@@ -1,3 +1,3 @@
 # Contract map
 
-* [System boundaries](system.md) - Routes APIs, data, authorization and extension boundaries to their source owners.
+* [Nuxt starter system contracts](system.md) - Routes APIs, data, authorization and extension boundaries to their source owners.

@@ -2,9 +2,9 @@
 type: Architecture
 title: Development and repository discovery
 description: "Repository ownership, source map and local verification entry points."
-generated: { by: agent/codex, at: "2026-10-10T07:50:50Z" }
+generated: { by: agent/codex, at: "2026-10-10T09:36:47Z" }
 status: stable
-code_refs: ["docs/development.md", "package.json"]
+code_refs: [docs/development.md, package.json, .woodpecker/validate.yaml]
 ---
 
 Read `docs/README.md` for the source map and `docs/development.md` for local development rules. Read this bundle index before selecting concepts. Use an explicit absolute bundle for okf search/show; validate the explicit absolute <verified-root>/knowledge bundle with --strict --drift; search with --scope project. Shared authority belongs to Control concept contracts/repository-knowledge and contracts/development (D-471), at the adopted standard_revision. Resolve a verified Control checkout or reviewed standard package; do not silently use another repository KB.
@@ -15,3 +15,9 @@ Related: [initialization](initialization.md), [foundation](foundation.md).
 
 
 The root bundle uses official OKF v0.6.0 without custom flags. Review [overview](overview.md), [technology](technology.md), [architecture](architecture.md) and [system contract](contracts/system.md). Rebind every minimum-profile document after cloning; retain generic framework facts only where verified in the resulting project.
+
+
+CI installs checksum-verified official OKF v0.6.0 and runs native validation directly on this root bundle before application checks. The upstream skill remains unchanged; apply repository AGENTS absolute-bundle/project-scope rules to its generic examples. No CLI extension or custom KB validator is introduced. Hosted CI success requires exact pipeline evidence.
+
+Contract verification includes active docs/KB Markdown checks; exact local
+commands and limitations are owned by `docs/development.md`.

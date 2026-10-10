@@ -9,8 +9,8 @@ okf_version: "0.2"
 
 repository_id: nuxt-starter-template
 remote: https://github.com/bugrakeskin/nuxt-starter-template.git
-standard_version: 2
-standard_revision: 688e7bbe85075778b5ea11fa0c52fc049febcf3e
+standard_version: 4
+standard_revision: a8efded97b3432cee3a23ca435d9e260493664fb
 scope: generic-starter
 
 These assertions do not grant repository or tenant authority. Verify Git root, origin and the admitted task binding before searching.
@@ -21,7 +21,12 @@ These assertions do not grant repository or tenant authority. Verify Git root, o
 * [Generic Nuxt foundation](foundation.md) - Framework and delivery sources without customer domain features.
 * [Bind knowledge after cloning](initialization.md) - Preserve starter provenance and replace identity after authorized admission.
 
-Shared owner: `unfogy-control`, concept `contracts/repository-knowledge`. Reviewed source: https://github.com/bugrakeskin/unfogy-control/blob/688e7bbe85075778b5ea11fa0c52fc049febcf3e/knowledge/contracts/repository-knowledge.md
+Shared owner: `unfogy-control`, concept `contracts/repository-knowledge`. Reviewed source: https://github.com/bugrakeskin/unfogy-control/blob/a8efded97b3432cee3a23ca435d9e260493664fb/knowledge/contracts/repository-knowledge.md
+
+## Contract navigation
+
+* [Contract map](contracts/index.md) - Contract navigation.
+* [System boundaries](contracts/system.md) - Routes APIs, data, authorization and extension boundaries to their source owners.
 
 ## Minimum architecture profile
 

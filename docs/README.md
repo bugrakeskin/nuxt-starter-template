@@ -15,3 +15,5 @@ Validate the KB against the exact selected Git root; source observations do not 
 ## Knowledge maintenance
 
 Use the [minimum-profile index](../knowledge/index.md) for purpose, technology, architecture, development, contracts, decisions and terms. This source map and ordinary docs remain separate from the active OKF bundle. Update both affected documentation owners in the corresponding source PR.
+
+Native OKF installation and CI checks: [development](development.md#native-knowledge-checks).

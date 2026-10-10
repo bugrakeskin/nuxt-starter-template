@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { parse } from 'yaml'
+import { verifyDocs } from './verify-docs.mjs'
+import { fileURLToPath } from 'node:url'
 
 const root = new URL('../../', import.meta.url)
 const contract = parse(await readFile(new URL('.unfogy/contract.yaml', root), 'utf8'))
@@ -68,11 +70,12 @@ assert.match(dockerfile, /rm -rf \/usr\/local\/lib\/node_modules\/npm \/usr\/loc
 
 assert.deepEqual(validateWorkflow.when, [
   { event: 'pull_request' },
-  { event: 'push', branch: ['task/*', 'feature/*', 'main'] },
+  { event: 'push', branch: ['task/*', 'feature/*', 'uf/*', 'main'] },
   { event: 'manual', branch: 'main' }
 ])
 assert.equal(JSON.stringify(validateWorkflow).includes('from_secret'), false, 'validation must not receive secrets')
 assert.ok(validateWorkflow.steps[0].commands.includes('npm install --global --no-audit --no-fund pnpm@12.4.1'))
+assert.ok(validateWorkflow.steps[0].commands.includes('okf validate "$(pwd)/knowledge" --strict --drift --json'), 'CI must run native OKF validation before application checks')
 assert.equal(JSON.stringify(validateWorkflow).includes('corepack prepare'), false)
 
 assert.deepEqual(publishWorkflow.depends_on, ['validate'])
@@ -97,5 +100,8 @@ const serializedPublish = JSON.stringify(publishWorkflow)
 for (const forbidden of ['coolify_', 'SUPABASE_DB_URL', 'preview_database_url', 'deployment']) {
   assert.equal(serializedPublish.includes(forbidden), false, `publish workflow must not contain ${forbidden}`)
 }
+
+const docs = await verifyDocs(fileURLToPath(root))
+assert.deepEqual(docs.errors, [], docs.errors.join('\n'))
 
 console.log(`Starter contract v${contract.contractVersion}, delivery v${contract.delivery.contractVersion} is valid.`)
