@@ -2,7 +2,7 @@
 type: Architecture
 title: Bind knowledge after cloning
 description: Preserve starter provenance and replace identity after authorized admission.
-generated: { by: agent/codex, at: "2026-10-10T08:46:43Z" }
+generated: { by: agent/codex, at: "2026-10-10T10:34:15Z" }
 status: stable
 code_refs: [AGENTS.md, docs/development.md, .unfogy/contract.yaml]
 ---
@@ -20,3 +20,15 @@ Related: [development](development.md).
 
 
 The root bundle uses the unmodified official OKF v0.6.0 CLI and upstream skill; apply local admission/project-scope rules to examples. Review [overview](overview.md), [technology](technology.md), [architecture](architecture.md) and [system contract](contracts/system.md). Rebind every minimum-profile document after cloning; retain generic framework facts only where verified in the resulting project.
+
+## Product and visual design binding
+
+Review [product](product.md) and [design](design.md) during clone initialization.
+Replace generic starter users/purpose and theme observations with approved project
+facts and verified source mappings. Record unknown facts explicitly; never fabricate
+users, brand, implemented capability or runtime evidence. Keep the same local concept
+IDs and native OKF metadata. Add useful project screen/feature concepts only when
+needed, without importing App candidate or meeting rules. Root PRODUCT.md and
+DESIGN.md route to these concepts and must remain free of duplicate editable facts.
+Update README/docs/AGENTS discovery with the local owners. Validate both native
+conformance and document/source links before accepting initialization.

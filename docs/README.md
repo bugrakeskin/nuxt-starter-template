@@ -5,6 +5,8 @@ Start with the [repository knowledge index](../knowledge/index.md). This reposit
 | Topic | Source |
 | --- | --- |
 | Development and PR flow | [development.md](development.md) |
+| Product intent | [product](../knowledge/product.md) |
+| Visual foundation | [design](../knowledge/design.md) |
 | Theme | [theme.md](theme.md) |
 | Auth and database | [supabase.md](supabase.md) |
 | Framework and delivery | [foundation](../knowledge/foundation.md) |

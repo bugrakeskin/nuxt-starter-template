@@ -205,3 +205,5 @@ part of the starter delivery contract.
 ## Documentation
 
 Use [docs/README.md](docs/README.md) and the [repository KB](knowledge/index.md). Bind the cloned project identity through the initialization concept before project acceptance.
+
+Product and visual design owners: [product](knowledge/product.md) and [design](knowledge/design.md). Root PRODUCT.md/DESIGN.md are discovery redirects.

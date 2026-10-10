@@ -19,7 +19,7 @@ Nuxt UI is MIT licensed. See `THIRD_PARTY_NOTICES.md`.
 
 ## Implemented slice
 
-The `/theme` route demonstrates three local presets. A preset changes:
+The `/theme` route demonstrates eleven local presets. A preset changes:
 
 - Nuxt UI semantic primary and neutral aliases through reactive `appConfig`;
 - `--ui-radius` and a small number of semantic CSS tokens;
@@ -28,10 +28,11 @@ The `/theme` route demonstrates three local presets. A preset changes:
 The page itself uses Nuxt UI components and semantic classes. It contains no
 preset-specific template branch.
 
-The active preset is initialized globally in `app.vue` and applies throughout
-the current application session. It is intentionally not persisted. The
-default preset therefore renders identically during SSR and hydration. Color
-mode remains a separate user preference.
+The active preset is initialized through `useThemePreset` and applies throughout
+the application. The `unfogy-theme-preset` cookie persists the preference and is
+read during SSR; the default and unknown-ID fallback resolve to Mono. Color
+mode remains a separate user preference. See [design](../knowledge/design.md) for
+the canonical visual source map.
 
 ## What the upstream method actually adds
 
@@ -62,7 +63,7 @@ that as a later server-owned capability: validate the preset, persist one
 canonical revision, resolve it during SSR, and invalidate caches on publish.
 Client-only storage is not sufficient for that requirement.
 
-## Added load
+## Historical added-load measurement
 
 The minimal preset path adds:
 
@@ -88,7 +89,9 @@ UI components/icons; it is not the cost of the preset engine alone. The preset
 data and composable are 162 lines and 4,120 source bytes. The showcase page is
 248 lines and 7,530 source bytes. No dependency or lockfile changed.
 
-## Verification
+## Historical verification
+
+The following results are inherited observations, not verification of this documentation migration.
 
 - `pnpm typecheck`: passed
 - `pnpm lint`: passed

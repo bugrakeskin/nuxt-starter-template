@@ -1,4 +1,12 @@
 ## 2026-10-10
+* **Update**: Updated concept `design.md`.
+* **Update**: Updated concept `decisions.md`.
+* **Update**: Updated concept `glossary.md`.
+* **Update**: Updated concept `initialization.md`.
+* **Update**: Updated concept `foundation.md`.
+* **Update**: Updated concept `overview.md`.
+* **Creation**: Documented concept `design.md` (Nuxt starter design foundation).
+* **Creation**: Documented concept `product.md` (Nuxt starter product intent).
 * **Update**: Updated concept `development.md`.
 * **Update**: Updated concept `development.md`.
 * **Update**: Updated concept `decisions.md`.

@@ -37,3 +37,10 @@
 - Cite repository ID, concept ID and absolute source path; read shared Control rules through a separately verified binding.
 - After an authorized clone, apply knowledge/initialization.md; replace template identity and review every minimum-profile document against the resulting project.
 - Keep this KB generic; never copy Unfogy App candidate, meeting or live-provider facts into the starter.
+
+## Product and design discovery
+
+- Read knowledge/product.md and knowledge/design.md through native OKF search/show before product or visual design work.
+- Treat root PRODUCT.md and DESIGN.md as redirects; load their linked concepts in full and never regenerate competing root facts.
+- Keep product purpose, visual styling and screen/feature interactions at their local owning concepts; update task-relevant owners together.
+- Rebind product/design through knowledge/initialization.md after an admitted clone; never import App identity or candidate/meeting rules.

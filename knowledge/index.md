@@ -17,6 +17,9 @@ These assertions do not grant repository or tenant authority. Verify Git root, o
 
 ## Topic map
 
+* [Nuxt starter product intent](product.md) - Defines the generic starter audience and purpose and requires project-specific rebinding after cloning.
+* [Nuxt starter design foundation](design.md) - Maps generic Nuxt UI theme sources and defines project design rebinding without copying App identity.
+
 * [Development and repository discovery](development.md) - Repository ownership, source map and local verification entry points.
 * [Generic Nuxt foundation](foundation.md) - Framework and delivery sources without customer domain features.
 * [Bind knowledge after cloning](initialization.md) - Preserve starter provenance and replace identity after authorized admission.
