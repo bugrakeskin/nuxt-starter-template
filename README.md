@@ -201,3 +201,7 @@ The canonical build path is Woodpecker validation/build, Harbor immutable image
 publication and Coolify Docker Image runtime deployment. Coolify does not clone
 the repository or run a Nixpacks source build; `nixpacks.toml` is therefore not
 part of the starter delivery contract.
+
+## Documentation
+
+Use [docs/README.md](docs/README.md) and the [repository KB](knowledge/index.md). Bind the cloned project identity through the initialization concept before project acceptance.

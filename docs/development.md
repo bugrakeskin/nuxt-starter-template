@@ -12,6 +12,17 @@ The starter has no Customer resolver or Customer-specific setup helper.
 display setting. The existing preview setup helper belongs to the independent
 first-party `unfogy-app` CLI and does not support Customer repositories.
 
+## Shared SDLC and PR flow
+
+Apply Control concept `contracts/development`, D-471, the
+[shared repository PR standard](https://github.com/bugrakeskin/unfogy-control/blob/main/knowledge/contracts/development.md#shared-repository-pr-flow--d-471).
+Resolve the verified Control source and approved revision before work; if
+unavailable, report the gap. The same SDLC applies to Customer and inhouse work:
+a task branch/worktree, a reviewed PR to `main`, scoped checks and current human
+approval. Direct main writes/pushes and mandatory integration branches are
+excluded. Merge does not grant deployment authority. Owner-specific approval
+and current runtime capability limits remain in the canonical contract.
+
 ## Nuxt conventions
 
 - Prefer Nuxt file routing, middleware, runtime config, server routes,
