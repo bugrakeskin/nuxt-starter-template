@@ -20,7 +20,18 @@
 - Do not add browser E2E or screenshot tests to the baseline.
 - Inspect theme changes with the built-in agent browser when available.
 
-- Verify the admitted Git root/origin; read `docs/knowledge/index.md` before selecting local knowledge.
-- Use explicit absolute bundles for `okf search` and `okf show`; validate with that Git root as `--repo-root`.
-- Follow local concept `development` and Control concept `contracts/repository-knowledge` at the adopted standard revision.
 - Report missing identity, KB or reviewed Control skills; never substitute another repository or tenant bundle.
+
+## Repository knowledge maintenance
+
+- Verify admitted Git root/origin and task binding; read knowledge/index.md before concepts and resolve its pinned Control standard.
+- Read overview for scope, technology for stack sources and architecture for affected boundaries; select only task-relevant concepts.
+- Search the verified absolute knowledge bundle with official OKF v0.6.0 and --scope project; read matching concepts with show.
+- Read contracts/system.md and the linked owning contract before changing interfaces, data, authorization or extensions.
+- Update source-backed concepts and affected docs in the same task branch/PR as their source change; preserve existing IDs and provenance.
+- Record local rationale in decisions.md and terms in glossary.md; let native OKF create/update maintain log.md.
+- Distinguish approved target, source observation and dated runtime evidence; do not infer runtime success from documentation.
+- Validate the explicit bundle with --strict --drift --json; inspect errors, warnings, links, orphans and gates, then verify source paths separately.
+- Cite repository ID, concept ID and absolute source path; read shared Control rules through a separately verified binding.
+- After an authorized clone, apply knowledge/initialization.md; replace template identity and review every minimum-profile document against the resulting project.
+- Keep this KB generic; never copy Unfogy App candidate, meeting or live-provider facts into the starter.

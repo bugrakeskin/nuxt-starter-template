@@ -204,4 +204,4 @@ part of the starter delivery contract.
 
 ## Documentation
 
-Use [docs/README.md](docs/README.md) and the [repository KB](docs/knowledge/index.md). Bind the cloned project identity through the initialization concept before project acceptance.
+Use [docs/README.md](docs/README.md) and the [repository KB](knowledge/index.md). Bind the cloned project identity through the initialization concept before project acceptance.
