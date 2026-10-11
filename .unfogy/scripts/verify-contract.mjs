@@ -70,8 +70,8 @@ assert.match(dockerfile, /rm -rf \/usr\/local\/lib\/node_modules\/npm \/usr\/loc
 
 assert.deepEqual(validateWorkflow.when, [
   { event: 'pull_request' },
-  { event: 'push', branch: ['task/*', 'feature/*', 'uf/*', 'main'] },
-  { event: 'manual', branch: 'main' }
+  { event: 'push', branch: ['task/*', 'feature/*', 'uf/*', 'fix/*', 'docs/*', 'chore/*', 'main'] },
+  { event: 'manual', branch: ['task/*', 'feature/*', 'uf/*', 'fix/*', 'docs/*', 'chore/*', 'main'] }
 ])
 assert.equal(JSON.stringify(validateWorkflow).includes('from_secret'), false, 'validation must not receive secrets')
 assert.ok(validateWorkflow.steps[0].commands.includes('npm install --global --no-audit --no-fund pnpm@12.4.1'))

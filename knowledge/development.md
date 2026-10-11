@@ -2,7 +2,7 @@
 type: Architecture
 title: Development and repository discovery
 description: "Repository ownership, source map and local verification entry points."
-generated: { by: agent/codex, at: "2026-10-10T10:52:04Z" }
+generated: { by: agent/codex, at: "2026-10-11T11:07:38Z" }
 status: stable
 code_refs: [AGENTS.md, package.json, .woodpecker/validate.yaml, .unfogy/scripts/verify-contract.mjs, .unfogy/scripts/verify-docs.mjs, scripts/smoke.mjs]
 ---
@@ -107,3 +107,11 @@ Source observations describe code, not runtime success. Missing tools, KB, ident
 ## Migration provenance
 
 Human approved root docs consolidation and removal on 2026-10-10. Original source: docs/development.md and docs/testing.md at d5bec342f07c533bd245c60ad54a562200ff3b9e. Preserved intent and source observations do not establish fresh runtime success. Shared governance remains in the separately admitted Control repository.
+
+## Validation branch coverage
+
+`.woodpecker/validate.yaml` checks pull requests and push/manual events for
+`main`, `feature/*`, `fix/*`, `docs/*`, `chore/*` and historical `task/*`/`uf/*`.
+The existing contract verifier enforces these filters and secret-free validation.
+Image publication remains main-only; this source configuration does not prove
+CI registration, hosted success or branch preview deployment.
