@@ -10,7 +10,7 @@ okf_version: "0.2"
 repository_id: nuxt-starter-template
 remote: https://github.com/bugrakeskin/nuxt-starter-template.git
 standard_version: 4
-standard_revision: df7020e80fbf66402c3333127c96fbccbd70a490
+standard_revision: c085ecdfd65d322b92473cabd3be7abe961eb8c0
 scope: generic-starter
 
 These assertions do not grant repository or tenant authority. Verify Git root, origin and the admitted task binding before searching.
@@ -24,7 +24,7 @@ These assertions do not grant repository or tenant authority. Verify Git root, o
 * [Generic Nuxt foundation](foundation.md) - Framework and delivery sources without customer domain features.
 * [Bind knowledge after cloning](initialization.md) - Preserve starter provenance and replace identity after authorized admission.
 
-Shared owner: `unfogy-control`, concept `contracts/repository-knowledge`. Reviewed source: https://github.com/bugrakeskin/unfogy-control/blob/df7020e80fbf66402c3333127c96fbccbd70a490/knowledge/contracts/repository-knowledge.md
+Shared owner: `unfogy-control`, concept `contracts/repository-knowledge`. Reviewed source: https://github.com/bugrakeskin/unfogy-control/blob/c085ecdfd65d322b92473cabd3be7abe961eb8c0/knowledge/contracts/repository-knowledge.md
 
 The pinned Control revision includes D-479 worktree delivery and D-480 repository/Customer entry rules; it grants no Customer or provider authority.
 

@@ -2,7 +2,7 @@
 type: Architecture
 title: Development and repository discovery
 description: "Repository ownership, source map and local verification entry points."
-generated: { by: agent/codex, at: "2026-10-11T11:01:14Z" }
+generated: { by: agent/codex, at: "2026-10-11T11:07:38Z" }
 status: stable
 code_refs: [AGENTS.md, package.json, .woodpecker/validate.yaml, .unfogy/scripts/verify-contract.mjs, .unfogy/scripts/verify-docs.mjs, scripts/smoke.mjs]
 ---
@@ -24,7 +24,7 @@ first-party `unfogy-app` CLI and does not support Customer repositories.
 ## Shared SDLC and PR flow
 
 Apply Control concept `contracts/development`, D-471/D-479/D-480, the
-[shared repository PR standard](https://github.com/bugrakeskin/unfogy-control/blob/df7020e80fbf66402c3333127c96fbccbd70a490/knowledge/contracts/development.md#shared-repository-pr-flow--d-471).
+[shared repository PR standard](https://github.com/bugrakeskin/unfogy-control/blob/c085ecdfd65d322b92473cabd3be7abe961eb8c0/knowledge/contracts/development.md#shared-repository-pr-flow--d-471).
 Resolve the verified Control source and reviewed revision before work; if
 unavailable, report the gap. Before the first write, identify the admitted
 repository and use one scoped native Git worktree; reuse it for the same work.
@@ -114,3 +114,11 @@ Source observations describe code, not runtime success. Missing tools, KB, ident
 ## Migration provenance
 
 Human approved root docs consolidation and removal on 2026-10-10. Original source: docs/development.md and docs/testing.md at d5bec342f07c533bd245c60ad54a562200ff3b9e. Preserved intent and source observations do not establish fresh runtime success. Shared governance remains in the separately admitted Control repository.
+
+## Validation branch coverage
+
+`.woodpecker/validate.yaml` checks pull requests and push/manual events for
+`main`, `feature/*`, `fix/*`, `docs/*`, `chore/*` and historical `task/*`/`uf/*`.
+The existing contract verifier enforces these filters and secret-free validation.
+Image publication remains main-only; this source configuration does not prove
+CI registration, hosted success or branch preview deployment.

@@ -134,7 +134,8 @@ checks use this endpoint. Container builds pass the immutable Git commit through
 
 ## Delivery contract
 
-Woodpecker validates pull requests plus `task/*` and `feature/*` pushes without
+Woodpecker validates pull requests and push/manual events on `main`,
+`feature/*`, `fix/*`, `docs/*`, `chore/*`, `task/*` and historical `uf/*` without
 secrets. A `main` push validates, publishes one image under the immutable
 `${CI_COMMIT_SHA}` tag and waits for the Harbor scan gate. Provider branch
 protection is optional defense-in-depth; exact pipeline, scan, digest and
@@ -159,7 +160,7 @@ The only repository secrets used by Woodpecker are the project-scoped Harbor
 push/scan robot credentials, restricted to the pinned Buildx and scan images.
 Coolify tokens, resource UUIDs, database URLs and production secrets never enter
 Woodpecker. Preview and production promotion, migration and exact-revision
-health verification belong to the Control Plane Deployment Worker.
+health verification belong to the bounded local CLI executor under current release authority.
 
 The same immutable application image supports `web` and domainless
 `migration-runner` roles through `UNFOGY_PROCESS_ROLE`. The runner keeps the

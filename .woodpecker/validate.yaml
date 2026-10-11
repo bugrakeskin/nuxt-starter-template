@@ -1,9 +1,9 @@
 when:
   - event: pull_request
   - event: push
-    branch: [task/*, feature/*, uf/*, main]
+    branch: [task/*, feature/*, uf/*, fix/*, docs/*, chore/*, main]
   - event: manual
-    branch: main
+    branch: [task/*, feature/*, uf/*, fix/*, docs/*, chore/*, main]
 
 steps:
   - name: validate
