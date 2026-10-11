@@ -23,14 +23,21 @@ first-party `unfogy-app` CLI and does not support Customer repositories.
 
 ## Shared SDLC and PR flow
 
-Apply Control concept `contracts/development`, D-471, the
-[shared repository PR standard](https://github.com/bugrakeskin/unfogy-control/blob/main/knowledge/contracts/development.md#shared-repository-pr-flow--d-471).
-Resolve the verified Control source and approved revision before work; if
-unavailable, report the gap. The same SDLC applies to Customer and inhouse work:
-a task branch/worktree, a reviewed PR to `main`, scoped checks and current human
-approval. Direct main writes/pushes and mandatory integration branches are
-excluded. Merge does not grant deployment authority. Owner-specific approval
-and current runtime capability limits remain in the canonical contract.
+Apply Control concept `contracts/development`, D-471/D-479/D-480, the
+[shared repository PR standard](https://github.com/bugrakeskin/unfogy-control/blob/c085ecdfd65d322b92473cabd3be7abe961eb8c0/knowledge/contracts/development.md#shared-repository-pr-flow--d-471).
+Resolve the verified Control source and reviewed revision before work; if
+unavailable, report the gap. Before the first write, identify the admitted
+repository and use one scoped native Git worktree; reuse it for the same work.
+Read-only analysis creates none. Use `feature/`, `fix/`, `docs/` or `chore/`,
+open a draft PR on the first push, and target `main` after scoped checks,
+review and current exact-candidate human approval. Apply the same Git rules
+from SDLC and free-form Developer work. Customer code requires selected
+`/sdlc CST...|MWO...|T...` context, current approved plan and recorded authorized
+Tasks; dependencies/priority govern execution. An unknown repository is not
+implicitly Customer work. Direct-main writes/pushes and mandatory integration
+branches are excluded. Merge grants no deployment authority. Branch inspection
+preview and main-artifact release preview are distinct; required capability,
+owner-specific authority and cleanup rules remain in the Control contract.
 
 ## Nuxt conventions
 
@@ -98,7 +105,7 @@ RLS, policies and functions alongside their schemas.
 
 ## Knowledge discovery
 
-Read `knowledge/index.md` for the source map and [development](development.md) for local development rules. Read this bundle index before selecting concepts. Use an explicit absolute bundle for okf search/show; validate the explicit absolute <verified-root>/knowledge bundle with --strict --drift; search with --scope project. Shared authority belongs to Control concept contracts/repository-knowledge and contracts/development (D-471), at the adopted standard_revision. Resolve a verified Control checkout or reviewed standard package; do not silently use another repository KB.
+Read `knowledge/index.md` for the source map and [development](development.md) for local development rules. Read this bundle index before selecting concepts. Use an explicit absolute bundle for okf search/show; validate the explicit absolute <verified-root>/knowledge bundle with --strict --drift; search with --scope project. Shared authority belongs to Control concept contracts/repository-knowledge and contracts/development (D-471/D-479/D-480), at the adopted standard_revision. Resolve a verified Control checkout or reviewed standard package; do not silently use another repository KB.
 
 Source observations describe code, not runtime success. Missing tools, KB, identity or sources stop the affected claim. Keep documentation changes with their implementation PR.
 

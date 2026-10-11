@@ -10,9 +10,9 @@ For deployable changes, keep preview/production authorization separate from merg
 
 ## Delivery checklist
 
-- [ ] PR targets `main` from a task branch or isolated worktree.
+- [ ] Work was prepared in a scoped native Git worktree; the PR targets `main`.
 - [ ] Affected documentation is updated; scoped deterministic checks pass.
 - [ ] Required review and current human approval are recorded for this candidate.
-- [ ] Merge does not trigger or grant deployment authority.
+- [ ] Merge grants no deployment authority; release continuation requires current gates.
 
 Apply the [shared SDLC/PR standard](../knowledge/development.md#shared-sdlc-and-pr-flow).
