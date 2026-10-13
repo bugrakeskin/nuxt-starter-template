@@ -1,15 +1,32 @@
 when:
   - event: pull_request
   - event: push
-    branch: [task/*, feature/*, uf/*, fix/*, docs/*, chore/*, main]
+    branch:
+      - task/*
+      - feature/*
+      - uf/*
+      - fix/*
+      - docs/*
+      - chore/*
+      - main
   - event: manual
-    branch: [task/*, feature/*, uf/*, fix/*, docs/*, chore/*, main]
-
+    branch:
+      - task/*
+      - feature/*
+      - uf/*
+      - fix/*
+      - docs/*
+      - chore/*
+      - main
 steps:
   - name: validate
     image: node@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94
     commands:
-      - apt-get update && apt-get install --yes --no-install-recommends curl ca-certificates
+      - apt-get update && apt-get install --yes --no-install-recommends git curl ca-certificates
+      - if [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then git fetch --no-tags --unshallow origin; fi
+      - git fetch --no-tags --tags origin main
+      - node .unfogy/scripts/verify-version.mjs --ci
+      - node --test .unfogy/scripts/verify-version.test.mjs
       - curl --fail --silent --show-error --location --retry 3 --output /usr/local/bin/okf https://github.com/okf-memory/okf-agent-memory/releases/download/v0.6.0/okf-linux-amd64
       - echo 'b431f4374f2fefccc69a77e76fee6a37e4c61c31fb58f1e4f2d8e6658145e575  /usr/local/bin/okf' | sha256sum --check -
       - chmod 0755 /usr/local/bin/okf

@@ -1,5 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import packageJson from './package.json' with { type: 'json' }
 
 export default defineNuxtConfig({
   extends: ['./layers/base'],
@@ -17,7 +16,6 @@ export default defineNuxtConfig({
     buildRevision: process.env.NUXT_BUILD_REVISION || 'development',
     public: {
       appName: process.env.NUXT_PUBLIC_APP_NAME || 'Unfogy Starter',
-      appVersion: process.env.NUXT_PUBLIC_APP_VERSION || packageJson.version,
       releaseChannel: process.env.NUXT_PUBLIC_RELEASE_CHANNEL || 'development'
     }
   },

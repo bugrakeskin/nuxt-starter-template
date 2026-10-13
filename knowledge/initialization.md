@@ -2,7 +2,7 @@
 type: Architecture
 title: Bind knowledge after cloning
 description: Preserve starter provenance and replace identity after authorized admission.
-generated: { by: agent/codex, at: "2026-10-10T10:54:39Z" }
+generated: { by: agent/codex, at: "2026-10-13T19:26:19Z" }
 status: stable
 code_refs: [AGENTS.md, knowledge/development.md, .unfogy/contract.yaml]
 ---
@@ -32,3 +32,8 @@ needed, without importing App candidate or meeting rules. Product/design live on
 PRODUCT.md or DESIGN.md during clone initialization or design-tool setup.
 Update README/knowledge/AGENTS discovery with the local owners. Validate both native
 conformance and document/source links before accepting initialization.
+
+
+## Independent application release line
+
+After actual Customer/MWO allocation and repository admission, retain starter repository/version/exact commit and the reviewed D-494 policy revision as provenance. Bind package/index identity and compatibility surface to the new owner, initialize package.json to 0.1.0, and add that initial release's notes (`impact: initial`, summary and runtime impact). Retain inherited starter notes as provenance, not new Customer releases. Run version:sync and version:verify before the first admitted baseline commit; compare subsequent PRs against that baseline/current main. Test standalone discovery and reject unresolved identity, metadata mismatch or missing release notes. This procedure does not implement an allocator, automatic template upgrade or Customer executor.

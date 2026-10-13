@@ -1,0 +1,5 @@
+{
+  "impact": "minor",
+  "summary": "Adopt the approved common SemVer release source, verification and artifact metadata.",
+  "runtime": true
+}
