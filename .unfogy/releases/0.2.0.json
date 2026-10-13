@@ -1,5 +1,6 @@
 {
-  "impact": "minor",
+  "impact": "major",
   "summary": "Adopt the approved common SemVer release source, verification and artifact metadata.",
-  "runtime": true
+  "runtime": true,
+  "breaking": "NUXT_PUBLIC_APP_VERSION no longer overrides the bundled artifact version. Nonproduction release labels display environment separately; use package.json and the deployment channel. No database migration is introduced."
 }
