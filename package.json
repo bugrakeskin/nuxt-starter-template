@@ -1,6 +1,6 @@
 {
   "name": "nuxt-starter-template",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -20,7 +20,9 @@
     "test:contract": "node --test .unfogy/tests/*.test.mjs",
     "test:nuxt": "vitest run --project nuxt",
     "test:unit": "nuxt prepare && vitest run --project unit",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "version:sync": "node .unfogy/scripts/verify-version.mjs --sync",
+    "version:verify": "node .unfogy/scripts/verify-version.mjs"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.134",

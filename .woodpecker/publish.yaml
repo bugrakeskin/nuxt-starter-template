@@ -1,13 +1,20 @@
 depends_on:
   - validate
-
 when:
   - event: push
     branch: main
+    path:
+      include:
+        - .unfogy/runtime-release.json
   - event: manual
     branch: main
-
 steps:
+  - name: verify-runtime-release
+    image: node@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94
+    commands:
+      - apt-get update && apt-get install --yes --no-install-recommends git
+      - git fetch --tags .git/unfogy-main-baseline '+HEAD:refs/remotes/origin/main'
+      - node .unfogy/scripts/verify-version.mjs --ci --image
   - name: publish-image
     image: woodpeckerci/plugin-docker-buildx@sha256:0a8e69cad4a25d641bdb51daea53ce309692c7bda1193ae04a990bb88486edd8
     dns: 10.77.30.1
@@ -27,7 +34,6 @@ steps:
         from_secret: harbor_app_push_username
       password:
         from_secret: harbor_app_push_password
-
   - name: verify-harbor-scan
     image: node@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94
     dns: 10.77.30.1
@@ -41,3 +47,19 @@ steps:
         from_secret: harbor_app_push_password
     commands:
       - node .unfogy/scripts/verify-harbor-scan.mjs
+clone:
+  - name: git
+    image: woodpeckerci/plugin-git@sha256:550075c844fcec0af41d9d28f9860aa5d8c43e1e9419be4b9266dc02c2f29804
+    settings:
+      depth: 0
+      partial: false
+      tags: true
+  - name: main-baseline
+    image: woodpeckerci/plugin-git@sha256:550075c844fcec0af41d9d28f9860aa5d8c43e1e9419be4b9266dc02c2f29804
+    settings:
+      depth: 0
+      partial: false
+      tags: true
+      branch: main
+      ref: refs/heads/main
+      path: .git/unfogy-main-baseline

@@ -10,6 +10,7 @@ application:
 versioning:
   scheme: semver
   source: package-json
+  verification: .unfogy/versioning.json
   releaseChannel: runtime-config
   immutableArtifact: commit-sha-and-digest
 

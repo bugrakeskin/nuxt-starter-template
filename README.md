@@ -87,7 +87,6 @@ application.
 | Variable | Exposure | Default |
 | --- | --- | --- |
 | `NUXT_PUBLIC_APP_NAME` | Browser and server | `Unfogy Starter` |
-| `NUXT_PUBLIC_APP_VERSION` | Browser and server | `0.1.0` |
 | `NUXT_PUBLIC_RELEASE_CHANNEL` | Browser and server | `development` |
 | `NUXT_PUBLIC_SUPABASE_URL` | Browser and server | UI-only placeholder; set the project API URL |
 | `NUXT_PUBLIC_SUPABASE_KEY` | Browser and server | UI-only placeholder; set the project's publishable key |
@@ -95,10 +94,7 @@ application.
 Only values declared under Nuxt `runtimeConfig.public` may be exposed to the
 browser. Secret configuration must never use the `NUXT_PUBLIC_` prefix.
 
-The footer derives its release tag from `NUXT_PUBLIC_APP_VERSION` and
-`NUXT_PUBLIC_RELEASE_CHANNEL`: production uses `v<version>`, while other
-channels use `v<version>-<channel>`. The repository package version is the
-default when `NUXT_PUBLIC_APP_VERSION` is not set.
+The footer reads the immutable package version and displays the environment separately, for example `v0.2.0 · preview` or `v0.2.0` in production. Legacy `NUXT_PUBLIC_APP_VERSION` values cannot change the bundled version.
 
 `SUPABASE_DB_URL` is empty in the example and is private configuration for
 approved local tooling or an isolated migration job. `pnpm db:migrate` loads
@@ -117,7 +113,7 @@ returns:
   "status": "ok",
   "service": "Unfogy Starter",
   "contractVersion": 1,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "channel": "preview",
   "revision": "<image build commit>",
   "checks": {
@@ -215,3 +211,6 @@ The [architecture source map](knowledge/architecture.md) and module READMEs docu
 
 - [supabase/schemas/README.md](supabase/schemas/README.md)
 - [supabase/migrations/README.md](supabase/migrations/README.md)
+
+
+Release source: `package.json`. Run `pnpm version:sync` after editing the release source and `.unfogy/releases/<version>.json`; verify against current main before PR completion. The adopted Control policy revision is pinned in `.unfogy/versioning.json`.

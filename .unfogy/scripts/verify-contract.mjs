@@ -1,3 +1,4 @@
+import { verify as verifyVersion } from './verify-version.mjs'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { parse } from 'yaml'
@@ -23,7 +24,7 @@ assert.equal(contract.application.packageManager, 'pnpm@12.4.1')
 assert.equal(contract.versioning.scheme, 'semver')
 assert.equal(contract.versioning.source, 'package-json')
 assert.equal(contract.versioning.releaseChannel, 'runtime-config')
-assert.match(packageJson.version, /^\d+\.\d+\.\d+$/)
+verifyVersion(fileURLToPath(root))
 assert.equal(contract.delivery.sourceRef, 'main')
 assert.equal(contract.delivery.buildAuthority, 'woodpecker-dockerfile')
 assert.equal(contract.delivery.artifactAuthority, 'harbor-immutable-image')
@@ -56,7 +57,7 @@ assert.equal(envExample.includes('SERVICE_ROLE'), false)
 assert.equal(envExample.includes('SECRET_KEY'), false)
 assert.match(packageJson.scripts.build, /pnpm build:migration/)
 assert.match(healthHandler, /revision:\s*config\.buildRevision/)
-assert.match(healthHandler, /version:\s*config\.public\.appVersion/)
+assert.match(healthHandler, /version:\s*applicationVersion/)
 assert.match(healthHandler, /channel:\s*config\.public\.releaseChannel/)
 assert.match(dockerfile, /ARG BUILD_REVISION/)
 assert.match(dockerfile, /ARG BUILD_VERSION/)
@@ -80,7 +81,7 @@ assert.equal(JSON.stringify(validateWorkflow).includes('corepack prepare'), fals
 
 assert.deepEqual(publishWorkflow.depends_on, ['validate'])
 assert.deepEqual(publishWorkflow.when, [
-  { event: 'push', branch: 'main' },
+  { event: 'push', branch: 'main', path: { include: ['.unfogy/runtime-release.json'] } },
   { event: 'manual', branch: 'main' }
 ])
 const publishBuild = publishWorkflow.steps.find(step => step.name === 'publish-image')

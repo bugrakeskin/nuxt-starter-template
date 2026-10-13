@@ -2,7 +2,7 @@
 type: Architecture
 title: Development and repository discovery
 description: "Repository ownership, source map and local verification entry points."
-generated: { by: agent/codex, at: "2026-10-11T11:07:38Z" }
+generated: { by: agent/codex, at: "2026-10-13T19:26:19Z" }
 status: stable
 code_refs: [AGENTS.md, package.json, .woodpecker/validate.yaml, .unfogy/scripts/verify-contract.mjs, .unfogy/scripts/verify-docs.mjs, scripts/smoke.mjs]
 ---
@@ -122,3 +122,12 @@ Human approved root docs consolidation and removal on 2026-10-10. Original sourc
 The existing contract verifier enforces these filters and secret-free validation.
 Image publication remains main-only; this source configuration does not prove
 CI registration, hosted success or branch preview deployment.
+
+
+## Repository release versioning
+
+Apply Control concept `contracts/development`, D-494 (policy revision is pinned in `.unfogy/versioning.json`). The sole release source is `package.json`. The compatibility surface is generic runtime/configuration, health, migration command and starter integration interfaces. Use independent SemVer; declare impact, summary and actual application runtime impact in `.unfogy/releases/<version>.json`. Run `pnpm version:sync` and then `node .unfogy/scripts/verify-version.mjs --base=<verified-main-SHA>` before PR completion. Existing notes are immutable; semantic impact needs review.
+
+The sync derives CLI/Docker metadata and, for runtime releases, `.unfogy/runtime-release.json`. Native main push publication selects only that marker; CI rejects missing/stale or unnecessary markers against the actual application delta. Metadata-only package/Docker version changes and CLI/docs-only releases do not request an app image. Local/CI source checks establish no hosted PASS, tag publication, trusted receipt, merge or deployment authority. A manual image request requires a current runtime release and existing authority.
+
+Nuxt health/UI use the bundled package version; legacy `NUXT_PUBLIC_APP_VERSION` cannot override it. Deployment channel is separate. Static Website channel is build provenance (`main`/`development`); target preview/production remains in deployment evidence. Promotion retains the accepted version/commit/digest and migration identity.

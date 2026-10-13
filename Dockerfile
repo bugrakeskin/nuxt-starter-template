@@ -1,7 +1,8 @@
 # syntax=docker/dockerfile:1.7
 
 ARG BUILD_REVISION=development
-ARG BUILD_VERSION=0.1.0
+# Generated from package.json by pnpm version:sync
+ARG BUILD_VERSION=0.2.0
 ARG BUILD_CHANNEL=development
 
 FROM node:22.22.0-bookworm-slim@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94 AS build
@@ -12,7 +13,6 @@ ARG BUILD_CHANNEL
 ENV PNPM_HOME=/pnpm
 ENV PATH=$PNPM_HOME:$PATH
 ENV NUXT_BUILD_REVISION=$BUILD_REVISION
-ENV NUXT_PUBLIC_APP_VERSION=$BUILD_VERSION
 ENV NUXT_PUBLIC_RELEASE_CHANNEL=$BUILD_CHANNEL
 WORKDIR /app
 
@@ -23,6 +23,8 @@ RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
     pnpm install --frozen-lockfile
 
 COPY . .
+ENV BUILD_VERSION=$BUILD_VERSION
+RUN node --input-type=module -e "import p from './package.json' with { type: 'json' }; if (p.version !== process.env.BUILD_VERSION) throw new Error('Build version differs from package.json')"
 RUN pnpm build
 
 FROM node:22-alpine3.23@sha256:baf676f7d0e552f3231945c2f979055ca121bce128c152f7a34e6bd1728b1c5a AS runtime
@@ -33,7 +35,6 @@ ARG BUILD_CHANNEL
 ENV HOST=0.0.0.0
 ENV NODE_ENV=production
 ENV PORT=3000
-ENV NUXT_PUBLIC_APP_VERSION=$BUILD_VERSION
 ENV NUXT_PUBLIC_RELEASE_CHANNEL=$BUILD_CHANNEL
 LABEL org.opencontainers.image.revision=$BUILD_REVISION
 LABEL org.opencontainers.image.version=$BUILD_VERSION

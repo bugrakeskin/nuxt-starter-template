@@ -1,3 +1,5 @@
+import { applicationVersion } from '../../shared/utils/release-version'
+
 export default defineEventHandler((event) => {
   const config = useRuntimeConfig(event)
   const readiness = getRuntimeReadiness({
@@ -12,7 +14,7 @@ export default defineEventHandler((event) => {
     status: readiness.status,
     service: config.public.appName,
     contractVersion: 1,
-    version: config.public.appVersion,
+    version: applicationVersion,
     channel: config.public.releaseChannel,
     revision: config.buildRevision,
     checks: {
