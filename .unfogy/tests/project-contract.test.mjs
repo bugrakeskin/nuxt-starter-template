@@ -1,23 +1,33 @@
 import assert from 'node:assert/strict'
-import { readFile } from 'node:fs/promises'
+import { readFile, access } from 'node:fs/promises'
 import { test } from 'node:test'
+import { parse } from 'yaml'
 
 const root = new URL('../../', import.meta.url)
 
-test('starter config contains placeholders instead of allocated identity', async () => {
-  const content = await readFile(new URL('.unfogy/config.yaml', root), 'utf8')
-  assert.match(content, /__CUSTOMER_ID__/)
-  assert.match(content, /__MWO_ID__/)
-  assert.match(content, /__CUSTOMER_SERVER__/)
-  assert.doesNotMatch(content, /CST[0-9]+/)
-  assert.doesNotMatch(content, /MWO[0-9]+/)
+test('starter provision and identity require explicit project binding', async () => {
+  const provision = parse(await readFile(new URL('.unfogy/provision.yaml', root), 'utf8'))
+  const identity = parse(await readFile(new URL('.unfogy/repository.yaml', root), 'utf8'))
+  assert.equal(provision.repository.id, '__REPOSITORY_ID__')
+  assert.equal(identity.id, provision.repository.id)
+  assert.equal(identity.owner, '__OWNER_ID__')
+  assert.equal(provision.project, '__PROJECT_ID__')
+  const publish = parse(await readFile(new URL('.unfogy/woodpecker/publish.yaml', root), 'utf8'))
+  const build = publish.steps.find(step => step.name === 'publish-image')
+  assert.equal(provision.imageRepository, build.settings.repo.replace('${CI_REPO_NAME}', provision.repository.id))
+  assert.equal(provision.imageRepository.split('/')[0], build.settings.registry)
+  assert.deepEqual(Object.keys(provision.environments), ['preview', 'production'])
+  assert.deepEqual(provision.ci.workflows, ['.unfogy/woodpecker/validate.yaml', '.unfogy/woodpecker/publish.yaml'])
+  assert.equal(provision.database.studioAccess, 'private')
+  assert.equal(provision.database.migrateEntrypoint, '.output/migrate.mjs')
+  assert.deepEqual(provision.database.applicationBindings, { NUXT_PUBLIC_SUPABASE_URL: 'api-url', NUXT_PUBLIC_SUPABASE_KEY: 'anon-key' })
+  assert.notEqual(provision.environments.preview.database.name, provision.environments.production.database.name)
+  await assert.rejects(access(new URL('.unfogy/config.yaml', root)), { code: 'ENOENT' })
 })
-
-test('customer config and starter contract remain separate inputs', async () => {
-  const config = await readFile(new URL('.unfogy/config.yaml', root), 'utf8')
-  const contract = await readFile(new URL('.unfogy/contract.yaml', root), 'utf8')
-  assert.match(config, /kind: UnfogyProjectConfig/)
-  assert.match(config, /schema_version: 2/)
-  assert.match(contract, /contractVersion: 1/)
-  assert.match(contract, /buildAuthority: woodpecker-dockerfile/)
+test('build compatibility metadata is separate from the sole provision input', async () => {
+  const contract = parse(await readFile(new URL('.unfogy/contract.yaml', root), 'utf8'))
+  assert.equal(contract.contractVersion, 1)
+  assert.equal(contract.delivery.buildAuthority, 'woodpecker-dockerfile')
+  assert.deepEqual(contract.delivery.workflows, ['.unfogy/woodpecker/validate.yaml', '.unfogy/woodpecker/publish.yaml'])
+  assert.equal(contract.provision, undefined)
 })

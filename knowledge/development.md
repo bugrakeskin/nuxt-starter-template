@@ -2,9 +2,9 @@
 type: Architecture
 title: Development and repository discovery
 description: "Repository ownership, source map and local verification entry points."
-generated: { by: agent/codex, at: "2026-10-13T19:26:19Z" }
+generated: { by: agent/codex, at: "2026-10-16T13:51:06Z" }
 status: stable
-code_refs: [AGENTS.md, package.json, .woodpecker/validate.yaml, .unfogy/scripts/verify-contract.mjs, .unfogy/scripts/verify-docs.mjs, scripts/smoke.mjs]
+code_refs: [AGENTS.md, package.json, .unfogy/woodpecker/validate.yaml, .unfogy/scripts/verify-contract.mjs, .unfogy/scripts/verify-docs.mjs, scripts/smoke.mjs]
 ---
 
 # Development rules
@@ -18,8 +18,7 @@ UI only after provisioning creates the customer repository.
 Copy `.env.example` to `.env` and set project-specific values for local use.
 The starter has no Customer resolver or Customer-specific setup helper.
 `NUXT_PUBLIC_APP_NAME` can carry a later Customer short name, but it is only a
-display setting. The existing preview setup helper belongs to the independent
-first-party `unfogy-app` CLI and does not support Customer repositories.
+display setting. Factory does not generate local .env files; configure local values explicitly.
 
 ## Shared SDLC and PR flow
 
@@ -117,7 +116,7 @@ Human approved root docs consolidation and removal on 2026-10-10. Original sourc
 
 ## Validation branch coverage
 
-`.woodpecker/validate.yaml` checks pull requests and push/manual events for
+`.unfogy/woodpecker/validate.yaml` checks pull requests and push/manual events for
 `main`, `feature/*`, `fix/*`, `docs/*`, `chore/*` and historical `task/*`/`uf/*`.
 The existing contract verifier enforces these filters and secret-free validation.
 Image publication remains main-only; this source configuration does not prove
@@ -128,6 +127,14 @@ CI registration, hosted success or branch preview deployment.
 
 Apply Control concept `contracts/development`, D-494 (policy revision is pinned in `.unfogy/versioning.json`). The sole release source is `package.json`. The compatibility surface is generic runtime/configuration, health, migration command and starter integration interfaces. Use independent SemVer; declare impact, summary and actual application runtime impact in `.unfogy/releases/<version>.json`. Run `pnpm version:sync` and then `node .unfogy/scripts/verify-version.mjs --base=<verified-main-SHA>` before PR completion. Existing notes are immutable; semantic impact needs review.
 
-The sync derives CLI/Docker metadata and, for runtime releases, `.unfogy/runtime-release.json`. Native main push publication selects only that marker; CI rejects missing/stale or unnecessary markers against the actual application delta. Metadata-only package/Docker version changes and CLI/docs-only releases do not request an app image. Local/CI source checks establish no hosted PASS, tag publication, trusted receipt, merge or deployment authority. A manual image request requires a current runtime release and existing authority.
+The sync derives CLI/Docker metadata and, for runtime releases, `.unfogy/runtime-release.json`. Native main push publication selects only that marker; CI rejects missing/stale or unnecessary markers against the actual application delta. Metadata-only package/Docker version changes and CLI/docs-only releases do not request an app image. Local/CI source checks establish no hosted PASS, tag publication, trusted receipt, merge or deployment authority. Operator-requested exact-main builds may run for initial installation or metadata-only changes; publication still requires existing authority.
 
 Nuxt health/UI use the bundled package version; legacy `NUXT_PUBLIC_APP_VERSION` cannot override it. Deployment channel is separate. Static Website channel is build provenance (`main`/`development`); target preview/production remains in deployment evidence. Promotion retains the accepted version/commit/digest and migration identity.
+
+## Factory provision template
+
+Factory reads `.unfogy/provision.yaml` as the sole installation input and `.unfogy/repository.yaml` as explicit owner/identity. The generic template intentionally contains unresolved __PLACEHOLDERS__; rebind all of them in both files to the reviewed project after cloning. No Customer allocation or automatic initializer is implemented. The former Control config.yaml template is removed; do not recreate it as a second desired-state source.
+
+One Coolify project contains preview/production with separate App/DB identities and domains. The template declares remote Supabase, private Studio, Coolify SMTP references and anon-only browser bindings; add the project's reviewed migrations before first provision. Factory CLI owns reviewed migration application, Harbor scan gate and Coolify publication. CI performs tests/build/image push only, under `.unfogy/woodpecker/`, with only project-scoped Harbor push inputs. Operator-requested manual builds support first installation and exact-main artifacts without requiring a new runtime-release marker; source/version verification still runs in validate. Existing provider workflow paths and legacy secrets need separate inspected migration; these source edits do not alter providers.
+
+`.unfogy/contract.yaml` remains build/runtime compatibility metadata for local checks, not a provision input. A generated checkout must preserve/review required tooling explicitly. This change provides source/template compatibility, not hosted acceptance.

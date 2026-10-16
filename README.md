@@ -5,59 +5,27 @@ verified scope includes native local development, Nuxt UI theme presets,
 Supabase SSR authentication, user-scoped server guards, fail-closed readiness,
 remote migration execution, metadata contracts and production checks.
 
-## Customer MWO application contract
+## Factory installation template
 
-The MWO owns its repository and corresponding Coolify Project. Task records
-bound to the same MWO use this repository and environment set; a different
-application requires a different MWO repository. Approved
-provisioning writes the non-secret application and environment metadata under
-[`.unfogy/`](.unfogy).
+The application repository owns one Coolify Project with preview and production environments. `.unfogy/provision.yaml` is the single Factory provision/deploy input; `.unfogy/repository.yaml` records the admitted repository owner and purpose. `.unfogy/woodpecker/` contains test/build/image-upload workflows. There is no second deployment config and the former Control `config.yaml` is removed.
 
-The Control Plane tracks the customer container at
-`workspaces/customers/<CST...>/customer.yaml`; the local MWO application
-checkout is `workspaces/customers/<CST...>/mwos/<MWO...>/`. The single
-declarative provisioning and deployment input is
-`<MWO...>/.unfogy/config.yaml`. The starter contains no customer identity or
-allocated MWO record.
+The starter stays generic. Both manifests intentionally contain `__PLACEHOLDERS__`; the unmodified starter cannot pass Factory identity/manifest validation or create provider resources. After creating an authorized project, replace every placeholder in both files, including repository ID/remote, explicit owner (`unfogy` or an admitted `cst-0001`), project ID, application name and each environment's App/API/private Studio domains. The image path uses the same rebound repository ID as CI. The registry host is pinned to the Unfogy-managed platform (`registry.unfogy.com`) in both manifest and workflow; a different platform requires an explicit reviewed change to both definitions. Do not infer a Customer from the GitHub account. Review the actual generated checkout and rebind its KB through [initialization](knowledge/initialization.md).
 
-The generated customer `.unfogy/` directory contains only:
+The template declares remote Supabase with separate preview/production stacks, private Studio, repository migrations and browser-safe URL/anon-key bindings. SMTP inputs are Coolify environment references. Add the project's reviewed migrations before provision; the generic starter does not include a deployed database or ready migration chain. Operator CLI controls reviewed migration application, registry scan verification and publication; CI starts no DB and receives no Coolify/SSH/recovery credentials.
+
+The retained `.unfogy/contract.yaml` is **build/runtime compatibility metadata**, read by local checks. It is not a provision input and contains no resource identity. Existing generation paths must be inspected; these files do not prove an automatic project initializer or a completed deployment.
 
 ```text
 .unfogy/
-└── config.yaml    # provisioning and deployment desired state
-```
-
-The starter's source-only contract remains in the template repository and is
-not copied into customer repositories:
-
-```text
-.unfogy/
-├── config.yaml
+├── repository.yaml
+├── provision.yaml
 ├── contract.yaml
-├── templates/
+├── woodpecker/
 ├── scripts/
 └── tests/
 ```
 
-`config.yaml` is the only MWO provisioning input. `contract.yaml` contains
-the starter's static compatibility, toolchain and delivery authority rules; it
-is not copied into customer application repositories and does not contain
-customer identity, secrets, provider UUIDs or live state.
-
-Starter-only automation helpers live under `.unfogy/scripts/`:
-`verify-contract.mjs` validates the versioned starter contract and
-`verify-harbor-scan.mjs` enforces the Harbor scan gate. Application runtime
-helpers remain under root `scripts/`: migration and container entrypoint code
-are part of the deployed application image. The showcase `smoke.mjs` also
-remains at root because it asserts starter routes.
-
-The tests for these starter contracts live under `.unfogy/tests/`. Nuxt and
-application behavior tests remain under root `test/`.
-
-The Nuxt application intentionally remains at repository root (`app/`,
-`server/`, `nuxt.config.ts`). The current Coolify recipe has no application
-base-directory contract, so moving it to `apps/web` would require a new
-starter/recipe compatibility revision.
+Runtime migration/container entrypoint helpers remain under root `scripts/` and are included in the built image. The Nuxt application remains at repository root (`app/`, `server/`, `nuxt.config.ts`). No domain/UI code is added by this installation template.
 
 ## Development
 
@@ -80,9 +48,7 @@ provide a customer-specific setup command. `NUXT_PUBLIC_APP_NAME` is the
 generic display-name setting and may be set to a Customer short name by a
 future MWO initializer; it does not identify or authorize a database.
 `.env` is ignored by Git and Coolify supplies deployment values through its own
-encrypted environment configuration. The implemented preview setup helper is
-maintained in the separate first-party `unfogy-app` CLI and only targets that
-application.
+encrypted environment configuration. Factory does not prepare local `.env` files; configure local values explicitly and keep them out of Git.
 
 | Variable | Exposure | Default |
 | --- | --- | --- |
@@ -130,19 +96,9 @@ checks use this endpoint. Container builds pass the immutable Git commit through
 
 ## Delivery contract
 
-Woodpecker validates pull requests and push/manual events on `main`,
-`feature/*`, `fix/*`, `docs/*`, `chore/*`, `task/*` and historical `uf/*` without
-secrets. A `main` push validates, publishes one image under the immutable
-`${CI_COMMIT_SHA}` tag and waits for the Harbor scan gate. Provider branch
-protection is optional defense-in-depth; exact pipeline, scan, digest and
-Control Plane promotion gates remain mandatory. The pipeline does not run
-migrations or deploy any environment. The same main workflow may be started
-manually for the initial template commit after repository activation.
+Woodpecker validates pull requests and supported main/branch events without secrets. Main runtime releases and operator-requested manual builds publish the immutable `${CI_COMMIT_SHA}` image through the pinned native Buildx plugin. The manual path supports first provisioning or exact-main builds even when only installation metadata changed; ordinary source/version checks still run in validate. CI does not migrate or deploy.
 
-The publish pipeline relies on Harbor project auto-scan, then polls
-the SHA artifact through Harbor API v2. They fail closed on timeout, scan
-failure, malformed results, or any Critical vulnerability. Control Plane may
-promote only a digest that passed this gate.
+The operator Factory CLI requires the exact successful build, immutable digest and completed Harbor auto-scan with zero Critical findings before publication. It then deploys through Coolify and verifies health. Production reuses the verified preview image without rebuilding. The local scan verifier remains a diagnostic utility; it no longer runs in CI.
 
 Bootstrap attaches pipeline steps to the isolated `unfogy-ci-egress` network;
 workflow steps and the nested Buildx daemon resolve private service names via
@@ -153,7 +109,7 @@ These values are the materialized form of the platform-owned
 invent another runner profile.
 
 The only repository secrets used by Woodpecker are the project-scoped Harbor
-push/scan robot credentials, restricted to the pinned Buildx and scan images.
+push robot credentials, restricted to the pinned Buildx image.
 Coolify tokens, resource UUIDs, database URLs and production secrets never enter
 Woodpecker. Preview and production promotion, migration and exact-revision
 health verification belong to the bounded local CLI executor under current release authority.

@@ -2,7 +2,7 @@
 type: Architecture
 title: Bind knowledge after cloning
 description: Preserve starter provenance and replace identity after authorized admission.
-generated: { by: agent/codex, at: "2026-10-13T19:26:19Z" }
+generated: { by: agent/codex, at: "2026-10-16T13:51:06Z" }
 status: stable
 code_refs: [AGENTS.md, knowledge/development.md, .unfogy/contract.yaml]
 ---
@@ -37,3 +37,9 @@ conformance and document/source links before accepting initialization.
 ## Independent application release line
 
 After actual Customer/MWO allocation and repository admission, retain starter repository/version/exact commit and the reviewed D-494 policy revision as provenance. Bind package/index identity and compatibility surface to the new owner, initialize package.json to 0.1.0, and add that initial release's notes (`impact: initial`, summary and runtime impact). Retain inherited starter notes as provenance, not new Customer releases. Run version:sync and version:verify before the first admitted baseline commit; compare subsequent PRs against that baseline/current main. Test standalone discovery and reject unresolved identity, metadata mismatch or missing release notes. This procedure does not implement an allocator, automatic template upgrade or Customer executor.
+
+## Bind Factory installation metadata
+
+After authorized project creation, fill every __PLACEHOLDER__ in `.unfogy/repository.yaml` and `.unfogy/provision.yaml`: explicit repository owner, ID/remote, maintainer/purpose, Coolify project, registry image and each environment's App/API/private Studio domains. Do not use the starter's Git remote or infer a Customer owner from a GitHub account. The untouched template must fail Factory identity/manifest validation before provider mutation. The one project owns preview/production; only environment-specific names/domains/variables vary. Add and review real SQL migrations; this template has no ready deployment/migration chain. The old config.yaml generation contract does not apply to Factory. Rebind KB identity and the copied build/CI checks as part of the same admission. See [development](development.md#factory-provision-template).
+
+The manifest and CI both use the Unfogy-managed registry host registry.unfogy.com; only the repository image path is rebound. A different registry/platform requires an explicit reviewed update to both provision and CI definitions, not only manifest substitution.

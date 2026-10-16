@@ -1,7 +1,7 @@
 contractVersion: 1
 
-# Static starter compatibility and first-install delivery contract. This file
-# is not copied into generated customer repositories.
+# Static build/runtime compatibility metadata, not installation desired state.
+# Generated projects must review their copied tooling and identity explicitly.
 application:
   root: /
   nodeMajor: 22
@@ -42,8 +42,8 @@ delivery:
   sourceRef: main
   dockerfile: Dockerfile
   workflows:
-    - .woodpecker/validate.yaml
-    - .woodpecker/publish.yaml
+    - .unfogy/woodpecker/validate.yaml
+    - .unfogy/woodpecker/publish.yaml
   buildAuthority: woodpecker-dockerfile
   artifactAuthority: harbor-immutable-image
   runtimeAuthority: coolify-docker-image

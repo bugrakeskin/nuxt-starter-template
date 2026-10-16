@@ -1,0 +1,7 @@
+# Bind to the admitted project; placeholders intentionally prevent installation.
+version: 1
+id: __REPOSITORY_ID__
+name: __APP_NAME__
+purpose: __PROJECT_PURPOSE__
+owner: __OWNER_ID__
+maintainer: __MAINTAINER__
