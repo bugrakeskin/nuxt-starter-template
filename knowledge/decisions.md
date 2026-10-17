@@ -2,7 +2,7 @@
 type: Decision
 title: Nuxt starter decision ownership
 description: Records local architecture rationale and routes shared approved decisions to Control.
-generated: { by: agent/codex, at: "2026-10-11T11:01:14Z" }
+generated: { by: agent/codex, at: "2026-10-16T13:48:40Z" }
 status: stable
 code_refs: [AGENTS.md, knowledge/development.md]
 ---
@@ -27,3 +27,7 @@ Shared standard version 3 is pinned to reviewed Control commit 23f3de185183875d1
 
 
 2026-10-10 — human approved removing the root docs directory after source comparison and knowledge consolidation. Preserve existing concept IDs, API/auth/migration boundaries and dated evidence. New local contract/evidence concepts own demonstrated gaps. Root README and knowledge index are discovery entries; module READMEs remain with their sources. The existing document checker validates the KB and source map without requiring docs/. Historical migration logs remain distinct from native log bookkeeping. Source: direct user “evet” approving the migration proposal. Control docs and other active worktrees are outside scope; no merge or deployment approval is implied.
+
+## Factory provision compatibility — 2026-10-16
+
+Human requested starter/Website compatibility with Factory's single provision.yaml and selected the generic-starter option: project creation must explicitly fill identity/domains; the starter itself is not a separately allocated application. Use repository.yaml for admitted identity, provision.yaml as the only installation desired state and .unfogy/woodpecker/ for build-only CI. The old Control config.yaml template is removed; contract.yaml remains build/runtime compatibility metadata. Factory operator CLI owns migration approval/application, Harbor scan and Coolify publication. No provider activation, secret cleanup, runtime installation or automatic initializer is claimed. See [initialization](initialization.md#bind-factory-installation-metadata).

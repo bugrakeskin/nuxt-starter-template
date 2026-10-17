@@ -1,0 +1,6 @@
+{
+  "impact": "major",
+  "summary": "Adopt Factory provision manifests, build-only CI and guarded initial installation for generated applications.",
+  "runtime": true,
+  "breaking": "Woodpecker must use .unfogy/woodpecker/. Factory reads provision.yaml and repository.yaml instead of the former Control config or embedded provision section. Bind all starter placeholders explicitly. The migration runner requires exact expected history and rejects CI execution; initial installation additionally requires the verified empty-target protocol. Generated applications start an independent 0.1.0 release with exact starter provenance. Existing application upgrades retain explicit SQL review and approval. Provider reconfiguration and publication require their applicable approval."
+}

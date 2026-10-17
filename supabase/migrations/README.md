@@ -10,5 +10,8 @@ Applied versions are recorded in Supabase CLI's canonical
 in `unfogy_migrations.migration_checksums`; a ledger row without its reviewed
 checksum blocks instead of being trusted silently.
 
-The runner wraps each migration in a transaction. Operations that cannot run in
+The runner requires the exact approved expected-history JSON through its protected
+environment and rejects CI. Initial installation repeats the empty-target proof
+and wraps all migrations plus both ledgers in one transaction. Established-target
+upgrades wrap each migration in a separate transaction. Operations that cannot run in
 a transaction require a separately reviewed operational plan.

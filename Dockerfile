@@ -2,7 +2,7 @@
 
 ARG BUILD_REVISION=development
 # Generated from package.json by pnpm version:sync
-ARG BUILD_VERSION=0.2.0
+ARG BUILD_VERSION=0.3.0
 ARG BUILD_CHANNEL=development
 
 FROM node:22.22.0-bookworm-slim@sha256:dd9d21971ec4395903fa6143c2b9267d048ae01ca6d3ea96f16cb30df6187d94 AS build
@@ -47,6 +47,7 @@ RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack 
 
 COPY --from=build --chown=node:node /app/.output ./.output
 COPY --from=build --chown=node:node /app/supabase/migrations ./supabase/migrations
+COPY --from=build --chown=node:node /app/scripts/empty-database.sql ./scripts/empty-database.sql
 COPY --from=build --chown=node:node /app/scripts/runtime-entrypoint.mjs ./scripts/runtime-entrypoint.mjs
 
 USER node

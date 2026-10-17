@@ -2,10 +2,23 @@
 type: Contract
 title: Supabase auth and migration contract
 description: "Defines local authentication, user-scoped access, secret boundaries and reviewed migration procedures."
-generated: { by: agent/codex, at: "2026-10-10T10:51:37Z" }
+generated: { by: agent/codex, at: "2026-10-17T18:47:29Z" }
 status: stable
 code_refs: [nuxt.config.ts, server/utils/auth.ts, supabase/, scripts/db-migrate.mjs]
 ---
+
+## Guarded automatic initial installation — 2026-10-17
+
+The Factory installer may apply this exact reviewed starter release to a verified
+empty target under its protected release approval. Existing DB upgrades retain
+separate exact SQL review and approval. The runner rejects CI and requires
+UNFOGY_MIGRATION_EXPECTED_HISTORY. For initial installation it repeats the empty
+target proof with UNFOGY_MIGRATION_INITIAL_INSTALL=true, then commits all initial
+migrations and both ledgers in one transaction. A failed initial batch leaves no
+partially installed application schema. Runtime images include scripts/empty-database.sql.
+The installation baseline records only reviewed provenance/checksums; it creates
+no business tables, users, sample data or privileged browser client. This is local
+source and test evidence, not a hosted DB acceptance claim.
 
 # Supabase rules
 
