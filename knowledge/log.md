@@ -1,3 +1,8 @@
+## 2026-10-17
+* **Update**: Updated concept `development.md`.
+* **Update**: Updated concept `initialization.md`.
+* **Update**: Updated concept `contracts/supabase.md`.
+
 ## 2026-10-16
 * **Update**: Updated concept `initialization.md`.
 * **Update**: Updated concept `development.md`.

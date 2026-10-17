@@ -1,0 +1,6 @@
+{
+  "impact": "major",
+  "summary": "Provide a guarded, transactional installation baseline for generated applications.",
+  "runtime": true,
+  "breaking": "The migration runner now requires exact expected history and rejects CI execution. Initial installation additionally requires the verified empty-target protocol. Factory binds customer manifests and initializes an independent 0.1.0 application release; existing application upgrades retain explicit SQL review and approval."
+}

@@ -2,10 +2,31 @@
 type: Architecture
 title: Bind knowledge after cloning
 description: Preserve starter provenance and replace identity after authorized admission.
-generated: { by: agent/codex, at: "2026-10-16T13:51:06Z" }
+generated: { by: agent/codex, at: "2026-10-17T18:47:29Z" }
 status: stable
 code_refs: [AGENTS.md, knowledge/development.md, .unfogy/contract.yaml]
 ---
+
+## Automated technical installation — 2026-10-17
+
+Factory may bind an approved exact starter release after canonical Customer/
+Application admission and operator installation authorization. It binds both
+installation manifests, package identity/version, Docker version, publication
+marker, initial release notes and KB index. A provenance-only Git parent records
+the starter source. The next commit starts an independent application at 0.1.0;
+it is not a version decrease on the starter release line. Inherited starter
+release history remains provenance.
+
+Only declared YAML scalar substitutions and deterministic release metadata may
+differ from the approved source. The installer checks the complete source tree
+and initial migration checksums. CI contract tests accept the untouched generic
+manifest or a valid bound identity. The generic starter keeps all placeholders.
+
+Technical installation does not certify completed product/design discovery or
+authorize Customer Task execution. Those project facts remain open until the
+separate approved project workflow reviews them. This bounded technical stage
+supersedes manual initialization steps only for the fields above. No Customer
+identity or live runtime evidence is inserted into this generic bundle.
 
 Precondition: the new repository has an authorized allocation/admission and an exact verified Git root/origin. This guide does not allocate a Customer or select an MWO.
 

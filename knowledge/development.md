@@ -2,7 +2,7 @@
 type: Architecture
 title: Development and repository discovery
 description: "Repository ownership, source map and local verification entry points."
-generated: { by: agent/codex, at: "2026-10-16T13:51:06Z" }
+generated: { by: agent/codex, at: "2026-10-17T18:54:07Z" }
 status: stable
 code_refs: [AGENTS.md, package.json, .unfogy/woodpecker/validate.yaml, .unfogy/scripts/verify-contract.mjs, .unfogy/scripts/verify-docs.mjs, scripts/smoke.mjs]
 ---
@@ -133,7 +133,7 @@ Nuxt health/UI use the bundled package version; legacy `NUXT_PUBLIC_APP_VERSION`
 
 ## Factory provision template
 
-Factory reads `.unfogy/provision.yaml` as the sole installation input and `.unfogy/repository.yaml` as explicit owner/identity. The generic template intentionally contains unresolved __PLACEHOLDERS__; rebind all of them in both files to the reviewed project after cloning. No Customer allocation or automatic initializer is implemented. The former Control config.yaml template is removed; do not recreate it as a second desired-state source.
+Factory reads `.unfogy/provision.yaml` as the sole installation input and `.unfogy/repository.yaml` as explicit owner/identity. The generic template intentionally contains unresolved __PLACEHOLDERS__; rebind all of them in both files to the reviewed project after cloning. The Factory installation engine can create a Customer repository from an exact approved starter release, bind explicit manifests and deterministic version/provenance metadata, and check the resulting source. This starter supplies the guarded migration runner; Factory owns execution. Product and design discovery remain separate. The former Control config.yaml template is removed; do not recreate it as a second desired-state source.
 
 One Coolify project contains preview/production with separate App/DB identities and domains. The template declares remote Supabase, private Studio, Coolify SMTP references and anon-only browser bindings; add the project's reviewed migrations before first provision. Factory CLI owns reviewed migration application, Harbor scan gate and Coolify publication. CI performs tests/build/image push only, under `.unfogy/woodpecker/`, with only project-scoped Harbor push inputs. Operator-requested manual builds support first installation and exact-main artifacts without requiring a new runtime-release marker; source/version verification still runs in validate. Existing provider workflow paths and legacy secrets need separate inspected migration; these source edits do not alter providers.
 
