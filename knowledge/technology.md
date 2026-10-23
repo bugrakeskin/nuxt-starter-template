@@ -2,7 +2,7 @@
 type: Architecture
 title: Nuxt starter technology sources
 description: "Maps framework, tooling and integrations to their actual configuration files."
-generated: { by: agent/codex, at: "2026-10-16T13:46:39Z" }
+generated: { by: agent/codex, at: "2026-10-21T16:09:59Z" }
 status: stable
 code_refs: [package.json, pnpm-lock.yaml, nuxt.config.ts, knowledge/contracts/supabase.md, .unfogy/contract.yaml]
 sources:
@@ -21,4 +21,6 @@ Keep runtime secrets out of public configuration. Read [architecture](architectu
 
 ## Factory source map
 
-Installation: `.unfogy/provision.yaml`. Explicit owner/purpose: `.unfogy/repository.yaml`. Build-only CI: `.unfogy/woodpecker/validate.yaml` and `publish.yaml`. Build/runtime compatibility checks: `.unfogy/contract.yaml`. The historical config.yaml installation input is removed for Factory; runtime Nuxt/Supabase code is unchanged. Generated projects must bind the manifest placeholders, review their actual files and provide migrations; no hosted readiness is claimed.
+Installation: `.unfogy/application.yaml`. Explicit owner/purpose: the repository metadata in `.unfogy/application.yaml`. Build-only CI: `.unfogy/woodpecker/validate.yaml` and `publish.yaml`. Build/runtime compatibility checks: `.unfogy/contract.yaml`. The historical config.yaml installation input is removed for Factory; runtime Nuxt/Supabase code is unchanged. Generated projects must bind the manifest placeholders, review their actual files and provide migrations; no hosted readiness is claimed.
+
+Current config boundary: one application.yaml replaces both old declarations. Fill all template placeholders before execution. Customer execution remains unavailable; this template does not grant admission or publication authority.

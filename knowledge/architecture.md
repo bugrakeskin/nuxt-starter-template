@@ -2,7 +2,7 @@
 type: Architecture
 title: Nuxt starter architecture
 description: "Describes local building blocks, runtime flow, deployment boundaries and risks."
-generated: { by: agent/codex, at: "2026-10-16T13:46:39Z" }
+generated: { by: agent/codex, at: "2026-10-21T16:09:59Z" }
 status: stable
 code_refs: [nuxt.config.ts, knowledge/index.md, Dockerfile, .unfogy/contract.yaml, app/, layers/base/, server/, supabase/, scripts/]
 sources:
@@ -39,4 +39,6 @@ Risks: stale schema/client contracts, exposed secrets and unsupported runtime cl
 
 ## Factory installation definitions
 
-The current Factory path uses `.unfogy/repository.yaml` for explicit identity, `.unfogy/provision.yaml` for one Coolify project with preview/production, and `.unfogy/woodpecker/` for tests/build/image upload. The old config.yaml is superseded for Factory; contract.yaml is build/runtime compatibility metadata only. Template placeholders are not admitted identity and must not create provider resources. CLI controls remote SQL changes, scan verification and deployment after existing approvals; no database starts in CI. The generic template is not a deployed application. [Project rebinding](initialization.md#bind-factory-installation-metadata).
+The current Factory path uses the repository metadata in `.unfogy/application.yaml` for explicit identity, `.unfogy/application.yaml` for one Coolify project with preview/production, and `.unfogy/woodpecker/` for tests/build/image upload. The old config.yaml is superseded for Factory; contract.yaml is build/runtime compatibility metadata only. Template placeholders are not admitted identity and must not create provider resources. CLI controls remote SQL changes, scan verification and deployment after existing approvals; no database starts in CI. The generic template is not a deployed application. [Project rebinding](initialization.md#bind-factory-installation-metadata).
+
+Current config boundary: one application.yaml replaces both old declarations. Fill all template placeholders before execution. Customer execution remains unavailable; this template does not grant admission or publication authority.

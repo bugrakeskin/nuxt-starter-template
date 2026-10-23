@@ -2,7 +2,7 @@
 type: Architecture
 title: Generic Nuxt foundation
 description: Framework and delivery sources without customer domain features.
-generated: { by: agent/codex, at: "2026-10-16T13:46:39Z" }
+generated: { by: agent/codex, at: "2026-10-21T16:09:59Z" }
 status: stable
 code_refs: [knowledge/development.md, knowledge/design.md, nuxt.config.ts, .unfogy/contract.yaml, layers/base/, server/api/health.get.ts, scripts/db-migrate.mjs, scripts/runtime-entrypoint.mjs]
 ---
@@ -124,4 +124,6 @@ Human approved root docs consolidation and removal on 2026-10-10. Original sourc
 
 ## Factory-compatible installation source
 
-The generic `.unfogy/provision.yaml` replaces the former config.yaml template as the sole installation input. `.unfogy/repository.yaml` carries unresolved owner/identity fields; placeholders prevent accidental installation. `.unfogy/contract.yaml` remains separate build/runtime compatibility metadata. Rebind both installation manifests after authorized clone and provide reviewed migrations before provisioning the remote Supabase stack. Build-only CI lives in `.unfogy/woodpecker/`; the operator CLI owns scan validation, migrations and publication. No App/customer data or provider allocation is embedded here. See [initialization](initialization.md#bind-factory-installation-metadata).
+The generic `.unfogy/application.yaml` replaces the former config.yaml template as the sole installation input. the repository metadata in `.unfogy/application.yaml` carries unresolved owner/identity fields; placeholders prevent accidental installation. `.unfogy/contract.yaml` remains separate build/runtime compatibility metadata. Rebind both installation manifests after authorized clone and provide reviewed migrations before provisioning the remote Supabase stack. Build-only CI lives in `.unfogy/woodpecker/`; the operator CLI owns scan validation, migrations and publication. No App/customer data or provider allocation is embedded here. See [initialization](initialization.md#bind-factory-installation-metadata).
+
+Current config boundary: one application.yaml replaces both old declarations. Fill all template placeholders before execution. Customer execution remains unavailable; this template does not grant admission or publication authority.
