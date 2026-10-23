@@ -7,9 +7,9 @@ remote migration execution, metadata contracts and production checks.
 
 ## Factory installation template
 
-The application repository owns one Coolify Project with preview and production environments. `.unfogy/provision.yaml` is the single Factory provision/deploy input; `.unfogy/repository.yaml` records the admitted repository owner and purpose. `.unfogy/woodpecker/` contains test/build/image-upload workflows. There is no second deployment config and the former Control `config.yaml` is removed.
+The application repository owns one Coolify Project with preview and production environments. The single `.unfogy/application.yaml` records repository identity and desired Preview/Production settings. `.unfogy/woodpecker/` contains test/build/image-upload workflows. There is no second deployment config and the former Control `config.yaml` is removed.
 
-The starter stays generic. Both manifests intentionally contain `__PLACEHOLDERS__`; the unmodified starter cannot pass Factory identity/manifest validation or create provider resources. After creating an authorized project, replace every placeholder in both files, including repository ID/remote, explicit owner (`unfogy` or an admitted `cst-0001`), project ID, application name and each environment's App/API/private Studio domains. The image path uses the same rebound repository ID as CI. The registry host is pinned to the Unfogy-managed platform (`registry.unfogy.com`) in both manifest and workflow; a different platform requires an explicit reviewed change to both definitions. Do not infer a Customer from the GitHub account. Review the actual generated checkout and rebind its KB through [initialization](knowledge/initialization.md).
+The starter stays generic. The application config intentionally contains `__PLACEHOLDERS__`; the unmodified starter cannot pass Factory identity/manifest validation or create provider resources. After creating an authorized project, replace every placeholder in application.yaml, including repository ID/remote, explicit owner (`unfogy` or an admitted `cst-0001`), project ID, application name and each environment's App/API/private Studio domains. The image path uses the same rebound repository ID as CI. The registry host is pinned to the Unfogy-managed platform (`registry.unfogy.com`) in both manifest and workflow; a different platform requires an explicit reviewed change to both definitions. Do not infer a Customer from the GitHub account. Review the actual generated checkout and rebind its KB through [initialization](knowledge/initialization.md).
 
 The template declares remote Supabase with separate preview/production stacks, private Studio, repository migrations and browser-safe URL/anon-key bindings. SMTP inputs are Coolify environment references. Add the project's reviewed migrations before provision; the generic starter does not include a deployed database or ready migration chain. Operator CLI controls reviewed migration application, registry scan verification and publication; CI starts no DB and receives no Coolify/SSH/recovery credentials.
 
@@ -17,8 +17,8 @@ The retained `.unfogy/contract.yaml` is **build/runtime compatibility metadata**
 
 ```text
 .unfogy/
-├── repository.yaml
-├── provision.yaml
+├── application.yaml
+├── application.schema.json
 ├── contract.yaml
 ├── woodpecker/
 ├── scripts/
@@ -170,3 +170,24 @@ The [architecture source map](knowledge/architecture.md) and module READMEs docu
 
 
 Release source: `package.json`. Run `pnpm version:sync` after editing the release source and `.unfogy/releases/<version>.json`; verify against current main before PR completion. The adopted Control policy revision is pinned in `.unfogy/versioning.json`.
+
+## Application configuration
+
+`.unfogy/application.yaml` is the single application/repository declaration.
+`.unfogy/application.schema.json` is its matching Factory schema. The agent asks
+the Developer for missing values and fills this file before invoking the CLI.
+No secret values, Tasks, approval records or live results belong in this file.
+Git owns desired settings; Factory API/DB owns access and approved placement.
+
+Use `unfogy provision --config /absolute/repository/.unfogy/application.yaml --env preview --check`
+for local validation. Explicitly approved preparation ends at PREPARED, with no
+App migrations, build, start or publication. Woodpecker builds and uploads the
+image. Deploy uses the exact successful image and separate SQL/publication
+approvals. Production reuses the verified Preview digest without rebuilding.
+There are no public CLI `plan` commands.
+
+This config replaces repository.yaml and provision.yaml together. Remove both
+retired declarations after merging their identity and environment settings.
+Existing release receipts and source hashes need fresh review after migration.
+Template placeholders must be filled before execution. Source checks do not
+prove hosted installation, authentication or publication.

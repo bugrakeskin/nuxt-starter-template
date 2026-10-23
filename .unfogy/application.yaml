@@ -1,15 +1,19 @@
-# Template only: replace every __PLACEHOLDER__ in both manifests before provisioning.
+# yaml-language-server: $schema=./application.schema.json
 version: 1
 repository:
   id: __REPOSITORY_ID__
   remote: https://github.com/__GITHUB_OWNER__/__REPOSITORY_ID__.git
-server: localhost
+  name: __APP_NAME__
+  purpose: __PROJECT_PURPOSE__
+  owner: __OWNER_ID__
+  maintainer: __MAINTAINER__
 project: __PROJECT_ID__
 imageRepository: registry.unfogy.com/__REPOSITORY_ID__/app
 runtime:
   port: 3000
   healthPath: /api/health
-  healthCommand: node -e "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+  healthCommand: node -e
+    "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 ci:
   repository: __GITHUB_OWNER__/__REPOSITORY_ID__
   sourceRef: main
@@ -67,6 +71,8 @@ environments:
         API_EXTERNAL_URL: https://__PREVIEW_API_DOMAIN__
         GOTRUE_SITE_URL: https://__PREVIEW_APP_DOMAIN__
         ADDITIONAL_REDIRECT_URLS: https://__PREVIEW_APP_DOMAIN__/confirm
+    placement:
+      role: preview-worker
   production:
     application: __APP_NAME__ production
     domains:
@@ -80,3 +86,5 @@ environments:
         API_EXTERNAL_URL: https://__PRODUCTION_API_DOMAIN__
         GOTRUE_SITE_URL: https://__PRODUCTION_APP_DOMAIN__
         ADDITIONAL_REDIRECT_URLS: https://__PRODUCTION_APP_DOMAIN__/confirm
+    placement:
+      role: production-worker

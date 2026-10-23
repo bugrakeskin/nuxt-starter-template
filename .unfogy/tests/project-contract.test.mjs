@@ -6,8 +6,8 @@ import { parse } from 'yaml'
 const root = new URL('../../', import.meta.url)
 
 test('starter provision and identity require explicit project binding', async () => {
-  const provision = parse(await readFile(new URL('.unfogy/provision.yaml', root), 'utf8'))
-  const identity = parse(await readFile(new URL('.unfogy/repository.yaml', root), 'utf8'))
+  const provision = parse(await readFile(new URL('.unfogy/application.yaml', root), 'utf8'))
+  const identity = provision.repository
   const generic = provision.repository.id === '__REPOSITORY_ID__'
   assert.match(provision.repository.id, generic ? /^__REPOSITORY_ID__$/ : /^[-a-z0-9]+$/)
   assert.equal(identity.id, provision.repository.id)
@@ -23,7 +23,8 @@ test('starter provision and identity require explicit project binding', async ()
   assert.equal(provision.database.migrateEntrypoint, '.output/migrate.mjs')
   assert.deepEqual(provision.database.applicationBindings, { NUXT_PUBLIC_SUPABASE_URL: 'api-url', NUXT_PUBLIC_SUPABASE_KEY: 'anon-key' })
   assert.notEqual(provision.environments.preview.database.name, provision.environments.production.database.name)
-  await assert.rejects(access(new URL('.unfogy/config.yaml', root)), { code: 'ENOENT' })
+  for(const retired of ['config.yaml','repository.yaml','provision.yaml'])await assert.rejects(access(new URL('.unfogy/'+retired, root)), {code:'ENOENT'})
+  for(const [name,settings]of Object.entries(provision.environments))assert.equal(settings.placement.role,name==='preview'?'preview-worker':'production-worker')
 })
 test('build compatibility metadata is separate from the sole provision input', async () => {
   const contract = parse(await readFile(new URL('.unfogy/contract.yaml', root), 'utf8'))

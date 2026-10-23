@@ -2,7 +2,7 @@
 type: Architecture
 title: Bind knowledge after cloning
 description: Preserve starter provenance and replace identity after authorized admission.
-generated: { by: agent/codex, at: "2026-10-17T18:47:29Z" }
+generated: { by: agent/codex, at: "2026-10-21T16:09:59Z" }
 status: stable
 code_refs: [AGENTS.md, knowledge/development.md, .unfogy/contract.yaml]
 ---
@@ -61,6 +61,8 @@ After actual Customer/MWO allocation and repository admission, retain starter re
 
 ## Bind Factory installation metadata
 
-After authorized project creation, fill every __PLACEHOLDER__ in `.unfogy/repository.yaml` and `.unfogy/provision.yaml`: explicit repository owner, ID/remote, maintainer/purpose, Coolify project, registry image and each environment's App/API/private Studio domains. Do not use the starter's Git remote or infer a Customer owner from a GitHub account. The untouched template must fail Factory identity/manifest validation before provider mutation. The one project owns preview/production; only environment-specific names/domains/variables vary. Add and review real SQL migrations; this template has no ready deployment/migration chain. The old config.yaml generation contract does not apply to Factory. Rebind KB identity and the copied build/CI checks as part of the same admission. See [development](development.md#factory-provision-template).
+After authorized project creation, fill every __PLACEHOLDER__ in the repository metadata in `.unfogy/application.yaml` and `.unfogy/application.yaml`: explicit repository owner, ID/remote, maintainer/purpose, Coolify project, registry image and each environment's App/API/private Studio domains. Do not use the starter's Git remote or infer a Customer owner from a GitHub account. The untouched template must fail Factory identity/manifest validation before provider mutation. The one project owns preview/production; only environment-specific names/domains/variables vary. Add and review real SQL migrations; this template has no ready deployment/migration chain. The old config.yaml generation contract does not apply to Factory. Rebind KB identity and the copied build/CI checks as part of the same admission. See [development](development.md#factory-provision-template).
 
 The manifest and CI both use the Unfogy-managed registry host registry.unfogy.com; only the repository image path is rebound. A different registry/platform requires an explicit reviewed update to both provision and CI definitions, not only manifest substitution.
+
+Current config boundary: one application.yaml replaces both old declarations. Fill all template placeholders before execution. Customer execution remains unavailable; this template does not grant admission or publication authority.

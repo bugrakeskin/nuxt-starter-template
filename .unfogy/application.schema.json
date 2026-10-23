@@ -1,0 +1,620 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://unfogy.com/schemas/application-v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "remote": {
+          "type": "string",
+          "pattern": "^https://github[.]com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+[.]git$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 511,
+          "pattern": "^[^\\r\\n\\u0000]+$"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 511,
+          "pattern": "^[^\\r\\n\\u0000]+$"
+        },
+        "owner": {
+          "type": "string",
+          "pattern": "^(unfogy|cst-[0-9]{4,})$"
+        },
+        "maintainer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 511,
+          "pattern": "^[^\\r\\n\\u0000]+$"
+        }
+      },
+      "required": [
+        "id",
+        "remote",
+        "name",
+        "purpose",
+        "owner"
+      ]
+    },
+    "project": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 511,
+      "pattern": "^[^\\r\\n\\u0000]+$"
+    },
+    "imageRepository": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 511,
+      "pattern": "^registry[.][a-z0-9.-]+/[a-z0-9][a-z0-9/_-]+$"
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "port",
+        "healthPath",
+        "healthCommand"
+      ],
+      "properties": {
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "healthPath": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 511,
+          "pattern": "^/[A-Za-z0-9/_-]+$"
+        },
+        "healthCommand": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 511,
+          "pattern": "^(?!\\s*$)[^\\r\\n\\u0000]+$"
+        }
+      }
+    },
+    "ci": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "sourceRef",
+        "workflows"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 511,
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+        },
+        "sourceRef": {
+          "const": "main"
+        },
+        "workflows": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              ".unfogy/woodpecker/validate.yaml",
+              ".unfogy/woodpecker/publish.yaml"
+            ]
+          }
+        }
+      }
+    },
+    "variables": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[_A-Z][_A-Z0-9]*$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 511,
+        "pattern": "^[^\\r\\n\\u0000]+$",
+        "anyOf": [
+          {
+            "not": {
+              "pattern": "\\{\\{"
+            }
+          },
+          {
+            "pattern": "^\\{\\{environment[.][_A-Z][_A-Z0-9]*\\}\\}$"
+          }
+        ]
+      },
+      "patternProperties": {
+        "(?:PASSWORD|SECRET|TOKEN|PASS|PRIVATE_KEY|SERVICE_ROLE_KEY)(?:_BASE64)?$": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 511,
+          "pattern": "^\\{\\{environment[.][_A-Z][_A-Z0-9]*\\}\\}$"
+        }
+      }
+    },
+    "environments": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "preview": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "application": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 511,
+              "pattern": "^[^\\r\\n\\u0000]+$"
+            },
+            "domains": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string"
+              }
+            },
+            "variables": {
+              "type": "object",
+              "propertyNames": {
+                "pattern": "^[_A-Z][_A-Z0-9]*$"
+              },
+              "additionalProperties": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 511,
+                "pattern": "^[^\\r\\n\\u0000]+$",
+                "anyOf": [
+                  {
+                    "not": {
+                      "pattern": "\\{\\{"
+                    }
+                  },
+                  {
+                    "pattern": "^\\{\\{environment[.][_A-Z][_A-Z0-9]*\\}\\}$"
+                  }
+                ]
+              },
+              "patternProperties": {
+                "(?:PASSWORD|SECRET|TOKEN|PASS|PRIVATE_KEY|SERVICE_ROLE_KEY)(?:_BASE64)?$": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 511,
+                  "pattern": "^\\{\\{environment[.][_A-Z][_A-Z0-9]*\\}\\}$"
+                }
+              }
+            },
+            "placement": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "role": {
+                  "const": "preview-worker"
+                },
+                "server": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,62}$"
+                }
+              },
+              "required": [
+                "role"
+              ]
+            },
+            "database": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 511,
+                  "pattern": "^[^\\r\\n\\u0000]+$"
+                },
+                "apiDomain": {
+                  "type": "string",
+                  "pattern": "^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?[.])+[a-z0-9-]+$"
+                },
+                "studioDomain": {
+                  "type": "string",
+                  "pattern": "^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?[.])+[a-z0-9-]+$"
+                },
+                "variables": {
+                  "type": "object",
+                  "propertyNames": {
+                    "pattern": "^[_A-Z][_A-Z0-9]*$"
+                  },
+                  "additionalProperties": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 511,
+                    "pattern": "^[^\\r\\n\\u0000]+$",
+                    "anyOf": [
+                      {
+                        "not": {
+                          "pattern": "\\{\\{"
+                        }
+                      },
+                      {
+                        "pattern": "^\\{\\{environment[.][_A-Z][_A-Z0-9]*\\}\\}$"
+                      }
+                    ]
+                  },
+                  "patternProperties": {
+                    "(?:PASSWORD|SECRET|TOKEN|PASS|PRIVATE_KEY|SERVICE_ROLE_KEY)(?:_BASE64)?$": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 511,
+                      "pattern": "^\\{\\{environment[.][_A-Z][_A-Z0-9]*\\}\\}$"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "apiDomain",
+                "studioDomain",
+                "variables"
+              ]
+            }
+          },
+          "required": [
+            "application",
+            "domains",
+            "variables",
+            "placement"
+          ]
+        },
+        "production": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "application": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 511,
+              "pattern": "^[^\\r\\n\\u0000]+$"
+            },
+            "domains": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string"
+              }
+            },
+            "variables": {
+              "type": "object",
+              "propertyNames": {
+                "pattern": "^[_A-Z][_A-Z0-9]*$"
+              },
+              "additionalProperties": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 511,
+                "pattern": "^[^\\r\\n\\u0000]+$",
+                "anyOf": [
+                  {
+                    "not": {
+                      "pattern": "\\{\\{"
+                    }
+                  },
+                  {
+                    "pattern": "^\\{\\{environment[.][_A-Z][_A-Z0-9]*\\}\\}$"
+                  }
+                ]
+              },
+              "patternProperties": {
+                "(?:PASSWORD|SECRET|TOKEN|PASS|PRIVATE_KEY|SERVICE_ROLE_KEY)(?:_BASE64)?$": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 511,
+                  "pattern": "^\\{\\{environment[.][_A-Z][_A-Z0-9]*\\}\\}$"
+                }
+              }
+            },
+            "placement": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "role": {
+                  "const": "production-worker"
+                },
+                "server": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,62}$"
+                }
+              },
+              "required": [
+                "role"
+              ]
+            },
+            "database": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 511,
+                  "pattern": "^[^\\r\\n\\u0000]+$"
+                },
+                "apiDomain": {
+                  "type": "string",
+                  "pattern": "^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?[.])+[a-z0-9-]+$"
+                },
+                "studioDomain": {
+                  "type": "string",
+                  "pattern": "^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?[.])+[a-z0-9-]+$"
+                },
+                "variables": {
+                  "type": "object",
+                  "propertyNames": {
+                    "pattern": "^[_A-Z][_A-Z0-9]*$"
+                  },
+                  "additionalProperties": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 511,
+                    "pattern": "^[^\\r\\n\\u0000]+$",
+                    "anyOf": [
+                      {
+                        "not": {
+                          "pattern": "\\{\\{"
+                        }
+                      },
+                      {
+                        "pattern": "^\\{\\{environment[.][_A-Z][_A-Z0-9]*\\}\\}$"
+                      }
+                    ]
+                  },
+                  "patternProperties": {
+                    "(?:PASSWORD|SECRET|TOKEN|PASS|PRIVATE_KEY|SERVICE_ROLE_KEY)(?:_BASE64)?$": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 511,
+                      "pattern": "^\\{\\{environment[.][_A-Z][_A-Z0-9]*\\}\\}$"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "apiDomain",
+                "studioDomain",
+                "variables"
+              ]
+            }
+          },
+          "required": [
+            "application",
+            "domains",
+            "variables",
+            "placement"
+          ]
+        }
+      },
+      "required": [
+        "preview",
+        "production"
+      ]
+    },
+    "firstSetup": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "coolifyServer": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{1,100}$"
+        },
+        "websiteRepository": {
+          "type": "string",
+          "pattern": "^https://github[.]com/bugrakeskin/unfogy-website[.]git$"
+        },
+        "factoryReview": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 511,
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./-]+$"
+        },
+        "websiteReview": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 511,
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9_./-]+$"
+        }
+      },
+      "required": [
+        "coolifyServer",
+        "websiteRepository",
+        "factoryReview",
+        "websiteReview"
+      ]
+    },
+    "database": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "supabase"
+        },
+        "studioAccess": {
+          "const": "private"
+        },
+        "migrations": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 511,
+          "pattern": "^[A-Za-z0-9_./-]+$"
+        },
+        "migrateEntrypoint": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 511,
+          "pattern": "^[A-Za-z0-9_./-]+$"
+        },
+        "applicationBindings": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[_A-Z][_A-Z0-9]*$"
+          },
+          "additionalProperties": {
+            "enum": [
+              "api-url",
+              "anon-key",
+              "service-key"
+            ]
+          }
+        },
+        "variables": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[_A-Z][_A-Z0-9]*$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 511,
+            "pattern": "^[^\\r\\n\\u0000]+$",
+            "anyOf": [
+              {
+                "not": {
+                  "pattern": "\\{\\{"
+                }
+              },
+              {
+                "pattern": "^\\{\\{environment[.][_A-Z][_A-Z0-9]*\\}\\}$"
+              }
+            ]
+          },
+          "patternProperties": {
+            "(?:PASSWORD|SECRET|TOKEN|PASS|PRIVATE_KEY|SERVICE_ROLE_KEY)(?:_BASE64)?$": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 511,
+              "pattern": "^\\{\\{environment[.][_A-Z][_A-Z0-9]*\\}\\}$"
+            }
+          }
+        },
+        "requiredSecrets": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 511,
+            "pattern": "^[_A-Z][_A-Z0-9]*$"
+          }
+        },
+        "backup": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "region": {
+              "type": "string"
+            },
+            "endpoint": {
+              "type": "string"
+            },
+            "prefix": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "region",
+            "endpoint"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "studioAccess",
+        "migrations",
+        "migrateEntrypoint",
+        "applicationBindings",
+        "variables",
+        "requiredSecrets",
+        "backup"
+      ]
+    }
+  },
+  "required": [
+    "version",
+    "repository",
+    "project",
+    "imageRepository",
+    "runtime",
+    "ci",
+    "variables",
+    "environments"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "database"
+        ]
+      },
+      "then": {
+        "properties": {
+          "environments": {
+            "properties": {
+              "preview": {
+                "required": [
+                  "database"
+                ]
+              },
+              "production": {
+                "required": [
+                  "database"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "environments": {
+            "properties": {
+              "preview": {
+                "not": {
+                  "required": [
+                    "database"
+                  ]
+                }
+              },
+              "production": {
+                "not": {
+                  "required": [
+                    "database"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

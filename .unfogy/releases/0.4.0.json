@@ -1,0 +1,6 @@
+{
+  "impact": "major",
+  "summary": "Replace split repository/provision declarations with one schema-validated application configuration.",
+  "runtime": false,
+  "breaking": "Merge repository identity and environment settings into .unfogy/application.yaml and remove .unfogy/repository.yaml and .unfogy/provision.yaml together. The current Factory CLI/API requires the shared application.schema.json contract and rejects legacy declarations without fallback. Complete all required fields and secret references before invoking CLI; use root commands with --check instead of retired plan subcommands. Refresh exact source receipts and independent reviews before execution. Preserve existing operations and protected setup journals for explicit reconciliation. Bind all starter placeholders before use; the distribution is not executable until explicitly bound. Application runtime inputs are unchanged; this release requests no new runtime image. Publication and provider changes require separate authorization."
+}
